@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TelegramChatBlazor.BLL\TelegramChatBlazor.BLL.csproj" />
+    <ProjectReference Include="..\TelegramChatBlazor.DAL\TelegramChatBlazor.DAL.csproj" />
+    <ProjectReference Include="..\TelegramChatBlazor.Domain\TelegramChatBlazor.Domain.csproj" />
+    <ProjectReference Include="..\Template.DAL\TelegramChatBlazor.DAL.csproj" />
+    <ProjectReference Include="..\Template.Domain\TelegramChatBlazor.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

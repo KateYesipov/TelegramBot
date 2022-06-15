@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramChatBlazor.DAL", "TelegramChatBlazor.DAL\TelegramChatBlazor.DAL.csproj", "{5BDB8B07-6F61-4525-97F8-D5605C5F81FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramChatBlazor.BLL", "TelegramChatBlazor.BLL\TelegramChatBlazor.BLL.csproj", "{3480E930-A452-448D-AD7B-9C9B506DFFAE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramChatBlazor.Domain", "TelegramChatBlazor.Domain\TelegramChatBlazor.Domain.csproj", "{09696234-D778-4168-A260-F1784DFA4E20}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramChatBlazor.Dependencies", "TelegramChatBlazor.Dependencies\TelegramChatBlazor.Dependencies.csproj", "{A26D3F1C-E8FA-4BAC-A5D7-E0A47E879B55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramChatBlazor.Web", "TelegramChatBlazor.Web\TelegramChatBlazor.Web.csproj", "{0A331289-2990-44C3-8C4F-B7DE832FA9BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BDB8B07-6F61-4525-97F8-D5605C5F81FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BDB8B07-6F61-4525-97F8-D5605C5F81FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BDB8B07-6F61-4525-97F8-D5605C5F81FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BDB8B07-6F61-4525-97F8-D5605C5F81FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3480E930-A452-448D-AD7B-9C9B506DFFAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3480E930-A452-448D-AD7B-9C9B506DFFAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3480E930-A452-448D-AD7B-9C9B506DFFAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3480E930-A452-448D-AD7B-9C9B506DFFAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09696234-D778-4168-A260-F1784DFA4E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09696234-D778-4168-A260-F1784DFA4E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09696234-D778-4168-A260-F1784DFA4E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09696234-D778-4168-A260-F1784DFA4E20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A26D3F1C-E8FA-4BAC-A5D7-E0A47E879B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26D3F1C-E8FA-4BAC-A5D7-E0A47E879B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26D3F1C-E8FA-4BAC-A5D7-E0A47E879B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26D3F1C-E8FA-4BAC-A5D7-E0A47E879B55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A331289-2990-44C3-8C4F-B7DE832FA9BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A331289-2990-44C3-8C4F-B7DE832FA9BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A331289-2990-44C3-8C4F-B7DE832FA9BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A331289-2990-44C3-8C4F-B7DE832FA9BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F31A5AB-FB2E-4635-9710-C192E88FE8AD}
+	EndGlobalSection
+EndGlobal
