@@ -26,6 +26,7 @@ builder.Services.AddAutoMapper(typeof(WebMappingProfile), typeof(DataAccessMapin
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -40,18 +41,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.MapHub<SignalRHub>("/signalRHub");
+
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 
 using (var scope = app.Services.CreateScope())
 {
-    //var telegramService = new TelegramService(messageReposti);
-
-    //scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    //scope.ServiceProvider.GetRequiredService<IMessageRepository>();
-    //var telegramService = scope.ServiceProvider.GetRequiredService<ITelegramService>();
-
     var backgroundTelegramService = scope.ServiceProvider.GetRequiredService<IBackgroundTelegramService>();
 
     app.UseEndpoints(async endpoints =>

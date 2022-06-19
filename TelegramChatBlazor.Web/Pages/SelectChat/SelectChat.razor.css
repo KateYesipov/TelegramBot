@@ -1,0 +1,54 @@
+﻿
+
+.chats_content {
+    max-height: 80vh;
+    overflow: auto;
+}
+
+.text_messages {
+    padding: 10px;
+    color: #808080;
+    font-size: 20px;
+}
+
+.messange_block {
+    height: 80px;
+    background: #3c3b3b;
+   
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    display: table-cell;
+    float: left;
+}
+
+.img_messange {
+    border-radius: 50%;
+    margin-top: 10px;
+    background: #ffffff;
+    width: 50px;
+    height: 50px;
+    margin: 12px;
+}
+    .img_messange img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .sender_name {
+        font-size: 15px;
+        color: antiquewhite;
+        padding-top: 15px;
+    }
+
+.sms_content {
+    font-size: 15px;
+    color: antiquewhite;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

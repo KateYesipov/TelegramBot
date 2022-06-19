@@ -1,0 +1,80 @@
+﻿@using TelegramChatBlazor.Domain.Models.SignalR
+@inject NavigationManager _navigationManager
+@inject ITelegramService TelegramService
+
+@if (Chats == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="text_messages">
+        Messages
+    </div>
+    <div class="chats_content">
+        @foreach (var item in Chats)
+        {
+            var lastMessage = item.Messages.LastOrDefault();
+            if (lastMessage != null)
+            {
+                <div class="messange_block" @onclick="(()=>LoadMessageById(item.Id))">
+                    <div class="avatar">
+                        <div class="img_messange">
+                            <img src="https://sehat123.info/photo/@item.PartnerAvatar">
+                        </div>
+                    </div>
+                    <div class="sender_name">
+                        @item.PartnerName
+                    </div>
+                    <div class="sms_content">
+                        @lastMessage.Text
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public EventCallback<long> OnClickCallback { get; set; }
+
+    HubConnection? hubConnection;
+    private List<Domain.Models.Chat> Chats = new List<Domain.Models.Chat>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+       .WithUrl(_navigationManager.ToAbsoluteUri("/signalRHub"))
+       .Build();
+        hubConnection.On<MessageNotification>("Send", this.Send);
+        await hubConnection.StartAsync();
+
+        Chats = TelegramService.GetChats();
+    }
+
+    Task Send(MessageNotification messageNotification)
+    {
+        var index = Chats.FindIndex(m => m.Id == messageNotification.Message.ChatId);
+        if (index == -1)
+        {
+            var newChat = new Chat { Id = messageNotification.Message.ChatId,
+                                    PartnerName=messageNotification.PartnerName,
+                                    Messages = new List<Message> { messageNotification.Message } };
+            Chats.Add(newChat);
+        }
+        else
+        {
+            Chats[index].Messages.Add(messageNotification.Message);
+        }
+
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    public void LoadMessageById(long Id)
+    {
+        OnClickCallback.InvokeAsync(Id);
+    }
+}
+

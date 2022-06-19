@@ -1,0 +1,30 @@
+﻿@page "/"
+@inject ITelegramService TelegramService
+
+<PageTitle>Chat</PageTitle>
+
+<div class="common_block">
+    <div class="main_block">
+        <SelectChat OnClickCallback="@GetMessages"></SelectChat>
+    </div>
+    <div class="main_block_two">
+        <Messages chatModel="chatModel"></Messages>
+    </div>
+    <div class="main_block_three">
+        <PartnerInfo chatModel="chatModel"></PartnerInfo>
+    </div>
+</div>
+
+@code {
+    public Domain.Models.Chat chatModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    private void GetMessages(long ChatId)
+    {
+        chatModel = TelegramService.GetChatsByIdIncludeMessages(ChatId);
+    }
+}

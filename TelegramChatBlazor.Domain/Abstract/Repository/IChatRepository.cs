@@ -2,12 +2,12 @@
 
 namespace TelegramChatBlazor.Domain.Abstract.Repository
 {
-    public interface IMessageRepository
+    public interface IChatRepository
     {
-        List<Message> GetAll();
-        void Create(Message item);
+        List<Chat> GetAll();
+        Chat GetById(long Id);
+        void Create(Chat item);
         void Delete(Guid id);
         void Save();
-        List<Message> GetById(long chatId);
     }
 }

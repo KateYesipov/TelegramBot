@@ -6,43 +6,39 @@ using TelegramChatBlazor.Domain.Models;
 
 namespace TelegramChatBlazor.DAL.Repository
 {
-    public class MessageRepository : IMessageRepository
+    public class ChatRepository : IChatRepository
     {
         protected readonly ApplicationDbContext _context;
         protected readonly IMapper _mapper;
 
-        public MessageRepository(ApplicationDbContext context, IMapper mapper)
+        public ChatRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public void Create(Message item)
+        public void Create(Chat item)
         {
-            _context.Database.ExecuteSqlRaw(@"Insert into Message 
-           (Text, IsPartner, CreateAt,ChatId)
-           Values({0},{1},{2},{3})",
-           item.Text,item.IsPartner, item.CreateAt,
-           item.ChatId);
+            var chat = _mapper.Map<Entities.Chat>(item);
+            _context.Chat.Add(chat);
         }
 
         public void Delete(Guid id)
         {
-            var message = _context.Message.Find(id);
-            if (message != null)
-                _context.Message.Remove(message);
+            var chat = _context.Chat.Find(id);
+            if (chat != null)
+                _context.Chat.Remove(chat);
         }
 
-        public List<Message> GetAll()
+        public Chat GetById(long Id)
         {
-            var messages = _context.Message.ToList();
-            return _mapper.Map<List<Message>>(messages);
+            var chat = _context.Chat.Include(m=>m.Messages).FirstOrDefault(x => x.Id == Id);
+            return _mapper.Map<Chat>(chat);
         }
 
-        public List<Message> GetById(long chatId)
+        public List<Chat> GetAll()
         {
-            var messages = _context.Message.Where(x=>x.ChatId==chatId).ToList();
-            return _mapper.Map<List<Message>>(messages);
+            return _mapper.Map<List<Chat>>(_context.Chat.Include(m=>m.Messages).ToList());
         }
 
         public void Save()

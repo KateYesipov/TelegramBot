@@ -1,6 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR.Client;
+using TelegramChatBlazor.BLL.Services;
 using TelegramChatBlazor.Domain.Abstract.Repository;
+using TelegramChatBlazor.Domain.Abstract.Services;
 using TelegramChatBlazor.Domain.Models;
+using TelegramChatBlazor.Domain.Models.Api;
+using TelegramChatBlazor.Domain.Models.SignalR;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,43 +17,30 @@ namespace TelegramChatBlazor.Web.Api
     public class ApiMessageController : ControllerBase
     {
         private readonly IMessageRepository _messageRepository;
+        private readonly ITelegramService _telegramService;
+        private readonly HubConnection _hubConnection;
+        protected readonly IMapper _mapper;
 
-        public ApiMessageController(IMessageRepository messageRepository)
+        public ApiMessageController(IMessageRepository messageRepository,
+                                    IMapper mapper,
+                                    ITelegramService telegramService)
         {
+            _telegramService = telegramService;
             _messageRepository = messageRepository;
+            _mapper = mapper;
+            _hubConnection = new HubConnectionBuilder()
+              .WithUrl("https://localhost:7142/signalRHub")
+              .Build();
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<ApiMessageController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<ApiMessageController>
         [HttpPost]
-        public void Post([FromBody] Message value)
+        public async void Post([FromBody] MessageRequest value)
         {
-            _messageRepository.Create(value);
-            _messageRepository.Save();
-        }
+            _telegramService.AddMessage(value);
 
-        // PUT api/<ApiMessageController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ApiMessageController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var messageNotification = _mapper.Map<MessageNotification>(value);
+            await _hubConnection.StartAsync();
+            await _hubConnection.SendAsync("SendMessageAsync", messageNotification);
         }
     }
 }

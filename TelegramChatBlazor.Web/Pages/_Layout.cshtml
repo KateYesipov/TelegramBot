@@ -27,6 +27,20 @@
         <a class="dismiss">🗙</a>
     </div>
 
+    <script>
+        window.scrollToElementId = (elementId) => {
+            console.info('scrolling to element', elementId);
+            var element = document.getElementById(elementId);
+            console.info('element', element);
+            if(!element)
+            {
+                console.warn('element was not found', elementId);
+            }else{
+            element.scrollTop = element.scrollHeight;
+            }
+        }
+    </script>
+
     <script src="_framework/blazor.server.js"></script>
 </body>
 </html>

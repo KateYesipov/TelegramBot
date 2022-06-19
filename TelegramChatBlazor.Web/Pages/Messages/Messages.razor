@@ -1,0 +1,92 @@
+﻿@inject NavigationManager _navigationManager
+@inject IJSRuntime JSRuntime
+@inject ITelegramService TelegramService
+
+@if (chatModel == null)
+{
+}
+else
+{
+    <div class="companion_block">
+        <div class="companion_img">
+            <div class="companion_picture">
+                <img src="https://sehat123.info/photo/@chatModel.PartnerAvatar">
+            </div>
+        </div>
+        <div class="name_companion">
+            @chatModel.PartnerUserName
+        </div>
+        <div class="last_online">
+            last online
+        </div>
+    </div>
+    <div class="block_correspondence" id="block_message">
+        <div class="data_correspondence">
+            22 april 2022
+        </div>
+
+        @foreach (var item in chatModel.Messages)
+        {
+            <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
+                <div class="img_sender_message">
+                    <div class="picture_sender_message">
+                        <img src="https://sehat123.info/photo/@chatModel.PartnerAvatar">
+                    </div>
+                </div>
+                <div class="text_block_sender">
+                    <p>@item.Text</p>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="message_set_block">
+        <input  @bind="@TextMessage" type="text" />
+        <button></button>
+        <button @onclick="SendMessage">send</button>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Chat chatModel { get; set; }
+
+    private string TextMessage {get;set;} 
+
+    HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+       .WithUrl(_navigationManager.ToAbsoluteUri("/signalRHub"))
+       .Build();
+        hubConnection.On<MessageNotification>("Send", this.Send);
+        await hubConnection.StartAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) { }
+        await ScrollToElementId("block_message");
+    }
+
+    async Task Send(MessageNotification message)
+    {
+        if (chatModel != null && chatModel.Id == message.Message.ChatId)
+        {
+            chatModel.Messages.Add(message.Message);
+            await ScrollToElementId("block_message");
+            StateHasChanged();
+        }
+    }
+
+    private void SendMessage(){
+        TelegramService.SendMessage(chatModel.Id,TextMessage);
+        TextMessage = "";
+    }
+
+    public async Task ScrollToElementId(string elementId)
+    {
+        await JSRuntime.InvokeVoidAsync("scrollToElementId", elementId);
+    }
+}

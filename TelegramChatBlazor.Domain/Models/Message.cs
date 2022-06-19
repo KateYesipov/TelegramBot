@@ -1,29 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TelegramChatBlazor.Domain.Models
+﻿namespace TelegramChatBlazor.Domain.Models
 {
     public class Message
     {
-        public Message(long chatId, string text, string avatat, string userName, string firsiName, bool isSender)
-        {
-            ChatId = chatId;
-            Text = text;
-            Avatat = avatat;
-            UserName = userName;
-            FirsiName = firsiName;
-            IsSender = isSender;
-        }
-
-        public long Id { get; set; }
-        public long ChatId { get; set; }
         public string Text { get; set; }
-        public string Avatat { get; set; }
-        public string UserName { get; set; }
-        public string FirsiName { get; set; }
-        public bool IsSender { get; set; }
+        public bool IsPartner { get; set; }
+        public DateTime CreateAt { get; set; }
+        public long ChatId { get; set; }
+        public Chat Chat { get; set; }
     }
 }

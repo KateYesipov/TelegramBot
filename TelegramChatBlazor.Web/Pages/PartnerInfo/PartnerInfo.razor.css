@@ -1,0 +1,68 @@
+﻿.avatar_block {
+    width: 100%;
+    position: relative;
+}
+    .avatar_block img {
+        width: 100%;
+        object-fit: cover;
+        height: 150px;
+    }
+.avatar_name {
+    color: #ffffff;
+    font-size: 24px;
+    position: absolute;
+    bottom:14%;
+    left:5%;
+}
+.last_online_avatar {
+    color: #ffffff;
+    font-size: 20px;
+    position: absolute;
+    bottom:1%;
+    left: 5%;
+}
+.status_block {
+    height: 90px;
+}
+.funnel_status {
+    color:#808080;
+    font-size:16px;
+    font-weight:500;
+    line-height:19px;
+    margin:15px;
+}
+.status_slect {
+    background: #3f3f3f;
+    color: #808080;
+    border-radius:12px;
+    width:280px;
+    height:40px;
+    margin-left:15px;
+}
+
+.information_block {
+    height: 220px;
+    border: 1px solid #808080;
+}
+.information_block_mini{
+  display:flex;
+    font-size:16px;
+    margin-bottom:-5px;
+}
+    .information_block_mini:first-child{
+        margin-top:10px;
+    }
+    .information_block_mini p {
+        color: #FFFFFF80;
+        margin-left: 10px;
+    }
+    .information_block_mini a {
+        color: #FFFFFF;
+        margin-left: 30px;
+        margin-right: 10px;
+    
+
+    }
+    .lower_block {
+        height: 25%;
+    }

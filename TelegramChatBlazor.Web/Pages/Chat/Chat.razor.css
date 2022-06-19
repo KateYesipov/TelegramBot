@@ -1,0 +1,40 @@
+﻿.common_block{
+    display:flex;
+}
+
+
+    .common_block .main_block, .main_block_two, .main_block_three {
+        max-height: 88vh;
+    }
+
+
+.main_block {
+    width: 26%;
+    min-width: 300px;
+    background: #3c3b3b;
+    height: 100vh;
+    border-radius: 3%;
+}
+
+
+
+
+
+.main_block_two {
+    width: 43%;
+    background: #3c3b3b;
+    height: 100vh;
+    margin-left: 2%;
+    border-radius: 3%;
+}
+
+
+
+
+.main_block_three {
+    width: 26%;
+    background: #3c3b3b;
+    height: 100vh;
+    margin-left: 2%;
+    border-radius: 3%;
+}

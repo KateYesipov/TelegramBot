@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramChatBlazor.Domain",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramChatBlazor.Dependencies", "TelegramChatBlazor.Dependencies\TelegramChatBlazor.Dependencies.csproj", "{A26D3F1C-E8FA-4BAC-A5D7-E0A47E879B55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramChatBlazor.Web", "TelegramChatBlazor.Web\TelegramChatBlazor.Web.csproj", "{0A331289-2990-44C3-8C4F-B7DE832FA9BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramChatBlazor.Web", "TelegramChatBlazor.Web\TelegramChatBlazor.Web.csproj", "{0A331289-2990-44C3-8C4F-B7DE832FA9BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

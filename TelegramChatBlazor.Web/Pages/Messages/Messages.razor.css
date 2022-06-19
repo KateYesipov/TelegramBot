@@ -1,0 +1,164 @@
+﻿
+.companion_block {
+    height: 11%;
+    border-bottom: 2px solid antiquewhite;
+}
+
+.companion_img {
+    width: 80px;
+    height: 60px;
+    display: table-cell;
+    float: left;
+}
+
+.companion_picture {
+    border-radius: 50%;
+    margin-top: 10px;
+    background: #ffffff;
+    width: 50px;
+    height: 50px;
+    margin: 12px;
+}
+    .companion_picture img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .name_companion {
+        color: antiquewhite;
+        padding-top: 15px;
+    }
+
+.last_online {
+    color: antiquewhite;
+}
+
+.block_correspondence {
+    max-height: 67vh;
+    overflow: auto;
+    height: inherit;
+}
+
+.data_correspondence {
+    color: #808080;
+    text-align: center;
+}
+
+.sender_message {
+   
+  /*  margin: 20px;*/
+    width:100%;
+    display:flex;
+  
+}
+
+.img_sender_message {
+    width: 80px;
+    height: 60px;
+    display: table-cell;
+    float: left;
+}
+
+.picture_sender_message {
+    margin-top: 10px;
+    background: #ffffff;
+    width: 50px;
+    height: 50px;
+    margin: 12px;
+    border-radius: 50%;
+}
+    .picture_sender_message img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .text_block_sender {
+        background: #3f3f3f;
+        width: auto;
+        height: auto;
+        max-width: 70%;
+        border: 1px solid #ffffff;
+        display: table;
+        padding: 0px 10px 0px 10px;
+        margin-top: 15px;
+        float: left;
+        border-radius: 8px;
+    }
+    .text_block_sender p {
+        color: azure;
+        font-size: 16px;
+      
+    }
+
+
+.sender_message_right {
+    /* margin: 20px;*/
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+    .sender_message_right .img_sender_message {
+        width: 80px;
+        height: 60px;
+        display: table-cell;
+        float: right;
+        order:1;
+    }
+
+    .sender_message_right .picture_sender_message {
+        border-radius: 50%;
+        margin-top: 10px;
+        background: #ffffff;
+        width: 50px;
+        height: 50px;
+        margin: 12px;
+    }
+
+    .sender_message_right .text_block_sender {
+        background: #ffffff;
+        width: auto;
+        height: auto;
+        max-width: 75%;
+        border: 1px solid #ffffff;
+        display: table;
+        padding: 0px 10px 0px 10px;
+        margin-top: 15px;
+        float: right;
+        border-radius: 8px;
+    }
+
+        .sender_message_right .text_block_sender p {
+            color: #3f3f3f;
+            font-size: 16px;
+        }
+
+.message_set_block {
+    height: 70px;
+    background: #FFFFFF1A;
+    margin-top: 20px;
+    display:flex;
+ 
+   
+}
+    .message_set_block input {
+        height: 40px;
+        width: 330px;
+        margin-left: 75px;
+        margin-top: 10px;
+        border: 1px solid #808080;
+        background: #FFFFFF1A;
+        font-size:15px;
+    }
+    
+.message_set_block button{
+    width:40px;
+    height:40px;
+    margin:10px;
+   
+  
+}
+
