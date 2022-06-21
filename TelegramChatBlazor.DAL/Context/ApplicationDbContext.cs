@@ -9,7 +9,7 @@ namespace TelegramChatBlazor.DAL.Context
             : base(options)
         {
         }
-        
+        public DbSet<Bot> Bots { get; set; }
         public DbSet<Chat> Chat { get; set; }
         public DbSet<Message> Message { get; set; }
 

@@ -6,30 +6,34 @@ using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using TelegramChatBlazor.Domain.Abstract.Services;
 using TelegramChatBlazor.Domain.Models.Api;
+using TelegramChatBlazor.Domain.Models.Settings;
 
 namespace TelegramChatBlazor.BLL.Services
 {
     public class BackgroundTelegramService : IBackgroundTelegramService
     {
-        private static readonly TelegramBotClient botClient = new TelegramBotClient("5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8");
+        private readonly TelegramChatBlazorSettings _chatBlazorSettings;
+        private readonly TelegramBotClient _botClient;
         private readonly HttpClient _httpclient;
 
 
-        public BackgroundTelegramService(HttpClient httpclient)
+        public BackgroundTelegramService(HttpClient httpclient,
+                                         IAppSettingsService appSettingsService)
         {
             _httpclient = httpclient;
+            _chatBlazorSettings = appSettingsService.TelegramChatBlazorSettings;
+            _botClient = new TelegramBotClient(_chatBlazorSettings.BotClient);
         }
 
         public async Task Start()
         {
-
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
             var receiverOptions = new ReceiverOptions
             {
                 AllowedUpdates = { }, // receive all update types
             };
-            botClient.StartReceiving(
+            _botClient.StartReceiving(
                 HandleUpdateAsync,
                 HandleErrorAsync,
                 receiverOptions,
@@ -47,8 +51,14 @@ namespace TelegramChatBlazor.BLL.Services
                 var message = update.Message;
 
                 var chat = await botClient.GetChatAsync(message.Chat.Id);
-                var avatarPartnerId = chat.Photo.BigFileId;
-                          
+                var avatarPartnerId = chat.Photo.SmallFileId;
+
+
+                var file = await botClient.GetFileAsync(avatarPartnerId);
+                FileStream fs = new FileStream(@"C:\Project\TelegramChatBlazor\TelegramChatBlazor.Web\wwwroot/css/avatar.png", FileMode.Create);
+                await botClient.DownloadFileAsync(file.FilePath, fs);
+                fs.Close();
+
 
                 var newMessage = new MessageRequest(message.Chat.Id,
                     message.Text, true, avatarPartnerId, message.Chat.Username,
@@ -56,8 +66,7 @@ namespace TelegramChatBlazor.BLL.Services
                     bot.FirstName, "");
 
 
-
-                var url = "https://localhost:7142/api/apimessage";
+                var url = _chatBlazorSettings.ApiUrl+"api/apimessage";
                 var parametrs = new StringContent(JsonConvert.SerializeObject(newMessage), Encoding.UTF8, "application/json");
 
                 var response = await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);

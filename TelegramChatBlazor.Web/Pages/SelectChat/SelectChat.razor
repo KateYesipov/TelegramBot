@@ -2,35 +2,61 @@
 @inject NavigationManager _navigationManager
 @inject ITelegramService TelegramService
 
-@if (Chats == null)
+@if (Chats != null)
 {
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <div class="text_messages">
-        Messages
+    <div>
+        <div class="search_by_name nosubmit">
+            <input class="icon_input nosubmit" type="search" placeholder="Search by name" />
+        </div>
+        <div class="buttons_block">
+            <button class="add_button">+</button >
+            <button>All</button>
+            <button style="background: #FFCE31;"> Something</button>
+            <button>Something</button>
+            <button>Something</button>
+            <button>Something</button>
+        </div>
     </div>
-    <div class="chats_content">
-        @foreach (var item in Chats)
-        {
-            var lastMessage = item.Messages.LastOrDefault();
-            if (lastMessage != null)
+    <div>
+        <div class="text_messages">
+            Messages
+        </div>
+        <div class="chats_content">
+            @foreach (var item in Chats)
             {
-                <div class="messange_block" @onclick="(()=>LoadMessageById(item.Id))">
-                    <div class="avatar">
-                        <div class="img_messange">
-                            <img src="https://sehat123.info/photo/@item.PartnerAvatar">
+                @for (var i = 0; i < 10; i++)
+                {
+
+                var lastMessage = item.Messages.LastOrDefault();
+                if (lastMessage != null)
+                {
+                    <div class="messange_block" @onclick="(()=>LoadMessageById(item.Id))">
+                        <div class="avatar">
+                            <div class="img_messange">
+                                <img src="@item.PartnerAvatar">
+                            </div>
+                        </div>
+                        <div class="sender_name">
+                            @item.PartnerName
+                        </div>
+                        <div class="sms_content">
+                            @lastMessage.Text
                         </div>
                     </div>
-                    <div class="sender_name">
-                        @item.PartnerName
-                    </div>
-                    <div class="sms_content">
-                        @lastMessage.Text
-                    </div>
-                </div>
+                }
+                }
             }
+        </div>
+        @if (Chats.Count() > 0)
+        {
+            <div class="lower_block">
+                @for (var i = 0; i < 20;i++)
+                {
+                    <div class="lower_block_img">
+                        <img src="@Chats[1].PartnerAvatar" />
+                    </div>
+                }
+            </div>
         }
     </div>
 }
@@ -58,9 +84,13 @@ else
         var index = Chats.FindIndex(m => m.Id == messageNotification.Message.ChatId);
         if (index == -1)
         {
-            var newChat = new Chat { Id = messageNotification.Message.ChatId,
-                                    PartnerName=messageNotification.PartnerName,
-                                    Messages = new List<Message> { messageNotification.Message } };
+            var newChat = new Chat
+                {
+                    Id = messageNotification.Message.ChatId,
+                    PartnerName = messageNotification.PartnerName,
+                    PartnerAvatar = messageNotification.PartnerAvatar,
+                    Messages = new List<Message> { messageNotification.Message }
+                };
             Chats.Add(newChat);
         }
         else

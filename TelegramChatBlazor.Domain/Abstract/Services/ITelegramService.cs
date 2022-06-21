@@ -8,7 +8,7 @@ namespace TelegramChatBlazor.Domain.Abstract.Services
         public List<Chat> GetChats();
         public Chat GetChatsByIdIncludeMessages(long ChatId);
         public List<Message> GetMessages(long ChatId);
-        public void AddMessage(MessageRequest message);
+        public MessageRequest AddMessage(MessageRequest message);
         public Task SendMessage(long chatId, string textMessage);
     }
 }

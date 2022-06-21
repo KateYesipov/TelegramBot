@@ -10,11 +10,11 @@ else
     <div class="companion_block">
         <div class="companion_img">
             <div class="companion_picture">
-                <img src="https://sehat123.info/photo/@chatModel.PartnerAvatar">
+                <img src="@chatModel.PartnerAvatar">
             </div>
         </div>
         <div class="name_companion">
-            @chatModel.PartnerUserName
+            @chatModel.PartnerName @chatModel.PartnerLastName
         </div>
         <div class="last_online">
             last online
@@ -30,7 +30,7 @@ else
             <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
                 <div class="img_sender_message">
                     <div class="picture_sender_message">
-                        <img src="https://sehat123.info/photo/@chatModel.PartnerAvatar">
+                        <img src="@chatModel.PartnerAvatar">
                     </div>
                 </div>
                 <div class="text_block_sender">

@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json;
 using System.Text;
 using Telegram.Bot;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
 using TelegramChatBlazor.Domain.Models;
 using TelegramChatBlazor.Domain.Models.Api;
-using TelegramChatBlazor.Domain.Models.SignalR;
+using TelegramChatBlazor.Domain.Models.Settings;
 
 namespace TelegramChatBlazor.BLL.Services
 {
@@ -14,15 +14,21 @@ namespace TelegramChatBlazor.BLL.Services
     {
         private readonly IMessageRepository _messageRepository;
         private readonly IChatRepository _chatRepository;
+        private readonly IWebHostEnvironment _appEnvironment;
         private readonly HttpClient _httpclient;
-
-        private static readonly TelegramBotClient botClient = new TelegramBotClient("5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8");
+        private readonly TelegramChatBlazorSettings _chatBlazorSettings;
+        private readonly TelegramBotClient _botClient;
 
         public TelegramService(IMessageRepository messageRepository,
                                IChatRepository chatRepository,
-                                HttpClient httpclient)
+                               IWebHostEnvironment appEnvironment,
+                               IAppSettingsService appSettingsService,
+                               HttpClient httpclient)
         {
+            _chatBlazorSettings = appSettingsService.TelegramChatBlazorSettings;
+            _botClient = new TelegramBotClient(_chatBlazorSettings.BotClient);
             _messageRepository = messageRepository;
+            _appEnvironment = appEnvironment;
             _chatRepository = chatRepository;
             _httpclient = httpclient;
         }
@@ -42,12 +48,14 @@ namespace TelegramChatBlazor.BLL.Services
             return _messageRepository.GetById(ChatId);
         }
 
-        public void AddMessage(MessageRequest message)
+        public MessageRequest AddMessage(MessageRequest message)
         {
             var chatId = message.ChatId;
             var chat = _chatRepository.GetById(chatId);
             if (chat == null)
             {
+                message.PartnerAvatar = UploadImageFromTelegram(_botClient, message.PartnerAvatar, "/Images/avatar//").Result;
+
                 var newChat = new Chat
                 {
                     Id = chatId,
@@ -77,6 +85,7 @@ namespace TelegramChatBlazor.BLL.Services
                 _messageRepository.Create(newMessage);
                 _messageRepository.Save();
             }
+            return message;
         }
 
         public async Task SendMessage(long chatId, string textMessage)
@@ -91,7 +100,23 @@ namespace TelegramChatBlazor.BLL.Services
             await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);
 
             //Telegram send
-            await botClient.SendTextMessageAsync(chatId, textMessage);
+            await _botClient.SendTextMessageAsync(chatId, textMessage);
+        }
+
+        private async Task<string> UploadImageFromTelegram(ITelegramBotClient botClient, string fileId, string pathFolder)
+        {
+            var file = await botClient.GetFileAsync(fileId);
+            if (file != null)
+            {
+                var fileName = pathFolder + Guid.NewGuid() + "_" + file.FilePath.Remove(0, file.FilePath.IndexOf("/") + 1);
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + fileName, FileMode.Create))
+                {
+                    await botClient.DownloadFileAsync(file.FilePath, fileStream);
+
+                }
+                return fileName;
+            }
+            return null;
         }
     }
 }

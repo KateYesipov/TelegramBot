@@ -1,7 +1,10 @@
-﻿using TelegramChatBlazor.Domain.Abstract;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using TelegramChatBlazor.Domain.Abstract.Services;
+using TelegramChatBlazor.Domain.Abstract.Repository;
+using TelegramChatBlazor.Domain.Concrete;
+using TelegramChatBlazor.DAL.Repository;
+using TelegramChatBlazor.BLL.Services;
 
 namespace TelegramChatBlazor.Dependencies.DependencyModules
 {
@@ -9,6 +12,13 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
     {
         public static void RegisterServices(this IServiceCollection services)
         {
+            services.TryAddSingleton<IAppSettingsService, AppSettingsService>();      
+            services.AddTransient<IHasher, Hasher>();
+            services.AddHttpClient<IBackgroundTelegramService, BackgroundTelegramService>();
+            services.AddTransient<IChatRepository, ChatRepository>();
+            services.AddHttpClient<ITelegramService, TelegramService>();
+            services.AddTransient<IMessageRepository, MessageRepository>();
+            services.AddSignalR();
             services.TryAddSingleton<IAppSettingsService, AppSettingsService>();
             services.AddHttpContextAccessor();
         }

@@ -14,6 +14,8 @@
     background: #3c3b3b;
     height: 100vh;
     border-radius: 3%;
+    position: relative;
+    padding-bottom: 50px;
 }
 
 
