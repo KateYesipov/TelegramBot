@@ -1,7 +1,8 @@
 ﻿
 .companion_block {
     height: 11%;
-    border-bottom: 2px solid antiquewhite;
+    border-bottom: 1px solid #808080;
+    display:flex;
 }
 
 .companion_img {
@@ -19,23 +20,67 @@
     height: 50px;
     margin: 12px;
 }
-    .companion_picture img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-    }
+.name_and_last_block{
+    display:block;
+    width:50%;
+}
+.companion_picture img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
 
     .name_companion {
-        color: antiquewhite;
+        color: #808080;
         padding-top: 15px;
+      
     }
 
 .last_online {
-    color: antiquewhite;
+    color: #808080;
+    
+}
+.up_button_block {
+    width: 40%;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .up_button_block button {
+        width: 35px;
+        height: 35px;
+        margin: 5px;
+        border-radius: 5px;
+        border:none;
+        background-color: #3c3b3b;
+    }
+.up_button_block_first {
+    background-image: url("/Images/icons/box.svg");
+    background-size: 100%;
+    background-repeat:no-repeat;
+    background-position:center;
+}
+.up_button_block_second {
+    background-image: url("/Images/icons/time.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.up_button_block_third {
+    background-image: url("/Images/icons/setings.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.up_button_block_fourth {
+    background-image: url("/Images/icons/info.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .block_correspondence {
-    max-height: 67vh;
+    max-height: 65vh;
     overflow: auto;
     height: inherit;
 }
@@ -79,7 +124,7 @@
         width: auto;
         height: auto;
         max-width: 70%;
-        border: 1px solid #ffffff;
+        border: 1px solid #808080;
         display: table;
         padding: 0px 10px 0px 10px;
         margin-top: 15px;
@@ -136,29 +181,51 @@
             font-size: 16px;
         }
 
-.message_set_block {
-    height: 70px;
-    background: #FFFFFF1A;
-    margin-top: 20px;
-    display:flex;
- 
-   
+.dialing_sms {
+    height: 20vh;
+    background: #40484A;
+    margin-top: 0px;
 }
-    .message_set_block input {
-        height: 40px;
-        width: 330px;
-        margin-left: 75px;
-        margin-top: 10px;
-        border: 1px solid #808080;
-        background: #FFFFFF1A;
-        font-size:15px;
-    }
-    
-.message_set_block button{
-    width:40px;
-    height:40px;
-    margin:10px;
-   
-  
+.dialing_sms_input input {
+    height: 40px;
+    width: 330px;
+    margin-left: 75px;
+    margin-top: 10px;
+    border: 1px solid #808080;
+    background: #FFFFFF1A;
+    font-size: 15px;
 }
 
+
+.dialing_sms{
+
+}
+.dialing_sms_input{
+
+}
+.sticer_button_block{
+    display:flex;
+  
+}
+.sticer_block button {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    background: #40484A;
+    border: none;
+}
+.button_attachment {
+    background-image: url("/Images/icons/attachment.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.send_button {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: auto;
+}

@@ -1,0 +1,47 @@
+﻿@page "/AddBots"
+@inject IBotService BotService
+@inject NavigationManager NavigationManager
+
+<h2>Add Bot</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="bot.Name" />
+            </div>
+            <div class="form-group">
+                <label for="UserName" class="control-label">UserName</label>
+                <input form="UserName" class="form-control" @bind="bot.UserName" />
+            </div>
+            <div class="form-group">
+                <label for="Token" class="control-label">Token</label>
+                <input form="Token" class="form-control" @bind="bot.Token" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateBot" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    public Domain.Models.Bot bot = new Domain.Models.Bot();
+    protected async void CreateBot()
+    {
+        BotService.Create(bot);
+        NavigationManager.NavigateTo("bots");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("bots");
+    }
+}

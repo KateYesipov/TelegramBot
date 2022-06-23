@@ -343,6 +343,4 @@ healthchecksdb
 node_modules/
 **/wwwroot/dist
 
-*/wwwroot/images/ApplicationDetails
-*/wwwroot/images/Applications
-*/wwwroot/images/Developers
+*/wwwroot/Images/avatar

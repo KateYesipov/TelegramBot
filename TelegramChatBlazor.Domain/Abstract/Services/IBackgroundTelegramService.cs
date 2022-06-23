@@ -8,6 +8,6 @@ namespace TelegramChatBlazor.Domain.Abstract.Services
 {
     public interface IBackgroundTelegramService
     {
-            public Task Start();
+            public Task Start(string tokenBot);
     }
 }

@@ -26,7 +26,7 @@ namespace TelegramChatBlazor.BLL.Services
                                HttpClient httpclient)
         {
             _chatBlazorSettings = appSettingsService.TelegramChatBlazorSettings;
-            _botClient = new TelegramBotClient(_chatBlazorSettings.BotClient);
+            //_botClient = new TelegramBotClient(_chatBlazorSettings.BotClient);
             _messageRepository = messageRepository;
             _appEnvironment = appEnvironment;
             _chatRepository = chatRepository;

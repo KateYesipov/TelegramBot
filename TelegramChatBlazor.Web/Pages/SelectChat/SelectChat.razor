@@ -9,7 +9,7 @@
             <input class="icon_input nosubmit" type="search" placeholder="Search by name" />
         </div>
         <div class="buttons_block">
-            <button class="add_button">+</button >
+            <button class="add_button">+</button>
             <button>All</button>
             <button style="background: #FFCE31;"> Something</button>
             <button>Something</button>
@@ -24,9 +24,6 @@
         <div class="chats_content">
             @foreach (var item in Chats)
             {
-                @for (var i = 0; i < 10; i++)
-                {
-
                 var lastMessage = item.Messages.LastOrDefault();
                 if (lastMessage != null)
                 {
@@ -44,20 +41,16 @@
                         </div>
                     </div>
                 }
-                }
             }
         </div>
-        @if (Chats.Count() > 0)
-        {
-            <div class="lower_block">
-                @for (var i = 0; i < 20;i++)
-                {
-                    <div class="lower_block_img">
-                        <img src="@Chats[1].PartnerAvatar" />
-                    </div>
-                }
-            </div>
-        }
+        <div class="lower_block">
+            @foreach (var item in Chats)
+            {
+                <div class="lower_block_img" @onclick="(()=>LoadMessageById(item.Id))">
+                    <img src="@item.PartnerAvatar" />
+                </div>
+            }
+        </div>
     </div>
 }
 

@@ -1,0 +1,63 @@
+﻿@page "/DeleteBot/{Id}"
+@inject IBotService BotService
+@inject NavigationManager NavigationManager
+
+<h2>Delete Bot</h2>
+<hr />
+<h3>Are you sure want to delete this?</h3>
+<form>
+    <div class="row">
+        <div class=" col-md-8">
+            <div class="form-group">
+                <label>Bot Id:</label>
+                <label>@bot.Id</label>
+            </div>
+            <div class="form-group">
+                <label>Bot Name:</label>
+                <label>@bot.Name</label>
+            </div>
+            <div class="form-group">
+                <label>UserName:</label>
+                <label>@bot.UserName</label>
+            </div>
+            <div class="form-group">
+                <label>Token:</label>
+                <label>@bot.Token</label>
+            </div>
+            <div class="form-group">
+                <label>CreateAt:</label>
+                <label>@bot.CreateAt</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-danger" @onclick="@Delete" value="Delete" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    Domain.Models.Bot bot = new Domain.Models.Bot();
+    protected override async Task OnInitializedAsync()
+    {
+        bot = await Task.Run(() => BotService.GetById(Convert.ToInt64(Id)));
+    }
+
+    protected async void Delete()
+    {
+        BotService.DeleteById(bot.Id);
+        NavigationManager.NavigateTo("Bots");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Bots");
+    }
+}

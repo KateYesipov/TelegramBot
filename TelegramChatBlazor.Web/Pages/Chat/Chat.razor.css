@@ -9,11 +9,11 @@
 
 
 .main_block {
-    width: 26%;
+    width: 27%;
     min-width: 300px;
     background: #3c3b3b;
     height: 100vh;
-    border-radius: 3%;
+    border-radius: 3% 0% 0% 3%;
     position: relative;
     padding-bottom: 50px;
 }
@@ -23,20 +23,20 @@
 
 
 .main_block_two {
-    width: 43%;
+    width: 44%;
     background: #3c3b3b;
     height: 100vh;
-    margin-left: 2%;
-    border-radius: 3%;
+    margin-left: 0%;
+    border:2px solid #808080;
 }
 
 
 
 
 .main_block_three {
-    width: 26%;
+    width: 27%;
     background: #3c3b3b;
     height: 100vh;
-    margin-left: 2%;
-    border-radius: 3%;
+   
+    border-radius: 0% 3% 3% 0%;
 }

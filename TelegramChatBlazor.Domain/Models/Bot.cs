@@ -1,7 +1,8 @@
-﻿namespace TelegramChatBlazor.DAL.Entities
+﻿namespace TelegramChatBlazor.Domain.Models
 {
-    public class Bot : Entity<long>
+    public class Bot
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public string UserName { get; set; }
         public string Token { get; set; }

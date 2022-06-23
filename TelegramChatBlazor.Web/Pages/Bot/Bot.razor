@@ -1,6 +1,57 @@
 ﻿@page "/bots"
-<h3>Bot</h3>
+@inject IBotService BotService
+
+<NavLink class="nav-link" href="AddBots">
+    <span class="oi oi-plus" aria-hidden="true">Add New</span>
+
+</NavLink>
+
+<h1>Bots Info</h1>
+@if (Bots is null)
+{
+    <p><em>Loading... !</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Bot Id</th>
+                <th>Bot Name</th>
+                <th>UserName</th>
+                <th>Token</th>
+                <th>CreateAt</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Bots)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.UserName</td>
+                    <td>@item.Token</td>
+                    <td>@item.CreateAt</td>
+                    <td>
+                        <a class="nav-link" href="EditBot/@item.Id">
+                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                        </a>
+                        <a class="nav-link" href="DeleteBot/@item.Id">
+                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 
 @code {
-
+    List<Domain.Models.Bot> Bots;
+    protected override async Task OnInitializedAsync()
+    {
+        Bots = await Task.Run(() => BotService.GetAll());
+    }
 }

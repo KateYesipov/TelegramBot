@@ -3,7 +3,9 @@ using TelegramChatBlazor.BLL.Services;
 using TelegramChatBlazor.DAL.Context;
 using TelegramChatBlazor.DAL.MappingProfile;
 using TelegramChatBlazor.Dependencies;
+using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
+using TelegramChatBlazor.Domain.Models;
 using TelegramChatBlazor.Web.MappingProfile;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,14 +49,16 @@ app.MapFallbackToPage("/_Host");
 
 using (var scope = app.Services.CreateScope())
 {
-    var backgroundTelegramService = scope.ServiceProvider.GetRequiredService<IBackgroundTelegramService>();
-    var backgroundTelegramService2 = scope.ServiceProvider.GetRequiredService<IBackgroundTelegramService>();
+    var botRepository = scope.ServiceProvider.GetRequiredService<IBotRepository>();
+    var bots = botRepository.GetAll();
 
     app.UseEndpoints(async endpoints =>
     {
         endpoints.MapControllers();
-        await backgroundTelegramService2.Start();
-        await backgroundTelegramService.Start();
+        foreach (var item in bots)
+        {
+            await scope.ServiceProvider.GetRequiredService<IBackgroundTelegramService>().Start(item.Token);
+        }
     });
 }
 

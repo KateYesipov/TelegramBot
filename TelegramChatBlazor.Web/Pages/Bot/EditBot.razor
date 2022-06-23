@@ -1,0 +1,58 @@
+﻿@page "/EditBot/{Id}"
+@inject IBotService BotService
+@inject NavigationManager NavigationManager
+
+<h2>Edit Bot</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="@bot.Name" />
+            </div>
+            <div class="form-group">
+                <label for="UserName" class="control-label">UserName:</label>
+                <input form="UserName" class="form-control" @bind="@bot.UserName" />
+            </div>
+            <div class="form-group">
+                <label for="Token" class="control-label">Token:</label>
+                <input form="Token" class="form-control" @bind="@bot.Token" />
+            </div>
+            <div class="form-group">
+                <label for="CreateAt" class="control-label">CreateAt:</label>
+                <input form="CreateAt" class="form-control" @bind="@bot.CreateAt" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@UpdateBot" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    Domain.Models.Bot bot = new Domain.Models.Bot();
+    protected override async Task OnInitializedAsync()
+    {
+        bot = await Task.Run(() => BotService.GetById(Convert.ToInt64(Id)));
+    }
+    protected async void UpdateBot()
+    {
+        BotService.Update(bot);
+        NavigationManager.NavigateTo("Bots");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Bots");
+    }
+}

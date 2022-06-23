@@ -13,11 +13,19 @@ else
                 <img src="@chatModel.PartnerAvatar">
             </div>
         </div>
+       <div class="name_and_last_block"> 
         <div class="name_companion">
             @chatModel.PartnerName @chatModel.PartnerLastName
         </div>
         <div class="last_online">
             last online
+        </div>
+        </div>
+        <div class="up_button_block">
+            <button class="up_button_block_first" ></button>
+            <button class="up_button_block_second"></button>
+            <button class="up_button_block_third" ></button>
+            <button class="up_button_block_fourth"></button>
         </div>
     </div>
     <div class="block_correspondence" id="block_message">
@@ -40,10 +48,20 @@ else
         }
 
     </div>
-    <div class="message_set_block">
-        <input  @bind="@TextMessage" type="text" />
-        <button></button>
-        <button @onclick="SendMessage">send</button>
+       <div class="dialing_sms">
+       <div class="dialing_sms_input">
+           <input  @bind="@TextMessage" type="text" />
+        </div>
+       <div class="sticer_button_block">
+       <div class="sticer_block">
+           <button class="button_attachment"></button>
+         <button class="button_smile"></button>
+          <button class="button_helpworld"></button>
+          </div>
+       <div class="send_button">
+          <button @onclick="SendMessage">send</button>
+        </div>
+        </div>
     </div>
 }
 

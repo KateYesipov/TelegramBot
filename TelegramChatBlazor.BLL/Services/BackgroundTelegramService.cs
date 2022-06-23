@@ -13,7 +13,7 @@ namespace TelegramChatBlazor.BLL.Services
     public class BackgroundTelegramService : IBackgroundTelegramService
     {
         private readonly TelegramChatBlazorSettings _chatBlazorSettings;
-        private readonly TelegramBotClient _botClient;
+        private TelegramBotClient _botClient;
         private readonly HttpClient _httpclient;
 
 
@@ -22,11 +22,13 @@ namespace TelegramChatBlazor.BLL.Services
         {
             _httpclient = httpclient;
             _chatBlazorSettings = appSettingsService.TelegramChatBlazorSettings;
-            _botClient = new TelegramBotClient(_chatBlazorSettings.BotClient);
+            //_botClient = new TelegramBotClient(_chatBlazorSettings.BotClient);
         }
 
-        public async Task Start()
+        public async Task Start(string tokenBot)
         {
+            _botClient = new TelegramBotClient(tokenBot);
+
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
             var receiverOptions = new ReceiverOptions
