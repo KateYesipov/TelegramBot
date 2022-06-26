@@ -10,6 +10,22 @@ namespace TelegramChatBlazor.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Bots",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bots", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Chat",
                 columns: table => new
                 {
@@ -19,11 +35,18 @@ namespace TelegramChatBlazor.DAL.Migrations
                     PartnerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PartnerLastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BotUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BotAvatar = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    BotAvatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BotId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Chat", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Chat_Bots_BotId",
+                        column: x => x.BotId,
+                        principalTable: "Bots",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -49,6 +72,11 @@ namespace TelegramChatBlazor.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Chat_BotId",
+                table: "Chat",
+                column: "BotId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Chat_Id",
                 table: "Chat",
                 column: "Id",
@@ -67,6 +95,9 @@ namespace TelegramChatBlazor.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Chat");
+
+            migrationBuilder.DropTable(
+                name: "Bots");
         }
     }
 }

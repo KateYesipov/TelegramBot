@@ -21,6 +21,10 @@ namespace TelegramChatBlazor.DAL.Context
            .HasMany<Message>(g => g.Messages)
            .WithOne(s => s.Chat).HasForeignKey(s => s.ChatId);
 
+            builder.Entity<Bot>()
+           .HasMany<Chat>(g => g.Chats)
+           .WithOne(s => s.Bot).HasForeignKey(s => s.BotId);
+
             base.OnModelCreating(builder);
         }
     }

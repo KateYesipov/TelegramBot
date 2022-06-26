@@ -1,12 +1,15 @@
 ﻿@using TelegramChatBlazor.Domain.Models.SignalR
+@using System.Linq
 @inject NavigationManager _navigationManager
 @inject ITelegramService TelegramService
+@inject IBotService BotService
+
 
 @if (Chats != null)
 {
     <div>
         <div class="search_by_name nosubmit">
-            <input class="icon_input nosubmit" type="search" placeholder="Search by name" />
+            <input @bind="searchValue" @bind:event="oninput" class="icon_input nosubmit" type="search" placeholder="Search by name" />
         </div>
         <div class="buttons_block">
             <button class="add_button">+</button>
@@ -58,8 +61,14 @@
     [Parameter]
     public EventCallback<long> OnClickCallback { get; set; }
 
+    [Parameter]
+    public string token { get; set; }
+
     HubConnection? hubConnection;
-    private List<Domain.Models.Chat> Chats = new List<Domain.Models.Chat>();
+    public List<Domain.Models.Chat> Chats { get; set; } = new List<Domain.Models.Chat>();
+
+    public  string searchValue = string.Empty;
+    private int TimesClicked { get; set; } = 1;
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,30 +78,41 @@
         hubConnection.On<MessageNotification>("Send", this.Send);
         await hubConnection.StartAsync();
 
-        Chats = TelegramService.GetChats();
+        var botId = BotService.GetByToken(token);
+        Chats = TelegramService.GetChatListByBotId(botId.Id);
     }
+
+    List<Domain.Models.Chat> ChatsFilter = Chats.Where(i => i.PartnerName.ToLower().Contains(searchValue.ToLower())).ToList();
 
     Task Send(MessageNotification messageNotification)
     {
-        var index = Chats.FindIndex(m => m.Id == messageNotification.Message.ChatId);
-        if (index == -1)
+        if (messageNotification.Token == token)
         {
-            var newChat = new Chat
-                {
-                    Id = messageNotification.Message.ChatId,
-                    PartnerName = messageNotification.PartnerName,
-                    PartnerAvatar = messageNotification.PartnerAvatar,
-                    Messages = new List<Message> { messageNotification.Message }
-                };
-            Chats.Add(newChat);
+            var index = Chats.FindIndex(m => m.Id == messageNotification.Message.ChatId);
+            if (index == -1)
+            {
+                var newChat = new Chat
+                    {
+                        Id = messageNotification.Message.ChatId,
+                        PartnerName = messageNotification.PartnerName,
+                        PartnerAvatar = messageNotification.PartnerAvatar,
+                        Messages = new List<Message> { messageNotification.Message }
+                    };
+                Chats.Add(newChat);
+            }
+            else
+            {
+                Chats[index].Messages.Add(messageNotification.Message);
+            }
         }
-        else
-        {
-            Chats[index].Messages.Add(messageNotification.Message);
-        }
-
         StateHasChanged();
+
         return Task.CompletedTask;
+    }
+
+    private void UpdateTimesClicked()
+    {
+        TimesClicked++;
     }
 
     public void LoadMessageById(long Id)

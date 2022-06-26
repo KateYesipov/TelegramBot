@@ -12,7 +12,7 @@ using TelegramChatBlazor.DAL.Context;
 namespace TelegramChatBlazor.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220619084612_Init")]
+    [Migration("20220623123706_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,34 @@ namespace TelegramChatBlazor.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Bot", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Bots");
+                });
+
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Chat", b =>
                 {
                     b.Property<long>("Id")
@@ -31,6 +59,9 @@ namespace TelegramChatBlazor.DAL.Migrations
 
                     b.Property<string>("BotAvatar")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("BotId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("BotUserName")
                         .IsRequired()
@@ -49,6 +80,8 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BotId");
 
                     b.HasIndex("Id")
                         .IsUnique();
@@ -84,6 +117,17 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.ToTable("Message");
                 });
 
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Chat", b =>
+                {
+                    b.HasOne("TelegramChatBlazor.DAL.Entities.Bot", "Bot")
+                        .WithMany("Chats")
+                        .HasForeignKey("BotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bot");
+                });
+
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Message", b =>
                 {
                     b.HasOne("TelegramChatBlazor.DAL.Entities.Chat", "Chat")
@@ -93,6 +137,11 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Chat");
+                });
+
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Bot", b =>
+                {
+                    b.Navigation("Chats");
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Chat", b =>

@@ -12,30 +12,31 @@ namespace TelegramChatBlazor.BLL.Services
 {
     public class TelegramService : ITelegramService
     {
+        private readonly IBotService _botService;
         private readonly IMessageRepository _messageRepository;
         private readonly IChatRepository _chatRepository;
         private readonly IWebHostEnvironment _appEnvironment;
         private readonly HttpClient _httpclient;
         private readonly TelegramChatBlazorSettings _chatBlazorSettings;
-        private readonly TelegramBotClient _botClient;
 
         public TelegramService(IMessageRepository messageRepository,
                                IChatRepository chatRepository,
                                IWebHostEnvironment appEnvironment,
+                               IBotService botService,
                                IAppSettingsService appSettingsService,
                                HttpClient httpclient)
         {
             _chatBlazorSettings = appSettingsService.TelegramChatBlazorSettings;
-            //_botClient = new TelegramBotClient(_chatBlazorSettings.BotClient);
             _messageRepository = messageRepository;
             _appEnvironment = appEnvironment;
             _chatRepository = chatRepository;
             _httpclient = httpclient;
+            _botService = botService;
         }
 
-        public List<Chat> GetChats()
+        public List<Chat> GetChatListByBotId(long botId)
         {
-            return _chatRepository.GetAll();
+            return _chatRepository.GetByBotId(botId);
         }
 
         public Chat GetChatsByIdIncludeMessages(long Id)
@@ -48,25 +49,32 @@ namespace TelegramChatBlazor.BLL.Services
             return _messageRepository.GetById(ChatId);
         }
 
-        public MessageRequest AddMessage(MessageRequest message)
+        public MessageRequest AddMessage(MessageRequest messageRequest)
         {
-            var chatId = message.ChatId;
+            var token = messageRequest.Token;
+            if (String.IsNullOrEmpty(token)) { }
+            var botClient = new TelegramBotClient(token);
+
+            var bot = _botService.GetByToken(messageRequest.Token);
+
+            var chatId = messageRequest.ChatId;
             var chat = _chatRepository.GetById(chatId);
             if (chat == null)
             {
-                message.PartnerAvatar = UploadImageFromTelegram(_botClient, message.PartnerAvatar, "/Images/avatar//").Result;
+                messageRequest.PartnerAvatar = UploadImageFromTelegram(botClient, messageRequest.PartnerAvatar, "/Images/avatar//").Result;
 
                 var newChat = new Chat
                 {
                     Id = chatId,
-                    PartnerUserName = message.PartnerUserName,
-                    PartnerName = message.PartnerName,
-                    PartnerLastName = message.PartnerLastName,
-                    PartnerAvatar = message.PartnerAvatar,
-                    BotAvatar = message.BotAvatar,
-                    BotUserName = message.BotUserName,
-                    Messages = new List<Message> { new Message {Text= message.Text,
-                                                 CreateAt=DateTime.Now,IsPartner=message.IsPartner }}
+                    PartnerUserName = messageRequest.PartnerUserName,
+                    PartnerName = messageRequest.PartnerName,
+                    PartnerLastName = messageRequest.PartnerLastName,
+                    PartnerAvatar = messageRequest.PartnerAvatar,
+                    BotAvatar = messageRequest.BotAvatar,
+                    BotUserName = messageRequest.BotUserName,
+                    BotId= bot.Id,
+                    Messages = new List<Message> { new Message {Text= messageRequest.Text,
+                                                 CreateAt=DateTime.Now,IsPartner=messageRequest.IsPartner }}
                 };
 
                 _chatRepository.Create(newChat);
@@ -77,30 +85,32 @@ namespace TelegramChatBlazor.BLL.Services
                 var newMessage = new Message
                 {
                     ChatId = chat.Id,
-                    Text = message.Text,
-                    IsPartner = message.IsPartner,
+                    Text = messageRequest.Text,
+                    IsPartner = messageRequest.IsPartner,
                     CreateAt = DateTime.Now
                 };
 
                 _messageRepository.Create(newMessage);
                 _messageRepository.Save();
             }
-            return message;
+            return messageRequest;
         }
 
-        public async Task SendMessage(long chatId, string textMessage)
+        public async Task SendMessage(long chatId, string textMessage, string token)
         {
+            if (String.IsNullOrEmpty(token)) { }
+            var botClient = new TelegramBotClient(token);
             //Db
-            var messageRequest = new MessageRequest(chatId,
+            var messageRequest = new MessageRequest(token, chatId,
                textMessage, false, "", "", "", "", "", "");
 
-            var url = "https://localhost:7142/api/apimessage";
+            var url =  _chatBlazorSettings.ApiUrl+"api/apimessage";
             var parametrs = new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");
 
             await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);
 
             //Telegram send
-            await _botClient.SendTextMessageAsync(chatId, textMessage);
+            await botClient.SendTextMessageAsync(chatId, textMessage);
         }
 
         private async Task<string> UploadImageFromTelegram(ITelegramBotClient botClient, string fileId, string pathFolder)

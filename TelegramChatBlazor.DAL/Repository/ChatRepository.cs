@@ -32,13 +32,13 @@ namespace TelegramChatBlazor.DAL.Repository
 
         public Chat GetById(long Id)
         {
-            var chat = _context.Chat.Include(m=>m.Messages).FirstOrDefault(x => x.Id == Id);
+            var chat = _context.Chat.Include(m=>m.Messages).Include(x=>x.Bot).FirstOrDefault(x => x.Id == Id);
             return _mapper.Map<Chat>(chat);
         }
 
-        public List<Chat> GetAll()
+        public List<Chat> GetByBotId(long botId)
         {
-            return _mapper.Map<List<Chat>>(_context.Chat.Include(m=>m.Messages).ToList());
+            return _mapper.Map<List<Chat>>(_context.Chat.Include(m=>m.Messages).Where(x=>x.BotId==botId).ToList());
         }
 
         public void Save()

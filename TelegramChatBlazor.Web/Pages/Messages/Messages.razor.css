@@ -80,7 +80,7 @@
 }
 
 .block_correspondence {
-    max-height: 65vh;
+    max-height: 71vh;
     overflow: auto;
     height: inherit;
 }
@@ -182,50 +182,66 @@
         }
 
 .dialing_sms {
-    height: 20vh;
+    height: 13vh;
     background: #40484A;
     margin-top: 0px;
 }
-.dialing_sms_input input {
-    height: 40px;
-    width: 330px;
-    margin-left: 75px;
-    margin-top: 10px;
-    border: 1px solid #808080;
-    background: #FFFFFF1A;
-    font-size: 15px;
-}
-
-
-.dialing_sms{
-
-}
-.dialing_sms_input{
-
-}
-.sticer_button_block{
-    display:flex;
+.dialing_sms_input {
   
 }
+    .dialing_sms_input textarea {
+        height: 40px;
+        width: 510px;
+        margin-left: 10px;
+        margin-top: 10px;
+        border: none;
+        background-color: #40484A;
+        font-size: 15px;
+        font-size: 14px;
+        color: #FFFFFF40;
+        min-height: auto !important;
+        resize: none;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+  
+    .sticer_button_block {
+        display: flex;
+    }
 .sticer_block button {
-    width: 20px;
-    height: 20px;
-    margin: 5px;
-    background: #40484A;
+    width: 18px;
+    height: 18px;
+    margin-left:10px;
+    margin-top:12px;
+    background-color: #40484A;
     border: none;
-}
-.button_attachment {
-    background-image: url("/Images/icons/attachment.svg");
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
 }
+.button_attachment {
+    background-image: url("/Images/icons/attachment.svg");
+ 
+}
+.button_smile {
+    background-image: url("/Images/icons/smile.svg");
+}
+.button_helpworld {
+    background-image: url("/Images/icons/helpworld.svg");
+}
 
 .send_button {
-    width: 40px;
-    height: 40px;
-    margin: 10px;
+    width: 80px;
+    height: 10px;
     display: flex;
     flex-flow: row wrap;
     margin-left: auto;
+    font-size: 15px;
+    margin-top: 7px;
 }
+
+.send_button button{
+    border-radius:7px;
+    border:none;
+}
+

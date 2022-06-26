@@ -13,18 +13,18 @@ else
                 <img src="@chatModel.PartnerAvatar">
             </div>
         </div>
-       <div class="name_and_last_block"> 
-        <div class="name_companion">
-            @chatModel.PartnerName @chatModel.PartnerLastName
-        </div>
-        <div class="last_online">
-            last online
-        </div>
+        <div class="name_and_last_block">
+            <div class="name_companion">
+                @chatModel.PartnerName @chatModel.PartnerLastName
+            </div>
+            <div class="last_online">
+                last online
+            </div>
         </div>
         <div class="up_button_block">
-            <button class="up_button_block_first" ></button>
+            <button class="up_button_block_first"></button>
             <button class="up_button_block_second"></button>
-            <button class="up_button_block_third" ></button>
+            <button class="up_button_block_third"></button>
             <button class="up_button_block_fourth"></button>
         </div>
     </div>
@@ -48,28 +48,33 @@ else
         }
 
     </div>
-       <div class="dialing_sms">
-       <div class="dialing_sms_input">
-           <input  @bind="@TextMessage" type="text" />
+    <div class="dialing_sms">
+        <div class="dialing_sms_input">
+            <textarea @bind="@TextMessage" type="text" placeholder="Press CTRL + Enter to send"></textarea>
         </div>
-       <div class="sticer_button_block">
-       <div class="sticer_block">
-           <button class="button_attachment"></button>
-         <button class="button_smile"></button>
-          <button class="button_helpworld"></button>
-          </div>
-       <div class="send_button">
-          <button @onclick="SendMessage">send</button>
-        </div>
+        <div class="sticer_button_block">
+            <div class="sticer_block">
+                <button class="button_attachment"></button>
+                <button class="button_smile"></button>
+                <button class="button_helpworld"></button>
+            </div>
+            <div class="send_button">
+                <button @onclick="SendMessage">
+                    <img src="/Images/icons/arrow-up.svg"/>
+                    send</button>
+            </div>
         </div>
     </div>
 }
 
 @code {
     [Parameter]
+    public string token { get; set; }
+
+    [Parameter]
     public Chat chatModel { get; set; }
 
-    private string TextMessage {get;set;} 
+    private string TextMessage { get; set; }
 
     HubConnection? hubConnection;
 
@@ -90,7 +95,7 @@ else
 
     async Task Send(MessageNotification message)
     {
-        if (chatModel != null && chatModel.Id == message.Message.ChatId)
+        if (chatModel != null && chatModel.Id == message.Message.ChatId && message.Token == token)
         {
             chatModel.Messages.Add(message.Message);
             await ScrollToElementId("block_message");
@@ -98,8 +103,9 @@ else
         }
     }
 
-    private void SendMessage(){
-        TelegramService.SendMessage(chatModel.Id,TextMessage);
+    private void SendMessage()
+    {
+        TelegramService.SendMessage(chatModel.Id, TextMessage, token);
         TextMessage = "";
     }
 

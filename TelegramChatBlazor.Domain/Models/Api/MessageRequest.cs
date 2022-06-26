@@ -8,8 +8,9 @@ namespace TelegramChatBlazor.Domain.Models.Api
 {
     public class MessageRequest
     {
-        public MessageRequest(long chatId,string text,bool isPartner, string partnerAvatar, string partnerUserName, string partnerName, string partnerLastName, string botUserName, string botAvatar)
+        public MessageRequest(string token, long chatId,string text,bool isPartner, string partnerAvatar, string partnerUserName, string partnerName, string partnerLastName, string botUserName, string botAvatar)
         {
+            Token = token;
             ChatId = chatId;
             Text = text;
             IsPartner = isPartner;
@@ -30,6 +31,7 @@ namespace TelegramChatBlazor.Domain.Models.Api
         public string? PartnerLastName { get; set; }
         public string BotUserName { get; set; }
         public string? BotAvatar { get; set; }
+        public string Token { get; set; }
 
     }
 }

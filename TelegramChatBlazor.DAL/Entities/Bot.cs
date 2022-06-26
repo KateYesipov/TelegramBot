@@ -6,5 +6,10 @@
         public string UserName { get; set; }
         public string Token { get; set; }
         public DateTime CreateAt { get; set; }
+        public List<Chat> Chats { get; set; }
+        public Bot()
+        {
+            Chats = new List<Chat>();
+        }
     }
 }

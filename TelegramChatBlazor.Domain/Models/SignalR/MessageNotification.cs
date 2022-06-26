@@ -12,6 +12,7 @@ namespace TelegramChatBlazor.Domain.Models.SignalR
         public string? PartnerUserName { get; set; }
         public string? PartnerName { get; set; }
         public string? PartnerLastName { get; set; }
+        public string Token { get; set; }
         public Message Message { get; set; }
     }
 }

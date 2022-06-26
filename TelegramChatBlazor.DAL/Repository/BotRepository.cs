@@ -41,6 +41,20 @@ namespace TelegramChatBlazor.DAL.Repository
             return bot;
         }
 
+        public Bot GetByUsername(string username)
+        {
+            var botEntity = _context.Bots.FirstOrDefault(x => x.UserName == username);
+            var bot = _mapper.Map<Bot>(botEntity);
+            return bot;
+        }
+
+        public Bot GetByToken(string token)
+        {
+            var botEntity = _context.Bots.FirstOrDefault(x => x.Token == token);
+            var bot = _mapper.Map<Bot>(botEntity);
+            return bot;
+        }
+
         public void Update(Bot bot)
         {
             var botEntity = _mapper.Map<Entities.Bot>(bot);

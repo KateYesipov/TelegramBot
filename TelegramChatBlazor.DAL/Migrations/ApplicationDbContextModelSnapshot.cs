@@ -58,6 +58,9 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.Property<string>("BotAvatar")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("BotId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("BotUserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,6 +78,8 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BotId");
 
                     b.HasIndex("Id")
                         .IsUnique();
@@ -110,6 +115,17 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.ToTable("Message");
                 });
 
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Chat", b =>
+                {
+                    b.HasOne("TelegramChatBlazor.DAL.Entities.Bot", "Bot")
+                        .WithMany("Chats")
+                        .HasForeignKey("BotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bot");
+                });
+
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Message", b =>
                 {
                     b.HasOne("TelegramChatBlazor.DAL.Entities.Chat", "Chat")
@@ -119,6 +135,11 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Chat");
+                });
+
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Bot", b =>
+                {
+                    b.Navigation("Chats");
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Chat", b =>

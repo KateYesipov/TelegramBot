@@ -15,6 +15,7 @@ namespace TelegramChatBlazor.BLL.Services
         private readonly TelegramChatBlazorSettings _chatBlazorSettings;
         private TelegramBotClient _botClient;
         private readonly HttpClient _httpclient;
+        private string Token;
 
 
         public BackgroundTelegramService(HttpClient httpclient,
@@ -22,11 +23,11 @@ namespace TelegramChatBlazor.BLL.Services
         {
             _httpclient = httpclient;
             _chatBlazorSettings = appSettingsService.TelegramChatBlazorSettings;
-            //_botClient = new TelegramBotClient(_chatBlazorSettings.BotClient);
         }
 
         public async Task Start(string tokenBot)
         {
+            Token = tokenBot;
             _botClient = new TelegramBotClient(tokenBot);
 
             var cts = new CancellationTokenSource();
@@ -55,14 +56,9 @@ namespace TelegramChatBlazor.BLL.Services
                 var chat = await botClient.GetChatAsync(message.Chat.Id);
                 var avatarPartnerId = chat.Photo.SmallFileId;
 
+                var newChatId = bot.Id - message.Chat.Id;
 
-                var file = await botClient.GetFileAsync(avatarPartnerId);
-                FileStream fs = new FileStream(@"C:\Project\TelegramChatBlazor\TelegramChatBlazor.Web\wwwroot/css/avatar.png", FileMode.Create);
-                await botClient.DownloadFileAsync(file.FilePath, fs);
-                fs.Close();
-
-
-                var newMessage = new MessageRequest(message.Chat.Id,
+                var newMessage = new MessageRequest(Token, newChatId,
                     message.Text, true, avatarPartnerId, message.Chat.Username,
                     message.Chat.FirstName, message.Chat.LastName,
                     bot.FirstName, "");
@@ -74,41 +70,13 @@ namespace TelegramChatBlazor.BLL.Services
                 var response = await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    // Do something with response. Example get content:
-                    // var responseContent = await response.Content.ReadAsStringAsync ().ConfigureAwait (false);
+             
                 }
-
-
-                //if (message.Text.ToLower() == "/start")
-                //{
-                //    await botClient.SendTextMessageAsync(message.Chat, "Добро пожаловать на борт, добрый путник!");
-
-
-                //    return;
-                //}
-                //await botClient.SendTextMessageAsync(message.Chat, "Привет-привет!!");
-
-                //var newMessageBot = new MessageRequest(message.Chat.Id,
-                //   "Lorem Ipsum - это, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.", false, "", message.Chat.Username ?? "Username",
-                //   message.Chat.FirstName, message.Chat.LastName ?? "LastName",
-                //    bot.FirstName, "");
-
-                //var urlBot = "https://localhost:7142/api/apimessage";
-                //var parametrsBot = new StringContent(JsonConvert.SerializeObject(newMessageBot), Encoding.UTF8, "application/json");
-
-                //var responseBot = await _httpclient.PostAsync(urlBot, parametrsBot).ConfigureAwait(false);
-                //if (responseBot.StatusCode == HttpStatusCode.OK)
-                //{
-                //    // Do something with response. Example get content:
-                //    // var responseContent = await response.Content.ReadAsStringAsync ().ConfigureAwait (false);
-                //}
-
             }
         }
 
         private async Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
-            // Некоторые действия
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(exception));
         }
     }
