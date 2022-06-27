@@ -1,15 +1,69 @@
-﻿@using TelegramChatBlazor.Domain.Models.SignalR
-@using System.Linq
+﻿@using Blazored.Typeahead
+@using TelegramChatBlazor.Domain.Models.SignalR
 @inject NavigationManager _navigationManager
 @inject ITelegramService TelegramService
 @inject IBotService BotService
 
+<style>
+    .blazored-typeahead__input {
+        border: 1px solid #555;
+        width: 100%;
+        color: #FFFFFF;
+        padding: 9px 4px 9px 40px;
+        background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+    }
+
+    .blazored-typeahead__input-mask {
+        color: #FFFFFF;
+    }
+
+    .blazored-typeahead__results {
+        position: absolute;
+        box-shadow: 0 5px 10px rgba(0,0,0,.2);
+        border: 1px solid #dbdbdb;
+        min-height: 2rem;
+        max-height: 30rem;
+        overflow-y: auto;
+        z-index: 10;
+        width: 100%;
+        background: #fff;
+    }
+
+    .blazored-typeahead__active-item,
+    .blazored-typeahead__result:hover,
+    .blazored-typeahead__result:focus {
+        background-color: #3c3b3b;
+        border-top: 1px solid #3c3b3b;
+        border-bottom: 1px solid #3c3b3b !important;
+        color: #FFFFFF;
+        cursor: pointer;
+    }
+
+    .blazored-typeahead__notfound {
+        background-color: #3c3b3b;
+        border-top: 1px solid #3c3b3b;
+        border-bottom: 1px solid #3c3b3b;
+        color: #FFFFFF40;
+    }
+
+    .blazored-typeahead:focus-within {
+        box-shadow: none !important;
+    }
+
+</style>
 
 @if (Chats != null)
 {
     <div>
         <div class="search_by_name nosubmit">
-            <input @bind="searchValue" @bind:event="oninput" class="icon_input nosubmit" type="search" placeholder="Search by name" />
+            <BlazoredTypeahead SearchMethod="AutoSearch" type="search" @bind-Value="selectedChat" Placeholder="Search by name">
+                <SelectedTemplate>
+                    @context.PartnerName
+                </SelectedTemplate>
+                <ResultTemplate>
+                    @context.PartnerName @context.PartnerLastName
+                </ResultTemplate>
+            </BlazoredTypeahead>
         </div>
         <div class="buttons_block">
             <button class="add_button">+</button>
@@ -25,24 +79,48 @@
             Messages
         </div>
         <div class="chats_content">
-            @foreach (var item in Chats)
+
+            @if (selectedChat != null)
             {
-                var lastMessage = item.Messages.LastOrDefault();
+                var lastMessage = selectedChat.Messages.LastOrDefault();
                 if (lastMessage != null)
                 {
-                    <div class="messange_block" @onclick="(()=>LoadMessageById(item.Id))">
+                    <div class="messange_block" @onclick="(()=>LoadMessageById(selectedChat.Id))">
                         <div class="avatar">
                             <div class="img_messange">
-                                <img src="@item.PartnerAvatar">
+                                <img src="@selectedChat.PartnerAvatar">
                             </div>
                         </div>
                         <div class="sender_name">
-                            @item.PartnerName
+                            @selectedChat.PartnerName
                         </div>
                         <div class="sms_content">
                             @lastMessage.Text
                         </div>
                     </div>
+                }
+            }
+            else
+            {
+                @foreach (var item in Chats)
+                {
+                    var lastMessage = item.Messages.LastOrDefault();
+                    if (lastMessage != null)
+                    {
+                        <div class="messange_block" @onclick="(()=>LoadMessageById(item.Id))">
+                            <div class="avatar">
+                                <div class="img_messange">
+                                    <img src="@item.PartnerAvatar">
+                                </div>
+                            </div>
+                            <div class="sender_name">
+                                @item.PartnerName
+                            </div>
+                            <div class="sms_content">
+                                @lastMessage.Text
+                            </div>
+                        </div>
+                    }
                 }
             }
         </div>
@@ -65,10 +143,9 @@
     public string token { get; set; }
 
     HubConnection? hubConnection;
-    public List<Domain.Models.Chat> Chats { get; set; } = new List<Domain.Models.Chat>();
+    public List<Chat> Chats { get; set; } = new List<Chat>();
 
-    public  string searchValue = string.Empty;
-    private int TimesClicked { get; set; } = 1;
+    public Chat selectedChat;
 
     protected override async Task OnInitializedAsync()
     {
@@ -82,7 +159,10 @@
         Chats = TelegramService.GetChatListByBotId(botId.Id);
     }
 
-    List<Domain.Models.Chat> ChatsFilter = Chats.Where(i => i.PartnerName.ToLower().Contains(searchValue.ToLower())).ToList();
+    private async Task<IEnumerable<Chat>> AutoSearch(string searchChat)
+    {
+        return await Task.FromResult(Chats.Where(x => x.PartnerName.ToLower().Contains(searchChat.ToLower())).ToList());
+    }
 
     Task Send(MessageNotification messageNotification)
     {
@@ -108,11 +188,6 @@
         StateHasChanged();
 
         return Task.CompletedTask;
-    }
-
-    private void UpdateTimesClicked()
-    {
-        TimesClicked++;
     }
 
     public void LoadMessageById(long Id)

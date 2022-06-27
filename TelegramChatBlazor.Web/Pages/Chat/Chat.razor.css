@@ -23,7 +23,7 @@
 
 
 .main_block_two {
-    width: 44%;
+    width: 50%;
     background: #3c3b3b;
     height: 100vh;
     margin-left: 0%;
@@ -39,4 +39,14 @@
     height: 100vh;
    
     border-radius: 0% 3% 3% 0%;
+}
+
+
+.twoBlock {
+    width: 100% !important;
+
+}
+
+.threeBlock{
+    display: none !important;
 }

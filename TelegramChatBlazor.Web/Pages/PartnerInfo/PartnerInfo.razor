@@ -3,7 +3,7 @@
 }
 else
 {
-    <div>
+    <div class="partnerinfo_block">
         <div class="avatar_block">
             <img src="@chatModel.PartnerAvatar" />
             <div class="avatar_name">
@@ -78,6 +78,11 @@ else
                     </option>
             </select>
         </div>
+        <div class="buttons_lower_block3">
+            <button> Newsletters (0)</button>
+            <button>Notes (0)</button>
+            <button> Fast responds (0)</button>
+        </div>
     </div>
     </div>
 }
@@ -85,5 +90,6 @@ else
 @code {
     [Parameter]
     public Chat chatModel { get; set; }
+
 
 }

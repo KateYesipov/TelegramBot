@@ -30,11 +30,11 @@
     border-radius: 50%;
 }
 
-    .name_companion {
-        color: #808080;
-        padding-top: 15px;
-      
-    }
+.name_companion {
+    color: #808080;
+    padding-top: 15px;
+    color: #FFFFFF;
+}
 
 .last_online {
     color: #808080;
@@ -78,6 +78,24 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.up_button_block_fifth {
+    background-image: url("/Images/icons/arrow-left.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.twoBlock .up_button_block_fifth {
+    background-image: url("/Images/icons/arrow-right.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+
 
 .block_correspondence {
     max-height: 71vh;
@@ -186,24 +204,22 @@
     background: #40484A;
     margin-top: 0px;
 }
-.dialing_sms_input {
-  
+
+.dialing_sms_input textarea {
+    height: 40px;
+    width: 510px;
+    margin-left: 10px;
+    margin-top: 10px;
+    border: none;
+    color: white;
+    background-color: #40484A;
+    font-size: 15px;
+    font-size: 14px;
+    min-height: auto !important;
+    resize: none;
+    overflow: hidden;
+    white-space: nowrap;
 }
-    .dialing_sms_input textarea {
-        height: 40px;
-        width: 510px;
-        margin-left: 10px;
-        margin-top: 10px;
-        border: none;
-        background-color: #40484A;
-        font-size: 15px;
-        font-size: 14px;
-        color: #FFFFFF40;
-        min-height: auto !important;
-        resize: none;
-        overflow: hidden;
-        white-space: nowrap;
-    }
   
     .sticer_button_block {
         display: flex;
@@ -230,18 +246,27 @@
     background-image: url("/Images/icons/helpworld.svg");
 }
 
+
 .send_button {
     width: 80px;
-    height: 10px;
+    height: 15px;
     display: flex;
     flex-flow: row wrap;
     margin-left: auto;
     font-size: 15px;
-    margin-top: 7px;
+    margin-top: 5px;
 }
 
 .send_button button{
     border-radius:7px;
     border:none;
+}
+
+.twoBlock .up_button_block {
+    justify-content: end;
+}
+
+.twoBlock .dialing_sms_input textarea{
+    width:80%; 
 }
 

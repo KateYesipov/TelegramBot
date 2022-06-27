@@ -25,7 +25,8 @@ else
             <button class="up_button_block_first"></button>
             <button class="up_button_block_second"></button>
             <button class="up_button_block_third"></button>
-            <button class="up_button_block_fourth"></button>
+            <button class="up_button_block_fourth"></button>          
+            <button class="up_button_block_fifth" @onclick="ShowOrHideRightTab"></button>
         </div>
     </div>
     <div class="block_correspondence" id="block_message">
@@ -60,8 +61,9 @@ else
             </div>
             <div class="send_button">
                 <button @onclick="SendMessage">
-                    <img src="/Images/icons/arrow-up.svg"/>
-                    send</button>
+                    <img src="/Images/icons/arrow-up.svg" />
+                    send
+                </button>
             </div>
         </div>
     </div>
@@ -73,6 +75,12 @@ else
 
     [Parameter]
     public Chat chatModel { get; set; }
+
+
+    [Parameter]
+    public EventCallback ShowOrHideRightCallback{ get; set; }
+
+
 
     private string TextMessage { get; set; }
 
@@ -112,5 +120,10 @@ else
     public async Task ScrollToElementId(string elementId)
     {
         await JSRuntime.InvokeVoidAsync("scrollToElementId", elementId);
+    }
+
+    private void ShowOrHideRightTab()
+    {
+        ShowOrHideRightCallback.InvokeAsync();
     }
 }

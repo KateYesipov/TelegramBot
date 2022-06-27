@@ -4,11 +4,26 @@
 
 .top-row {
     height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: #3c3b3b;
+    border-bottom: 2px solid #FFFFFF0D;
+    padding: 0px !important;
+}
+.container-fluid a {
+    width:20px;
+    height: 20px;
+     border-radius: 5px;
+    border: none;
+    background-color: #3c3b3b;
+    margin:0px;
+    margin-left:10px;
 }
 
 .navbar-brand {
-    font-size: 1.1rem;
+    background-image: url(/Images/icons/arrow-right-menu.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0px !important;
 }
 
 .oi {
@@ -60,3 +75,117 @@
         display: block;
     }
 }
+
+.dashboard {
+    background-image: url("/Images/icons/Dashboard.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 60px;
+    width: 60px;
+    margin-top: 20px;
+}
+
+.hug_hug {
+    background-image: url("/Images/icons/hug-hug.svg");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 30px;
+    width: 30px;
+    margin: 15px;
+    margin-top:0px;
+}
+
+.trade {
+    background-image: url("/Images/icons/trade.svg");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 30px;
+    width: 30px;
+    margin: 15px;
+    margin-top: 20px;
+}
+
+.chat {
+    background-image: url("/Images/icons/chat.svg");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 30px;
+    width: 30px;
+    margin: 15px;
+    margin-top: 20px;
+}
+
+.big_box {
+    background-image: url("/Images/icons/big-box.svg");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 30px;
+    width: 30px;
+    margin: 15px;
+    margin-top: 20px;
+}
+
+.arrow-left {
+    background-image: url("/Images/icons/arrow-left-menu.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0px !important;
+}
+
+.folder_img {
+    background-image: url("/Images/icons/folder.svg");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 30px;
+    width: 30px;
+    margin: 20px;
+    margin-bottom:5px;   
+}
+
+.folder_text {
+    font-size: 13px;
+    color: azure;
+    max-width: 50px;
+    margin: auto;
+    overflow-x: hidden;
+}
+
+
+.plus_img {
+    background-image: url("/Images/icons/plus.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+    margin: 10px;
+    margin-top: 20px;
+    position: absolute;
+    bottom: 0;
+}
+
+
+
+
+.folders_block{
+    display:none;
+}
+
+.hide_menu .folders_block {
+    display:block;
+}
+
+.menu_block {
+    display: block;
+}
+
+.hide_menu .menu_block {
+    display: none;
+}
+

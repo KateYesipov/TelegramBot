@@ -5,14 +5,16 @@
     .avatar_block img {
         width: 100%;
         object-fit: cover;
-        height: 150px;
+        height: 220px;
     }
+
+
 .avatar_name {
     color: #ffffff;
     font-size: 24px;
     position: absolute;
-    bottom:14%;
-    left:5%;
+    bottom: 14%;
+    left: 5%;
 }
 .last_online_avatar {
     color: #ffffff;
@@ -48,7 +50,7 @@
     background: #3f3f3f;
     color: #808080;
     border-radius:12px;
-    width:280px;
+    width:310px;
     height:40px;
     margin-left:15px;
 }
@@ -61,7 +63,7 @@
         background: #3f3f3f;
         color: #808080;
         border-radius: 12px;
-        width: 280px;
+        width: 310px;
         height: 40px;
         margin-left: 15px;
         border:1px solid #808080;
@@ -123,7 +125,15 @@
     
 }
 
-
-
+.buttons_lower_block3 button {
+    background: #3f3f3f;
+    color: #808080;
+    border-radius: 12px;
+    width: 280px;
+    height: 40px;
+    margin-left: 15px;
+    margin-top:15px;
+    border: 1px solid #808080;
+}
 
 

@@ -9,10 +9,10 @@
         <div class="main_block">
             <SelectChat OnClickCallback="@GetMessages" token="@token"></SelectChat>
         </div>
-        <div class="main_block_two">
-            <Messages chatModel="chatModel" token="@token"></Messages>
+        <div class="main_block_two @styleTwoBlock">
+            <Messages chatModel="chatModel" ShowOrHideRightCallback="ShowOrHideRightTab" token="@token"></Messages>
         </div>
-        <div class="main_block_three">
+        <div class="main_block_three @styleThreeBlock">
             <PartnerInfo chatModel="chatModel"></PartnerInfo>
         </div>
     </div>
@@ -25,6 +25,9 @@
     public string? token;
     public Domain.Models.Chat chatModel;
 
+    //style class
+    public string styleTwoBlock = "twoBlock";
+    public string styleThreeBlock = "threeBlock";
 
     protected override async Task OnInitializedAsync()
     {
@@ -35,4 +38,19 @@
     {
         chatModel = TelegramService.GetChatsByIdIncludeMessages(ChatId);
     }
+
+    private void ShowOrHideRightTab()
+    {
+        if (styleTwoBlock == String.Empty && styleThreeBlock == String.Empty)
+        {
+            styleTwoBlock = "twoBlock";
+            styleThreeBlock = "threeBlock";
+        }
+        else
+        {
+            styleTwoBlock = "";
+            styleThreeBlock = "";
+        }
+    }
+
 }
