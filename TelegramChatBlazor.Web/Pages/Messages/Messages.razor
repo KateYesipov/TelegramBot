@@ -50,10 +50,16 @@ else
     <div class="dropdown_block @helpWordCssClass">
         <div class="fast_answersx_block">
             <p> Fast answers: (Choose category)</p>
-            <div>+</div>
+            <div @onclick="ShowHelpWord"></div>
         </div>
         <div class="input_fast_anwers">
             <input type="text" />
+        </div>
+        <div class="fast_anwers_button">
+            @for (var i = 0; i < 50; i++)
+            {
+                  <button></button>  
+            }
         </div>
     </div>
     <div class="dialing_sms">

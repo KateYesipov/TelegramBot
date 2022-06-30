@@ -204,22 +204,66 @@
 
 .dialing_sms {
     height: 14vh;
-    background: #40484A;
-    margin-top: 0px;
+    background: #40484A ;
 }
 
 .dropdown_block {
     width: 100%;
-    height:30vh;
+    height: 30vh;
     border: 2px solid #FFFFFF1A;
+    background: #40484A;
 }
 
 .fast_answersx_block {
+    display: flex;
+    margin: 15px;
+    margin-bottom:5px;
+    width: 100%;
+    height:28px;
+    flex-flow: row wrap;
 }
 
-.input_fast_anwers {
+    .fast_answersx_block p {
+        font-size: 14px;
+        color:#FFFFFF;
+       
+    }
+
+    .fast_answersx_block div {
+        background-image: url("/Images/icons/close.svg");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 12px;
+        height: 12px;
+        margin-right:38px;
+        margin-left:auto;
+    }
+
+.fast_anwers_button {
+    margin-top: 6px;
+    margin-left: 10px;
+    overflow:auto;
+    height:16.3vh;
 }
 
+    .fast_anwers_button button {
+        background:  #FFFFFF40;
+        width:48.5%;
+        height:30px;
+        margin:3px;
+        margin-right:0px;
+        border:none;
+        border-radius:6px;
+
+    }
+
+    .input_fast_anwers input {
+        border: 2px solid #FFFFFF1A;
+        background: #40484A;
+        width: 97%;
+        margin-left: 15px;
+    }
 
 .dialing_sms_input textarea {
     height: 40px;
