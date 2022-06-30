@@ -10,8 +10,8 @@
     <ProjectReference Include="..\TelegramChatBlazor.BLL\TelegramChatBlazor.BLL.csproj" />
     <ProjectReference Include="..\TelegramChatBlazor.DAL\TelegramChatBlazor.DAL.csproj" />
     <ProjectReference Include="..\TelegramChatBlazor.Domain\TelegramChatBlazor.Domain.csproj" />
-    <ProjectReference Include="..\Template.DAL\TelegramChatBlazor.DAL.csproj" />
-    <ProjectReference Include="..\Template.Domain\TelegramChatBlazor.Domain.csproj" />
+    <ProjectReference Include="..\TelegramChatBlazor.DAL\TelegramChatBlazor.DAL.csproj" />
+    <ProjectReference Include="..\TelegramChatBlazor.Domain\TelegramChatBlazor.Domain.csproj" />
   </ItemGroup>
 
 </Project>
