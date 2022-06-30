@@ -26,8 +26,8 @@
         <nav class="flex-column">
             @foreach (var item in Bots)
             {
-                <div>
-                    <a @onclick="(()=>Redirect(item.UserName))"><div class="folder_img"></div></a>
+                <div @onclick="(()=>Redirect(item.UserName))">
+                    <a><div class="folder_img"></div></a>
                     <div class="folder_text">@item.Name</div>
                 </div>
             }
@@ -56,8 +56,6 @@
         NavigationManager.NavigateTo("/chat/" + value, true);
     }
 
-
-
     private void ShowOrHideLeftTab()
     {
         if (styleHideMenu == String.Empty && styleArrowButton == String.Empty)
@@ -71,7 +69,6 @@
             styleArrowButton = "";
         }
     }
-
 
 
     private bool collapseNavMenu = true;

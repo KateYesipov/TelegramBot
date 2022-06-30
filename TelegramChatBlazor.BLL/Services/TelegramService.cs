@@ -51,8 +51,9 @@ namespace TelegramChatBlazor.BLL.Services
 
         public MessageRequest AddMessage(MessageRequest messageRequest)
         {
+            if (messageRequest != null) { return null; }
             var token = messageRequest.Token;
-            if (String.IsNullOrEmpty(token)) { }
+            if (String.IsNullOrEmpty(token)) { return null; }
             var botClient = new TelegramBotClient(token);
 
             var bot = _botService.GetByToken(messageRequest.Token);
@@ -72,11 +73,10 @@ namespace TelegramChatBlazor.BLL.Services
                     PartnerAvatar = messageRequest.PartnerAvatar,
                     BotAvatar = messageRequest.BotAvatar,
                     BotUserName = messageRequest.BotUserName,
-                    BotId= bot.Id,
+                    BotId = bot.Id,
                     Messages = new List<Message> { new Message {Text= messageRequest.Text,
                                                  CreateAt=DateTime.Now,IsPartner=messageRequest.IsPartner }}
                 };
-
                 _chatRepository.Create(newChat);
                 _chatRepository.Save();
             }
@@ -104,7 +104,7 @@ namespace TelegramChatBlazor.BLL.Services
             var messageRequest = new MessageRequest(token, chatId,
                textMessage, false, "", "", "", "", "", "");
 
-            var url =  _chatBlazorSettings.ApiUrl+"api/apimessage";
+            var url = _chatBlazorSettings.ApiUrl + "api/apimessage";
             var parametrs = new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");
 
             await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);
@@ -122,11 +122,15 @@ namespace TelegramChatBlazor.BLL.Services
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + fileName, FileMode.Create))
                 {
                     await botClient.DownloadFileAsync(file.FilePath, fileStream);
-
                 }
                 return fileName;
             }
             return null;
+        }
+
+        private async Task<string> UploadFileFromTelegram(ITelegramBotClient botClient, string fileId, string pathFolder)
+        {
+            return "";
         }
     }
 }

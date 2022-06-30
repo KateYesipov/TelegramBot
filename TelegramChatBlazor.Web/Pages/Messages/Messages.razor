@@ -7,7 +7,7 @@
 }
 else
 {
-    <div class="companion_block">
+    <div class="companion_block ">
         <div class="companion_img">
             <div class="companion_picture">
                 <img src="@chatModel.PartnerAvatar">
@@ -25,15 +25,14 @@ else
             <button class="up_button_block_first"></button>
             <button class="up_button_block_second"></button>
             <button class="up_button_block_third"></button>
-            <button class="up_button_block_fourth"></button>          
+            <button class="up_button_block_fourth"></button>
             <button class="up_button_block_fifth" @onclick="ShowOrHideRightTab"></button>
         </div>
     </div>
-    <div class="block_correspondence" id="block_message">
+    <div class="block_correspondence @correspondenceMiniCssClass" id="block_message">
         <div class="data_correspondence">
             22 april 2022
         </div>
-
         @foreach (var item in chatModel.Messages)
         {
             <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
@@ -47,7 +46,15 @@ else
                 </div>
             </div>
         }
-
+    </div>
+    <div class="dropdown_block @helpWordCssClass">
+        <div class="fast_answersx_block">
+            <p> Fast answers: (Choose category)</p>
+            <div>+</div>
+        </div>
+        <div class="input_fast_anwers">
+            <input type="text" />
+        </div>
     </div>
     <div class="dialing_sms">
         <div class="dialing_sms_input">
@@ -55,9 +62,12 @@ else
         </div>
         <div class="sticer_button_block">
             <div class="sticer_block">
-                <button class="button_attachment"></button>
+                <label for="fileinput" class="label-wrapper">
+                    <span></span>
+                    <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple/>
+                </label>
+                <button @onclick="ShowHelpWord" class="button_helpworld"></button>
                 <button class="button_smile"></button>
-                <button class="button_helpworld"></button>
             </div>
             <div class="send_button">
                 <button @onclick="SendMessage">
@@ -67,6 +77,14 @@ else
             </div>
         </div>
     </div>
+
+    <style>
+        .custom-input-hide {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    </style>
 }
 
 @code {
@@ -76,15 +94,15 @@ else
     [Parameter]
     public Chat chatModel { get; set; }
 
-
     [Parameter]
-    public EventCallback ShowOrHideRightCallback{ get; set; }
-
-
+    public EventCallback ShowOrHideRightCallback { get; set; }
 
     private string TextMessage { get; set; }
-
     HubConnection? hubConnection;
+
+    private bool showHelpWord = false;
+    private string? correspondenceMiniCssClass => showHelpWord ? "block_correspondence_mini" : null;
+    private string? helpWordCssClass => showHelpWord ? null: "dropdown_block_hide";
 
     protected override async Task OnInitializedAsync()
     {
@@ -114,7 +132,7 @@ else
     private void SendMessage()
     {
         TelegramService.SendMessage(chatModel.Id, TextMessage, token);
-        TextMessage = "";
+        TextMessage = String.Empty;
     }
 
     public async Task ScrollToElementId(string elementId)
@@ -125,5 +143,18 @@ else
     private void ShowOrHideRightTab()
     {
         ShowOrHideRightCallback.InvokeAsync();
+    }
+
+    private void LoadFiles(InputFileChangeEventArgs e)
+    {
+        foreach (var file in e.GetMultipleFiles())
+        {
+
+        }
+    }
+
+    private void ShowHelpWord()
+    {
+        showHelpWord = !showHelpWord;
     }
 }
