@@ -1,6 +1,72 @@
 ﻿<div class="popup @(isShowModal?"":"popup_none")">
     <div class="popup_body">
         <div class="popup_content">
+            <a @onclick="CloseModal" class="popup_close">
+                <img src="/Images/icons/close.svg">
+            </a>
+            
+            <div class="add_messaging"> Add messaging filter</div>
+            <div class="fill_all">Fill all the fields below to make a transaction </div>
+            <div class="fliter_name">
+                <p>Filter name </p>
+                <input type="text" placeholder="Deposit"/>
+            </div>
+            <div class="icon_colors_block">
+                <p>Icon color </p>
+                <div class="color_block">
+                   <ul>
+                       <li style="background:green"></li>
+                        <li style="background:red"></li>
+                         <li style="background:black"></li>
+                          <li style="background:green"></li>
+                           <li style="background:green" ></li>
+                           <li style="background:red"></li>
+                           <li style="background:red"></li>
+                   </ul>
+                    
+                </div>
+            </div>
+            <div class="message_status_block">
+                 <div class="select_block">
+                     <div>
+                <p> Message status</p>
+              <select>
+                    <option>All </option>
+                     <option>All </option>
+                      <option>All </option>
+                </select>
+                </div>
+          <div>
+                 <p>Chat status</p>
+                <select>
+                    <option>All </option>
+                     <option>All </option>
+                      <option>All </option>
+                </select>
+                </div>
+                </div>
+                <div class="select_block" >
+                    <div>
+                <p>Mailing list status </p>
+                <select>
+                    <option>All </option>
+                     <option>All </option>
+                      <option>All </option>
+                </select>
+                </div>
+                <div> 
+                 <p> Bot messages</p>
+                <select>
+                    <option>All </option>
+                     <option>All </option>
+                      <option>All </option>
+                </select>
+                </div>
+            </div>
+          </div>
+           <div class="continue_button">
+               <button>Continue </button>
+           </div>
         </div>
     </div>
 </div>
@@ -8,4 +74,12 @@
 @code {
     [Parameter]
     public bool isShowModal { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickCallback { get; set; }
+
+    public void CloseModal()
+    {
+        OnClickCallback.InvokeAsync();
+    }
 }

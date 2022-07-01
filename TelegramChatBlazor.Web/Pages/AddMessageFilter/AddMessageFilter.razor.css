@@ -21,10 +21,126 @@
 }
 
 .popup_content {
-    background: #ffffff;
+    background: #2e2d2d;
     color: #000000;
-    width: 800px;
-    height: 300px;
-    padding: 30px;
+    width: 420px;
+    height: 500px;
+    padding: 20px;
     position: relative;
+    border-radius: 10px;
 }
+.popup_close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #000000;
+    cursor: pointer;
+}
+    .popup_close img {
+        width: 15px;
+        height: 15px;
+    }
+
+
+.add_messaging {
+    color:#FFFFFF;
+    font-size:20px;
+    line-height:30px;
+}
+.fill_all {
+    color: #FFFFFF80;
+    font-size: 14px;
+    line-height: 20px;
+}
+.fliter_name{
+    margin-top:20px;
+}
+    .fliter_name p {
+        color: #FFFFFF80;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom:10px;
+    }
+    .fliter_name input {
+        margin-top: 0px;
+        width: 99%;
+        background: #2e2d2d;
+        border: 2px solid #FFFFFF1A;
+        border-radius: 6px;
+        color: #FFFFFF;
+        font-size: 14px;
+        height: 42px;
+        padding-left:10px;
+    }
+
+
+    .icon_colors_block p {
+        color: #FFFFFF80;
+        font-size: 14px;
+        line-height: 20px;
+        margin-top:20px;
+    }
+.color_block ul {
+    display: flex;
+    padding:0px;
+}
+
+.color_block ul li {
+    width: 40px;
+    height: 40px;
+    list-style-type: none;
+    border-radius: 50%;
+    margin: 3px;
+  
+}
+
+    .color_block ul li:first-child{
+        margin-left:0px;
+    }
+
+.message_status_block p {
+    color: #FFFFFF80;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 10px;
+    margin-bottom:5px;
+}
+.select_block {
+    display: flex;
+}
+    .select_block div{
+        margin-left:20px;
+        width:47%;
+    }
+    .select_block div:first-child {
+        margin-left: 0px;
+    }
+
+    .select_block div select {
+        background: #2e2d2d;
+        border: 2px solid #FFFFFF1A;
+        border-radius: 6px;
+        color: #FFFFFF;
+        font-size: 14px;
+        width: 100%;
+        height: 35px;
+    }
+
+    .select_block div select option {
+    }
+
+.continue_button{
+    float:right;
+    margin-top:20px;
+}
+    .continue_button button {
+        background: #FFFFFF;
+        color: #23262C;
+        font-size: 14px;
+        line-height: 20px;
+        width:100px;
+        height:35px;
+        border-radius:6px;
+    }
+
+
