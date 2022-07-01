@@ -20,7 +20,10 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
             services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddTransient<IBotRepository, BotRepository>();
             services.AddScoped<IBotService, BotService>();
-            
+
+            services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddScoped<IColorService, ColorService>();
+
             services.AddSignalR();
             services.TryAddSingleton<IAppSettingsService, AppSettingsService>();
             services.AddHttpContextAccessor();

@@ -51,7 +51,7 @@ namespace TelegramChatBlazor.BLL.Services
 
         public MessageRequest AddMessage(MessageRequest messageRequest)
         {
-            if (messageRequest != null) { return null; }
+            if (messageRequest == null) { return null; }
             var token = messageRequest.Token;
             if (String.IsNullOrEmpty(token)) { return null; }
             var botClient = new TelegramBotClient(token);

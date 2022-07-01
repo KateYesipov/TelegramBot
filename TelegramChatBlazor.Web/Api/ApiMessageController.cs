@@ -36,10 +36,12 @@ namespace TelegramChatBlazor.Web.Api
         public async void Post([FromBody] MessageRequest value)
         {
             var newMessage= _telegramService.AddMessage(value);
-
-            var messageNotification = _mapper.Map<MessageNotification>(newMessage);
-            await _hubConnection.StartAsync();
-            await _hubConnection.SendAsync("SendMessageAsync", messageNotification);
+            if (newMessage != null)
+            {
+                var messageNotification = _mapper.Map<MessageNotification>(newMessage);
+                await _hubConnection.StartAsync();
+                await _hubConnection.SendAsync("SendMessageAsync", messageNotification);
+            }
         }
     }
 }
