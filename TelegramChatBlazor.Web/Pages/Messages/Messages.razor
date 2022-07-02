@@ -2,6 +2,7 @@
 @inject IJSRuntime JSRuntime
 @inject ITelegramService TelegramService
 
+
 @if (chatModel == null)
 {
 }
@@ -30,11 +31,15 @@ else
         </div>
     </div>
     <div class="block_correspondence @correspondenceMiniCssClass" id="block_message">
-        <div class="data_correspondence">
+        @* <div class="data_correspondence">
             22 april 2022
-        </div>
+            </div>*@
         @foreach (var item in chatModel.Messages)
         {
+            <div class="data_correspondence">
+                @Datetime.GetDateChat(item.CreateAt)
+            </div>
+
             <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
                 <div class="img_sender_message">
                     <div class="picture_sender_message">
@@ -58,7 +63,7 @@ else
         <div class="fast_anwers_button">
             @for (var i = 0; i < 50; i++)
             {
-                  <button></button>  
+                <button></button>
             }
         </div>
     </div>
@@ -70,7 +75,7 @@ else
             <div class="sticer_block">
                 <label for="fileinput" class="label-wrapper">
                     <span></span>
-                    <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple/>
+                    <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple />
                 </label>
                 <button @onclick="ShowHelpWord" class="button_helpworld"></button>
                 <button class="button_smile"></button>
@@ -108,7 +113,7 @@ else
 
     private bool showHelpWord = false;
     private string? correspondenceMiniCssClass => showHelpWord ? "block_correspondence_mini" : null;
-    private string? helpWordCssClass => showHelpWord ? null: "dropdown_block_hide";
+    private string? helpWordCssClass => showHelpWord ? null : "dropdown_block_hide";
 
     protected override async Task OnInitializedAsync()
     {
