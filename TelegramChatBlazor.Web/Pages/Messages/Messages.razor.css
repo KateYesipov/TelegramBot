@@ -97,7 +97,7 @@
 
 
 .block_correspondence {
-    max-height: 70vh;
+    max-height: 68vh;
     overflow: auto;
     height: inherit;
 }
@@ -236,7 +236,7 @@
 .dialing_sms {
     height: 14vh;
     background: #40484A ;
-    margin-top:20px;
+    margin-top:17px;
 }
 
 .dropdown_block {
