@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TelegramChatBlazor.DAL.Context;
 using TelegramChatBlazor.Domain.Abstract.Repository;
-using TelegramChatBlazor.Domain.Models;
+using TelegramChatBlazor.Domain.Models.Messages;
 
 namespace TelegramChatBlazor.DAL.Repository
 {

@@ -2,10 +2,12 @@
 using Newtonsoft.Json;
 using System.Text;
 using Telegram.Bot;
+using Telegram.Bot.Types.InputFiles;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
 using TelegramChatBlazor.Domain.Models;
 using TelegramChatBlazor.Domain.Models.Api;
+using TelegramChatBlazor.Domain.Models.Messages;
 using TelegramChatBlazor.Domain.Models.Settings;
 
 namespace TelegramChatBlazor.BLL.Services
@@ -62,7 +64,7 @@ namespace TelegramChatBlazor.BLL.Services
             var chat = _chatRepository.GetById(chatId);
             if (chat == null)
             {
-                messageRequest.PartnerAvatar = UploadImageFromTelegram(botClient, messageRequest.PartnerAvatar, "/Images/avatar//").Result;
+                messageRequest.PartnerAvatar = SaveImageFromTelegram(botClient, messageRequest.PartnerAvatar, "/Images/avatar//").Result;
 
                 var newChat = new Chat
                 {
@@ -96,13 +98,13 @@ namespace TelegramChatBlazor.BLL.Services
             return messageRequest;
         }
 
-        public async Task SendMessage(long chatId, string textMessage, string token)
+        public async Task SendMessage(SendMessage sendMessage)
         {
-            if (String.IsNullOrEmpty(token)) { }
-            var botClient = new TelegramBotClient(token);
+            if (String.IsNullOrEmpty(sendMessage.Token)) { throw new Exception("token null"); }
+            var botClient = new TelegramBotClient(sendMessage.Token);
             //Db
-            var messageRequest = new MessageRequest(token, chatId,
-               textMessage, false, "", "", "", "", "", "");
+            var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId,
+               sendMessage.TextMessage, false, "", "", "", "", "", "");
 
             var url = _chatBlazorSettings.ApiUrl + "api/apimessage";
             var parametrs = new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");
@@ -110,10 +112,20 @@ namespace TelegramChatBlazor.BLL.Services
             await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);
 
             //Telegram send
-            await botClient.SendTextMessageAsync(chatId, textMessage);
+            await botClient.SendTextMessageAsync(sendMessage.ChatId, sendMessage.TextMessage);
+
+            //foreach (var item in collection)
+            //{
+            //    //var file = new InputOnlineFile();
+            //    //await botClient.SendPhotoAsync(chatId, file);
+
+            //    //var file = new InputOnlineFile();
+            //    //await botClient.SendDocumentAsync(chatId, file);
+            //}
+
         }
 
-        private async Task<string> UploadImageFromTelegram(ITelegramBotClient botClient, string fileId, string pathFolder)
+        private async Task<string> SaveImageFromTelegram(ITelegramBotClient botClient, string fileId, string pathFolder)
         {
             var file = await botClient.GetFileAsync(fileId);
             if (file != null)
@@ -128,7 +140,7 @@ namespace TelegramChatBlazor.BLL.Services
             return null;
         }
 
-        private async Task<string> UploadFileFromTelegram(ITelegramBotClient botClient, string fileId, string pathFolder)
+        private async Task<string> UploadFileToTelegram(ITelegramBotClient botClient,string file, string pathFolder)
         {
             return "";
         }

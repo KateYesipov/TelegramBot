@@ -1,4 +1,5 @@
-﻿namespace TelegramChatBlazor.Domain.Models
+﻿using TelegramChatBlazor.Domain.Models.Messages;
+namespace TelegramChatBlazor.Domain.Models
 {
     public class Chat
     {

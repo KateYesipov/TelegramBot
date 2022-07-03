@@ -1,4 +1,5 @@
 ﻿using TelegramChatBlazor.Domain.Models;
+using TelegramChatBlazor.Domain.Models.Messages;
 
 namespace TelegramChatBlazor.Domain.Abstract.Repository
 {

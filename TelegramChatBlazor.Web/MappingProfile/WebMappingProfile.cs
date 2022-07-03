@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using TelegramChatBlazor.Domain.Models;
 using TelegramChatBlazor.Domain.Models.Api;
+using TelegramChatBlazor.Domain.Models.Messages;
 using TelegramChatBlazor.Domain.Models.SignalR;
 
 namespace TelegramChatBlazor.Web.MappingProfile

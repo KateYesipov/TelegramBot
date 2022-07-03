@@ -114,6 +114,8 @@ else
     [Parameter]
     public EventCallback ShowOrHideRightCallback { get; set; }
 
+    public List<IBrowserFile> files = new List<IBrowserFile>();
+
     private string TextMessage { get; set; }
     HubConnection? hubConnection;
 
@@ -148,7 +150,8 @@ else
 
     private void SendMessage()
     {
-        TelegramService.SendMessage(chatModel.Id, TextMessage, token);
+        var newSendmessage = new SendMessage { ChatId = chatModel.Id, TextMessage = TextMessage, Token = token };
+        TelegramService.SendMessage(newSendmessage);
         TextMessage = String.Empty;
     }
 
@@ -162,11 +165,11 @@ else
         ShowOrHideRightCallback.InvokeAsync();
     }
 
-    private void LoadFiles(InputFileChangeEventArgs e)
+    private async void LoadFiles(InputFileChangeEventArgs e)
     {
         foreach (var file in e.GetMultipleFiles())
         {
-
+            files.Add(file);
         }
     }
 
