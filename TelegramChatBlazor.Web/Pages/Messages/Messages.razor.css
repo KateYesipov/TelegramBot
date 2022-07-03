@@ -113,9 +113,11 @@
 
 .sender_message {
    
-  /*  margin: 20px;*/
+
     width:100%;
     display:flex;
+ 
+ 
   
 }
 
@@ -143,6 +145,7 @@
     .text_block_sender {
         background: #3f3f3f;
         width: auto;
+        max-width:300px;
         height: auto;
         max-width: 70%;
         border: 1px solid #808080;
@@ -165,15 +168,41 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
+  
+}
+.sender_message:hover .message_hover_block {
+    opacity: 1;
+   
 }
 
-    .sender_message_right .img_sender_message {
-        width: 80px;
-        height: 60px;
-        display: table-cell;
-        float: right;
-        order:1;
-    }
+.sender_message_right:hover .message_hover_block {
+    opacity: 1;
+}
+.message_hover_block {
+    width: 70px;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 5px;
+    display: flex;
+}
+
+.message_hover_block_none{
+    opacity:0;
+}
+
+.message_hover_block img {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.sender_message_right .img_sender_message {
+    width: 80px;
+    height: 60px;
+    display: table-cell;
+    float: right;
+    order: 2;
+}
 
     .sender_message_right .picture_sender_message {
         border-radius: 50%;
@@ -184,18 +213,20 @@
         margin: 12px;
     }
 
-    .sender_message_right .text_block_sender {
-        background: #ffffff;
-        width: auto;
-        height: auto;
-        max-width: 75%;
-        border: 1px solid #ffffff;
-        display: table;
-        padding: 0px 10px 0px 10px;
-        margin-top: 15px;
-        float: right;
-        border-radius: 8px;
-    }
+.sender_message_right .text_block_sender {
+    background: #ffffff;
+    width: auto;
+    max-width: 300px;
+    height: auto;
+    max-width: 75%;
+    border: 1px solid #ffffff;
+    display: table;
+    padding: 0px 10px 0px 10px;
+    margin-top: 15px;
+    float: right;
+    border-radius: 8px;
+    order: 1;
+}
 
         .sender_message_right .text_block_sender p {
             color: #3f3f3f;
@@ -205,6 +236,7 @@
 .dialing_sms {
     height: 14vh;
     background: #40484A ;
+    margin-top:20px;
 }
 
 .dropdown_block {

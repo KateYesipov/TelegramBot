@@ -41,6 +41,7 @@ else
             </div>
 
             <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
+           
                 <div class="img_sender_message">
                     <div class="picture_sender_message">
                         <img src="@chatModel.PartnerAvatar">
@@ -49,6 +50,11 @@ else
                 <div class="text_block_sender">
                     <p>@item.Text</p>
                 </div>
+                   <div class="message_hover_block message_hover_block_none ">
+              <img src="/Images/icons/forwarding.svg"/>
+              <img src="/Images/icons/additionally.svg"/>
+              <img src="/Images/icons/translation.svg"/>
+              </div>
             </div>
         }
     </div>
