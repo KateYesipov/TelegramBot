@@ -53,9 +53,10 @@ namespace TelegramChatBlazor.BLL.Services
 
         public MessageRequest AddMessage(MessageRequest messageRequest)
         {
-            if (messageRequest == null) { return null; }
+            if (messageRequest == null) { throw new Exception("messageRequest null"); }
             var token = messageRequest.Token;
-            if (String.IsNullOrEmpty(token)) { return null; }
+            if (String.IsNullOrEmpty(token)) { throw new Exception("token null"); }
+        
             var botClient = new TelegramBotClient(token);
 
             var bot = _botService.GetByToken(messageRequest.Token);
@@ -69,6 +70,7 @@ namespace TelegramChatBlazor.BLL.Services
                 var newChat = new Chat
                 {
                     Id = chatId,
+                    TelegramChatId= messageRequest.TelegramChatId,
                     PartnerUserName = messageRequest.PartnerUserName,
                     PartnerName = messageRequest.PartnerName,
                     PartnerLastName = messageRequest.PartnerLastName,
@@ -103,7 +105,7 @@ namespace TelegramChatBlazor.BLL.Services
             if (String.IsNullOrEmpty(sendMessage.Token)) { throw new Exception("token null"); }
             var botClient = new TelegramBotClient(sendMessage.Token);
             //Db
-            var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId,
+            var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId, sendMessage.TelegramChatId,
                sendMessage.TextMessage, false, "", "", "", "", "", "");
 
             var url = _chatBlazorSettings.ApiUrl + "api/apimessage";
@@ -112,16 +114,19 @@ namespace TelegramChatBlazor.BLL.Services
             await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);
 
             //Telegram send
-            await botClient.SendTextMessageAsync(sendMessage.ChatId, sendMessage.TextMessage);
+            if (String.IsNullOrWhiteSpace(sendMessage.TextMessage))
+            {
+                await botClient.SendTextMessageAsync(sendMessage.TelegramChatId, sendMessage.TextMessage);
+            }
 
-            //foreach (var item in collection)
-            //{
-            //    //var file = new InputOnlineFile();
-            //    //await botClient.SendPhotoAsync(chatId, file);
+            foreach (var item in sendMessage.Attachments)
+            {
+                var file = new InputOnlineFile(item.Stream, item.Name);
+                await botClient.SendPhotoAsync(sendMessage.TelegramChatId, file);
 
-            //    //var file = new InputOnlineFile();
-            //    //await botClient.SendDocumentAsync(chatId, file);
-            //}
+                //var file = new InputOnlineFile();
+                //await botClient.SendDocumentAsync(chatId, file);
+            }
 
         }
 

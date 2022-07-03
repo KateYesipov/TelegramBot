@@ -3,14 +3,14 @@
 @inject IBotService BotService;
 
 <PageTitle>Chat</PageTitle>
-@if (!string.IsNullOrEmpty(token))
+@if (!string.IsNullOrEmpty(bot.Token))
 {
     <div class="common_block">
         <div class="main_block">
-            <SelectChat OnClickCallback="@GetMessages" token="@token"></SelectChat>
+            <SelectChat OnClickCallback="@GetMessages" token="@bot.Token"></SelectChat>
         </div>
         <div class="main_block_two @styleTwoBlock">
-            <Messages chatModel="chatModel" ShowOrHideRightCallback="ShowOrHideRightTab" token="@token"></Messages>
+            <Messages chatModel="chatModel" ShowOrHideRightCallback="ShowOrHideRightTab" token="@bot.Token"></Messages>
         </div>
         <div class="main_block_three @styleThreeBlock">
             <PartnerInfo chatModel="chatModel"></PartnerInfo>
@@ -22,7 +22,7 @@
     [Parameter]
     public string userName { get; set; }
 
-    public string? token;
+    public Bot? bot;
     public Domain.Models.Chat chatModel;
 
     //style class
@@ -31,7 +31,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        token = BotService.GetByUsername(userName)?.Token;
+        bot = BotService.GetByUsername(userName);
     }
 
     private void GetMessages(long ChatId)

@@ -4,6 +4,7 @@ namespace TelegramChatBlazor.Domain.Models
     public class Chat
     {
         public long Id { get; set; }
+        public long TelegramChatId { get; set; }
         public string? PartnerAvatar { get; set; }
         public string? PartnerUserName { get; set; }
         public string? PartnerName { get; set; }

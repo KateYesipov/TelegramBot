@@ -77,6 +77,9 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.Property<string>("PartnerUserName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("TelegramChatId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BotId");

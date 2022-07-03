@@ -12,8 +12,8 @@ using TelegramChatBlazor.DAL.Context;
 namespace TelegramChatBlazor.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220623123706_Init")]
-    partial class Init
+    [Migration("20220703145107_update_table_chat")]
+    partial class update_table_chat
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,6 +79,9 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.Property<string>("PartnerUserName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("TelegramChatId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BotId");
@@ -87,6 +90,23 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("Chat");
+                });
+
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Color", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("ColorHex")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Message", b =>

@@ -8,6 +8,7 @@ namespace TelegramChatBlazor.DAL.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
+        public long TelegramChatId { get; set; }
         public string? PartnerAvatar { get; set; }
         public string? PartnerUserName { get; set; }
         public string? PartnerName { get; set; }

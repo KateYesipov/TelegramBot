@@ -73,19 +73,22 @@ else
             }
         </div>
     </div>
-      <div class="inserted_pictures">
-                @foreach (var item in imageDataUrls)
-                {
-                    <div>
-                       <button class="button_close_img button_close_img_none ">
-                           <img src="/Images/icons/close_img.svg"/>
-                       </button>
-                        <img src="@item" />
-                        </div>
-                }
-            </div>
+    @if (imageDataUrls.Count() > 0)
+    {
+        <div class="inserted_pictures">
+            @foreach (var item in imageDataUrls)
+            {
+                <div>
+                    <button class="button_close_img button_close_img_none ">
+                        <img src="/Images/icons/close_img.svg" />
+                    </button>
+                    <img src="@item" />
+                </div>
+            }
+        </div>
+    }
     <div class="dialing_sms">
-          
+
         <div class="dialing_sms_input">
             <textarea @bind="@TextMessage" type="text" placeholder="Press CTRL + Enter to send"></textarea>
         </div>
@@ -99,7 +102,7 @@ else
                 <button class="button_smile"></button>
             </div>
             <div class="send_button">
-                <button @onclick="SendMessage">
+                <button @onclick="@(async () => await SendMessage())">
                     <img src="/Images/icons/arrow-up.svg" />
                     send
                 </button>
@@ -162,18 +165,21 @@ else
         }
     }
 
-    private void SendMessage()
+    private async Task SendMessage()
     {
         var newSendmessage = new SendMessage
             {
                 ChatId = chatModel.Id,
+                TelegramChatId = chatModel.TelegramChatId,
                 TextMessage = TextMessage,
                 Token = token,
                 Attachments = Attachments
             };
 
-        TelegramService.SendMessage(newSendmessage);
+        await TelegramService.SendMessage(newSendmessage);
         TextMessage = String.Empty;
+        imageDataUrls.Clear();
+        Attachments.Clear();
     }
 
     public async Task ScrollToElementId(string elementId)
@@ -191,18 +197,17 @@ else
         var format = "image/png";
         foreach (var imageFile in e.GetMultipleFiles())
         {
-            //var stream = imageFile.OpenReadStream();
-            //var fileName = imageFile.Name;
-            //var typeFile = imageFile.ContentType;
-
-            //Attachments.Add(new Attachment { Stream = stream, Name = fileName, Type = typeFile });
-
-
             var resizedImageFile = await imageFile.RequestImageFileAsync(format, 100, 100);
-            var buffer = new byte[resizedImageFile.Size];
-            await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+            var buffer = new byte[imageFile.Size];
+            await imageFile.OpenReadStream().ReadAsync(buffer);
             var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
             imageDataUrls.Add(imageDataUrl);
+
+            var fileName = imageFile.Name;
+            var typeFile = imageFile.ContentType;
+            MemoryStream stream = new MemoryStream(buffer);
+
+            Attachments.Add(new Attachment { Stream = stream, Name = fileName, Type = typeFile });
             StateHasChanged();
         }
     }
@@ -211,4 +216,4 @@ else
     {
         showHelpWord = !showHelpWord;
     }
-}
+ }

@@ -58,7 +58,7 @@ namespace TelegramChatBlazor.BLL.Services
 
                 var newChatId = bot.Id - message.Chat.Id;
 
-                var newMessage = new MessageRequest(Token, newChatId,
+                var newMessage = new MessageRequest(Token, newChatId, message.Chat.Id,
                     message.Text, true, avatarPartnerId, message.Chat.Username,
                     message.Chat.FirstName, message.Chat.LastName,
                     bot.FirstName, "");

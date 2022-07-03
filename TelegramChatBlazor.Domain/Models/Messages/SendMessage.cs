@@ -10,6 +10,8 @@ namespace TelegramChatBlazor.Domain.Models.Messages
     public class SendMessage
     {
         public long ChatId { get; set; }
+        public long TelegramChatId { get; set; }
+        
         public string Token { get; set; }
         public string TextMessage { get; set; }
         public List<Attachment> Attachments { get; set; }
