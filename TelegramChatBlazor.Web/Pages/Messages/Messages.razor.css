@@ -235,8 +235,10 @@
 
 .dialing_sms {
     height: 14vh;
-    background: #40484A ;
-   
+    background: #40484A;
+    position: absolute;
+    bottom: 0;
+    width:100%;
 }
 
 .inserted_pictures {
