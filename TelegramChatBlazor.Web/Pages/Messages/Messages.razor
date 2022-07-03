@@ -41,7 +41,7 @@ else
             </div>
 
             <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
-           
+
                 <div class="img_sender_message">
                     <div class="picture_sender_message">
                         <img src="@chatModel.PartnerAvatar">
@@ -50,11 +50,11 @@ else
                 <div class="text_block_sender">
                     <p>@item.Text</p>
                 </div>
-                   <div class="message_hover_block message_hover_block_none ">
-              <img src="/Images/icons/forwarding.svg"/>
-              <img src="/Images/icons/additionally.svg"/>
-              <img src="/Images/icons/translation.svg"/>
-              </div>
+                <div class="message_hover_block message_hover_block_none ">
+                    <img src="/Images/icons/forwarding.svg" />
+                    <img src="/Images/icons/additionally.svg" />
+                    <img src="/Images/icons/translation.svg" />
+                </div>
             </div>
         }
     </div>
@@ -73,7 +73,19 @@ else
             }
         </div>
     </div>
+      <div class="inserted_pictures">
+                @foreach (var item in imageDataUrls)
+                {
+                    <div>
+                       <button class="button_close_img button_close_img_none ">
+                           <img src="/Images/icons/close_img.svg"/>
+                       </button>
+                        <img src="@item" />
+                        </div>
+                }
+            </div>
     <div class="dialing_sms">
+          
         <div class="dialing_sms_input">
             <textarea @bind="@TextMessage" type="text" placeholder="Press CTRL + Enter to send"></textarea>
         </div>
@@ -152,10 +164,13 @@ else
 
     private void SendMessage()
     {
-        var newSendmessage = new SendMessage { ChatId = chatModel.Id,
-                                              TextMessage = TextMessage,
-                                              Token = token,
-                                              Attachments=Attachments};
+        var newSendmessage = new SendMessage
+            {
+                ChatId = chatModel.Id,
+                TextMessage = TextMessage,
+                Token = token,
+                Attachments = Attachments
+            };
 
         TelegramService.SendMessage(newSendmessage);
         TextMessage = String.Empty;
@@ -176,11 +191,11 @@ else
         var format = "image/png";
         foreach (var imageFile in e.GetMultipleFiles())
         {
-            var stream = imageFile.OpenReadStream();
-            var fileName = imageFile.Name;
-            var typeFile = imageFile.ContentType;
+            //var stream = imageFile.OpenReadStream();
+            //var fileName = imageFile.Name;
+            //var typeFile = imageFile.ContentType;
 
-            Attachments.Add(new Attachment { Stream = stream, Name = fileName, Type = typeFile });
+            //Attachments.Add(new Attachment { Stream = stream, Name = fileName, Type = typeFile });
 
 
             var resizedImageFile = await imageFile.RequestImageFileAsync(format, 100, 100);
@@ -188,6 +203,7 @@ else
             await resizedImageFile.OpenReadStream().ReadAsync(buffer);
             var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
             imageDataUrls.Add(imageDataUrl);
+            StateHasChanged();
         }
     }
 

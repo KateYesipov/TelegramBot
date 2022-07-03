@@ -97,7 +97,7 @@
 
 
 .block_correspondence {
-    max-height: 68vh;
+    max-height: 58.5vh;
     overflow: auto;
     height: inherit;
 }
@@ -236,12 +236,59 @@
 .dialing_sms {
     height: 14vh;
     background: #40484A ;
-    margin-top:17px;
+   
 }
+
+.inserted_pictures {
+    display: flex;
+    width: 100%;
+   height:12vh;
+ 
+    background: #40484A;
+}
+
+    .inserted_pictures:hover .button_close_img{
+        opacity:1;
+    }
+
+    .inserted_pictures div {
+        width: 60px;
+        height: 60px;
+        margin: 10px;
+        position: relative;
+    }
+
+        .inserted_pictures div img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+         
+        }
+        .inserted_pictures div button {
+            background: #00000080;
+            width: 20px;
+            height: 18px;
+            border-radius: 50%;
+            border: none;
+            position: absolute;
+            top:8%;
+            right:9%;
+        }
+
+            .inserted_pictures div button img {
+                width: 9px;
+                height: 9px;
+                display:block;
+                margin-right:5px;
+            }
+.button_close_img_none{
+    opacity:0;
+}
+
 
 .dropdown_block {
     width: 100%;
-    height: 30vh;
+    height: 28vh;
     border: 2px solid #FFFFFF1A;
     background: #40484A;
 }
