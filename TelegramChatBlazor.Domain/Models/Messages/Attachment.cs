@@ -8,5 +8,8 @@ namespace TelegramChatBlazor.Domain.Models.Messages
 {
     public class Attachment
     {
+        public Stream Stream { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
     }
 }

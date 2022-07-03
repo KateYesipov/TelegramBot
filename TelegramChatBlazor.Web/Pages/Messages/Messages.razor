@@ -114,7 +114,9 @@ else
     [Parameter]
     public EventCallback ShowOrHideRightCallback { get; set; }
 
-    public List<IBrowserFile> files = new List<IBrowserFile>();
+
+    public List<Attachment> Attachments = new List<Attachment>();
+    private IList<string> imageDataUrls = new List<string>();
 
     private string TextMessage { get; set; }
     HubConnection? hubConnection;
@@ -150,7 +152,11 @@ else
 
     private void SendMessage()
     {
-        var newSendmessage = new SendMessage { ChatId = chatModel.Id, TextMessage = TextMessage, Token = token };
+        var newSendmessage = new SendMessage { ChatId = chatModel.Id,
+                                              TextMessage = TextMessage,
+                                              Token = token,
+                                              Attachments=Attachments};
+
         TelegramService.SendMessage(newSendmessage);
         TextMessage = String.Empty;
     }
@@ -167,9 +173,21 @@ else
 
     private async void LoadFiles(InputFileChangeEventArgs e)
     {
-        foreach (var file in e.GetMultipleFiles())
+        var format = "image/png";
+        foreach (var imageFile in e.GetMultipleFiles())
         {
-            files.Add(file);
+            var stream = imageFile.OpenReadStream();
+            var fileName = imageFile.Name;
+            var typeFile = imageFile.ContentType;
+
+            Attachments.Add(new Attachment { Stream = stream, Name = fileName, Type = typeFile });
+
+
+            var resizedImageFile = await imageFile.RequestImageFileAsync(format, 100, 100);
+            var buffer = new byte[resizedImageFile.Size];
+            await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+            var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+            imageDataUrls.Add(imageDataUrl);
         }
     }
 
