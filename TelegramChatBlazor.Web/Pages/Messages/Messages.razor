@@ -30,10 +30,7 @@ else
             <button class="up_button_block_fifth" @onclick="ShowOrHideRightTab"></button>
         </div>
     </div>
-    <div class="block_correspondence @correspondenceMiniCssClass" id="block_message">
-        @* <div class="data_correspondence">
-            22 april 2022
-            </div>*@
+    <div class="block_correspondence @correspondenceMiniCssClass @(imageDataUrls.Count()>0?"block_correspondence_attachement":"")" id="block_message">
         @foreach (var item in chatModel.Messages)
         {
             <div class="data_correspondence">
@@ -75,7 +72,7 @@ else
     </div>
     @if (imageDataUrls.Count() > 0)
     {
-        <div class="inserted_pictures">
+        <div class="inserted_pictures ">
             @foreach (var item in imageDataUrls)
             {
                 <div>
@@ -137,6 +134,7 @@ else
     HubConnection? hubConnection;
 
     private bool showHelpWord = false;
+
     private string? correspondenceMiniCssClass => showHelpWord ? "block_correspondence_mini" : null;
     private string? helpWordCssClass => showHelpWord ? null : "dropdown_block_hide";
 
