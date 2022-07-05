@@ -24,6 +24,10 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
             services.AddTransient<IColorRepository, ColorRepository>();
             services.AddScoped<IColorService, ColorService>();
 
+            services.AddTransient<IManagerRepository, ManagerRepostitory>();
+            services.AddScoped<IManagerService, ManagerService>();
+            
+
             services.AddSignalR();
             services.TryAddSingleton<IAppSettingsService, AppSettingsService>();
             services.AddHttpContextAccessor();

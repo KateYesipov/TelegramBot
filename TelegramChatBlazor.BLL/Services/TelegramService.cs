@@ -121,7 +121,7 @@ namespace TelegramChatBlazor.BLL.Services
 
             foreach (var item in sendMessage.Attachments)
             {
-                var file = new InputOnlineFile(item.Stream, item.Name);
+                var file = new InputOnlineFile(item.Stream, item.FileNme);
                 await botClient.SendPhotoAsync(sendMessage.TelegramChatId, file);
 
                 //var file = new InputOnlineFile();

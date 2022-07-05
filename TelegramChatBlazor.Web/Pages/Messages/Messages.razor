@@ -222,7 +222,7 @@ else
             var typeFile = imageFile.ContentType;
             MemoryStream stream = new MemoryStream(buffer);
 
-            Attachments.Add(new Attachment { Stream = stream, Name = fileName, Type = typeFile });
+            Attachments.Add(new Attachment { Stream = stream, FileNme = fileName, ContentType = typeFile });
             StateHasChanged();
         }
     }

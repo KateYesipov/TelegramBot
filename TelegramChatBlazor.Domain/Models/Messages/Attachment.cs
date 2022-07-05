@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace TelegramChatBlazor.Domain.Models.Messages
 {
-    public class Attachment
+    public class Attachment 
     {
+        public long Id { get; set; }
+        public string FileNme { get; set; }
+        public string ContentType { get; set; }
+        public long FileSize { get; set; }
+        public long MessageId { get; set; }
+        public Message Message { get; set; }
+
         public Stream Stream { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
     }
 }
