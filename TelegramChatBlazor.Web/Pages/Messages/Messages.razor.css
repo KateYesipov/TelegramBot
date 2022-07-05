@@ -113,6 +113,7 @@
 .data_correspondence {
     color: #808080;
     text-align: center;
+    margin-top:15px;
 }
 
 .sender_message {
@@ -120,6 +121,8 @@
 
     width:100%;
     display:flex;
+    margin-top:15px;
+    
  
  
   
@@ -166,24 +169,14 @@
     }
 
 
-.picture_block_sender {
-    height: 200px;
-    width: 250px;
-    background: #FFFFFF;
-    padding: 10px;
  
-}
-    .picture_block_sender img{
-        width:100%;
-        height:100%;
-        
-    }
+
 
 
 .message_picture {
     width: 70px;
     margin: auto;
-    margin-left: 145px;
+    margin-left: 10px;
     margin-right: 5px;
     display: flex;
 }
@@ -193,8 +186,25 @@
     height: 15px;
     margin-right: 10px;
 }
-.sender_message_right .picture_block_sender {
+.sender_message_right .ImageBlock {
     order: 1;
+}
+.sender_message_right .message_picture {
+    order: 0;
+}
+
+
+.sender_message:hover .message_picture {
+    opacity: 1;
+}
+
+.sender_message_right:hover .message_picture {
+    opacity: 1;
+}
+
+
+.message_picture_none {
+    opacity: 0;
 }
 
 
