@@ -8,5 +8,6 @@ namespace TelegramChatBlazor.Domain.Models.Messages
         public DateTime CreateAt { get; set; }
         public long ChatId { get; set; }
         public Chat Chat { get; set; }
+        public List<Attachment> Attachments { get; set; }
     }
 }
