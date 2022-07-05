@@ -13,10 +13,18 @@ namespace TelegramChatBlazor.DAL.Context
         public DbSet<Bot> Bots { get; set; }
         public DbSet<Chat> Chat { get; set; }
         public DbSet<Message> Message { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Chat>().HasIndex(u => u.Id).IsUnique();
+
+            builder.Entity<Category>().HasMany(x => x.Answers)
+           .WithOne(x => x.Category).HasForeignKey(x => x.CategoryId)
+           .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Chat>()
            .HasMany<Message>(g => g.Messages)
@@ -25,6 +33,10 @@ namespace TelegramChatBlazor.DAL.Context
             builder.Entity<Bot>()
            .HasMany<Chat>(g => g.Chats)
            .WithOne(s => s.Bot).HasForeignKey(s => s.BotId);
+
+            builder.Entity<Message>()
+           .HasMany<Attachment>(g => g.Attachments)
+           .WithOne(s => s.Message).HasForeignKey(s => s.MessageId);
 
             base.OnModelCreating(builder);
         }

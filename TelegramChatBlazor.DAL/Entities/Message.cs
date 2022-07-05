@@ -7,5 +7,10 @@
         public DateTime CreateAt { get; set; }
         public long ChatId { get; set; }
         public Chat Chat { get; set; }
+        public List<Attachment> Attachments { get; set; }
+        public Message()
+        {
+            Attachments = new List<Attachment>();
+        }
     }
 }
