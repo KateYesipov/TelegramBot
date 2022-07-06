@@ -6,9 +6,10 @@ namespace TelegramChatBlazor.Domain.Abstract.Repository
     public interface IMessageRepository
     {
         List<Message> GetAll();
-        void Create(Message item);
+        long Create(Message item);
         void Delete(Guid id);
         void Save();
         List<Message> GetById(long chatId);
+        Message GetByMessageGroupId(long messageGroupId);
     }
 }

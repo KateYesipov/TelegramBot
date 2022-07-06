@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TelegramChatBlazor.Domain.Models.Messages
+namespace TelegramChatBlazor.DAL.Entities
 {
-    public class Attachment 
+    public class Attachment : Entity<long>
     {
         public string FilePath { get; set; }
         public string Type { get; set; }

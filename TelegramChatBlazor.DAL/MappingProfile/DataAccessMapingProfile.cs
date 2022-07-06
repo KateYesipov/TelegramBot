@@ -8,6 +8,7 @@ namespace TelegramChatBlazor.DAL.MappingProfile
         public DataAccessMapingProfile()
         {
             CreateMap<Message, Domain.Models.Messages.Message>().ReverseMap();
+            CreateMap<Attachment, Domain.Models.Messages.Attachment>().ReverseMap();
             CreateMap<Chat, Domain.Models.Chats.Chat>().ReverseMap();
             CreateMap<Bot, Domain.Models.Bot>().ReverseMap();
             CreateMap<Color, Domain.Models.Color>().ReverseMap();

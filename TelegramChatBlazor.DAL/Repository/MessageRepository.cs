@@ -17,13 +17,19 @@ namespace TelegramChatBlazor.DAL.Repository
             _mapper = mapper;
         }
 
-        public void Create(Message item)
+        public long Create(Message item)
         {
             _context.Database.ExecuteSqlRaw(@"Insert into Message 
-           (Text, IsPartner, CreateAt,ChatId,FilePath,MessageGroupId,Type)
-           Values({0},{1},{2},{3},{4},{5},{6})",
-           item.Text,item.IsPartner, item.CreateAt,
-           item.ChatId,item.FilePath,item.MessageGroupId,item.Type);
+           (Text, IsPartner, CreateAt,ChatId,MessageGroupId,Type)
+           OUTPUT inserted.Id
+           Values({0},{1},{2},{3},{4},{5}) ",
+              item.Text ?? "", item.IsPartner, item.CreateAt,
+              item.ChatId, item.MessageGroupId, item.Type);
+
+            _context.SaveChanges();
+
+            var id = _context.Message.ToList().LastOrDefault().Id;
+            return id;
         }
 
         public void Delete(Guid id)
@@ -41,8 +47,14 @@ namespace TelegramChatBlazor.DAL.Repository
 
         public List<Message> GetById(long chatId)
         {
-            var messages = _context.Message.Where(x=>x.ChatId==chatId).ToList();
+            var messages = _context.Message.Where(x => x.ChatId == chatId).ToList();
             return _mapper.Map<List<Message>>(messages);
+        }
+
+        public Message GetByMessageGroupId(long messageGroupId)
+        {
+            var messages = _context.Message.FirstOrDefault(x => x.MessageGroupId == messageGroupId);
+            return _mapper.Map<Message>(messages);
         }
 
         public void Save()

@@ -12,7 +12,7 @@ using TelegramChatBlazor.DAL.Context;
 namespace TelegramChatBlazor.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220706093925_Init")]
+    [Migration("20220706164637_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,32 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.ToTable("Answers");
                 });
 
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Attachment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("MessageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MessageId");
+
+                    b.ToTable("Attachments");
+                });
+
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Bot", b =>
                 {
                     b.Property<long>("Id")
@@ -84,7 +110,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(3586),
+                            CreateAt = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(153),
                             Name = "Jironimo",
                             Token = "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8",
                             UserName = "JironimoBot"
@@ -92,7 +118,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(3656),
+                            CreateAt = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(211),
                             Name = "TelegramBotBlazor",
                             Token = "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM",
                             UserName = "TelegramBotBlazorBot"
@@ -252,57 +278,54 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5251),
+                            CreateAt = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(345),
                             Email = "testEmail@gmail.com",
                             ImgPath = "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
-                            LastOnline = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5433),
+                            LastOnline = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(348),
                             Name = "Alex Yesipov"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5504),
+                            CreateAt = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(359),
                             Email = "testEmail2@gmail.com",
                             ImgPath = "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png",
-                            LastOnline = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5512),
+                            LastOnline = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(361),
                             Name = "Alex Ivanov"
                         },
                         new
                         {
                             Id = 3L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5535),
+                            CreateAt = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(370),
                             Email = "testEmail3@gmail.com",
                             ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png",
-                            LastOnline = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5538),
+                            LastOnline = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(372),
                             Name = "Kate Yesipova"
                         },
                         new
                         {
                             Id = 4L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5551),
+                            CreateAt = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(383),
                             Email = "testEmail4@gmail.com",
                             ImgPath = "https://image.pngaaa.com/345/1582345-middle.png",
-                            LastOnline = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5553),
+                            LastOnline = new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(384),
                             Name = "Alex Pupkin"
                         });
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Message", b =>
                 {
-                    b.Property<long?>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<long>("ChatId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPartner")
                         .HasColumnType("bit");
@@ -311,9 +334,6 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -332,6 +352,17 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Attachment", b =>
+                {
+                    b.HasOne("TelegramChatBlazor.DAL.Entities.Message", "Message")
+                        .WithMany("Attachments")
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Message");
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Chat", b =>
@@ -369,6 +400,11 @@ namespace TelegramChatBlazor.DAL.Migrations
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Chat", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Message", b =>
+                {
+                    b.Navigation("Attachments");
                 });
 #pragma warning restore 612, 618
         }

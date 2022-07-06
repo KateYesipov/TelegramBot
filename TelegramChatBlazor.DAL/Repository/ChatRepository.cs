@@ -33,7 +33,7 @@ namespace TelegramChatBlazor.DAL.Repository
 
         public Chat GetById(long Id)
         {
-            var chat = _mapper.Map<Chat>(_context.Chat.Include(m=>m.Messages).Include(x=>x.Bot).FirstOrDefault(x => x.Id == Id));
+            var chat = _mapper.Map<Chat>(_context.Chat.Include(m=>m.Messages).ThenInclude(c=>c.Attachments).Include(x=>x.Bot).FirstOrDefault(x => x.Id == Id));
             return _mapper.Map<Chat>(chat);
         }
 

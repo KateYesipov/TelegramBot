@@ -55,7 +55,7 @@ else
                     </div>
                 </div>
             }
-            @if (item.FilePath != null)
+            @if (item.Type=="Photo")
             {
                 <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
 
@@ -65,7 +65,7 @@ else
                         </div>
                     </div>
                     <div class="ImageBlock">
-                        <ImageBlock ImageList="@(new List<string>{item.FilePath})"></ImageBlock>
+                        <ImageBlock ImageList="@item.Attachments"></ImageBlock>
                     </div>
                     <div class=" message_picture message_picture_none ">
                         <img src="/Images/icons/forwarding.svg" />

@@ -22,11 +22,15 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
             services.AddScoped<IBotService, BotService>();
 
             services.AddTransient<IColorRepository, ColorRepository>();
-            services.AddScoped<IColorService, ColorService>();
+            services.AddTransient<IColorService, ColorService>();
 
             services.AddTransient<IManagerRepository, ManagerRepostitory>();
-            services.AddScoped<IManagerService, ManagerService>();
-            
+            services.AddTransient<IManagerService, ManagerService>();
+
+            services.AddTransient<IAttachmentRepository, AttachmentRepository>();
+            services.AddTransient<IAttachmentService, AttachmentService>();
+
+
             services.AddSignalR();
             services.TryAddSingleton<IAppSettingsService, AppSettingsService>();
             services.AddHttpContextAccessor();

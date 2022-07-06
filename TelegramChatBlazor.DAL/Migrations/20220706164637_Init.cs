@@ -124,9 +124,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsPartner = table.Column<bool>(type: "bit", nullable: false),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MessageGroupId = table.Column<long>(type: "bigint", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ChatId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -140,13 +138,34 @@ namespace TelegramChatBlazor.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Attachments",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MessageId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attachments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Attachments_Message_MessageId",
+                        column: x => x.MessageId,
+                        principalTable: "Message",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Bots",
                 columns: new[] { "Id", "CreateAt", "Name", "Token", "UserName" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(3586), "Jironimo", "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8", "JironimoBot" },
-                    { 2L, new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(3656), "TelegramBotBlazor", "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM", "TelegramBotBlazorBot" }
+                    { 1L, new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(153), "Jironimo", "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8", "JironimoBot" },
+                    { 2L, new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(211), "TelegramBotBlazor", "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM", "TelegramBotBlazorBot" }
                 });
 
             migrationBuilder.InsertData(
@@ -169,16 +188,21 @@ namespace TelegramChatBlazor.DAL.Migrations
                 columns: new[] { "Id", "CreateAt", "Email", "ImgPath", "LastOnline", "Name" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5251), "testEmail@gmail.com", "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745", new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5433), "Alex Yesipov" },
-                    { 2L, new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5504), "testEmail2@gmail.com", "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5512), "Alex Ivanov" },
-                    { 3L, new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5535), "testEmail3@gmail.com", "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5538), "Kate Yesipova" },
-                    { 4L, new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5551), "testEmail4@gmail.com", "https://image.pngaaa.com/345/1582345-middle.png", new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5553), "Alex Pupkin" }
+                    { 1L, new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(345), "testEmail@gmail.com", "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745", new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(348), "Alex Yesipov" },
+                    { 2L, new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(359), "testEmail2@gmail.com", "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(361), "Alex Ivanov" },
+                    { 3L, new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(370), "testEmail3@gmail.com", "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(372), "Kate Yesipova" },
+                    { 4L, new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(383), "testEmail4@gmail.com", "https://image.pngaaa.com/345/1582345-middle.png", new DateTime(2022, 7, 6, 19, 46, 37, 319, DateTimeKind.Local).AddTicks(384), "Alex Pupkin" }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_CategoryId",
                 table: "Answers",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attachments_MessageId",
+                table: "Attachments",
+                column: "MessageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Chat_BotId",
@@ -203,16 +227,19 @@ namespace TelegramChatBlazor.DAL.Migrations
                 name: "Answers");
 
             migrationBuilder.DropTable(
+                name: "Attachments");
+
+            migrationBuilder.DropTable(
                 name: "Colors");
 
             migrationBuilder.DropTable(
                 name: "Managers");
 
             migrationBuilder.DropTable(
-                name: "Message");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Message");
 
             migrationBuilder.DropTable(
                 name: "Chat");

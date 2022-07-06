@@ -15,6 +15,7 @@ namespace TelegramChatBlazor.BLL.Services
     {
         private readonly IBotService _botService;
         private readonly IMessageRepository _messageRepository;
+        private readonly IAttachmentRepository _attachmentRepository;
         private readonly IChatRepository _chatRepository;
         private readonly IWebHostEnvironment _appEnvironment;
         private readonly HttpClient _httpclient;
@@ -24,6 +25,7 @@ namespace TelegramChatBlazor.BLL.Services
                                IChatRepository chatRepository,
                                IWebHostEnvironment appEnvironment,
                                IBotService botService,
+                               IAttachmentRepository attachmentRepository,
                                IAppSettingsService appSettingsService,
                                HttpClient httpclient)
         {
@@ -33,6 +35,7 @@ namespace TelegramChatBlazor.BLL.Services
             _chatRepository = chatRepository;
             _httpclient = httpclient;
             _botService = botService;
+            _attachmentRepository = attachmentRepository;
         }
 
         public List<Chat> GetChatListByBotId(long botId)
@@ -42,7 +45,7 @@ namespace TelegramChatBlazor.BLL.Services
 
         public Chat GetChatByIdIncludeMessages(long Id)
         {
-            var chat = _chatRepository.GetById(Id);     
+            var chat = _chatRepository.GetById(Id);
             return chat;
         }
 
@@ -69,6 +72,23 @@ namespace TelegramChatBlazor.BLL.Services
             }
 
 
+            if (messageRequest.MessageGroupId > 0)
+            {
+                var messagesId = _messageRepository.GetByMessageGroupId(messageRequest.MessageGroupId)?.Id;
+                if (messagesId !=null)
+                {
+                    var attachment = new Attachment
+                    {
+                        FilePath = PathImage,
+                        MessageId = (long)messagesId,
+                        Type = messageRequest.Type
+                    };
+                    _attachmentRepository.Create(attachment);
+                    _attachmentRepository.Save();
+                    return messageRequest;
+                }
+            }
+
             var chatId = messageRequest.ChatId;
             var chat = _chatRepository.GetById(chatId);
             if (chat == null)
@@ -89,10 +109,20 @@ namespace TelegramChatBlazor.BLL.Services
                     Messages = new List<Message> { new Message { Text = messageRequest.Text,
                         CreateAt = DateTime.Now,
                         IsPartner = messageRequest.IsPartner,
-                        FilePath = PathImage,
-                        MessageGroupId = messageRequest.MessageGroupId,
-                        Type = messageRequest.Type } }
+                        Type=messageRequest.Type,
+                        MessageGroupId = messageRequest.MessageGroupId} }
                 };
+
+                if (PathImage != null)
+                {
+                    newChat.Messages.FirstOrDefault().Attachments =
+                                          new List<Attachment>(){ new Attachment
+                                          {
+                                              FilePath = PathImage,
+                                              Type = messageRequest.Type,
+                                          }};
+                }
+
                 _chatRepository.Create(newChat);
                 _chatRepository.Save();
             }
@@ -102,15 +132,23 @@ namespace TelegramChatBlazor.BLL.Services
                 {
                     ChatId = chat.Id,
                     Text = messageRequest.Text,
+                    Type = messageRequest.Type,
                     IsPartner = messageRequest.IsPartner,
                     CreateAt = DateTime.Now,
-                    FilePath = PathImage,
                     MessageGroupId = messageRequest.MessageGroupId,
-                    Type = messageRequest.Type
                 };
 
-                _messageRepository.Create(newMessage);
-                _messageRepository.Save();
+                var messageId = _messageRepository.Create(newMessage);
+
+                var attachment = new Attachment
+                {
+                    FilePath = PathImage,
+                    Type = messageRequest.Type,
+                    MessageId = messageId
+                };
+
+                _attachmentRepository.Create(attachment);
+                _attachmentRepository.Save();
             }
 
             return messageRequest;

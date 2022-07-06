@@ -16,6 +16,7 @@ namespace TelegramChatBlazor.DAL.Context
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,9 +34,12 @@ namespace TelegramChatBlazor.DAL.Context
            .HasMany<Chat>(g => g.Chats)
            .WithOne(s => s.Bot).HasForeignKey(s => s.BotId);
 
+            builder.Entity<Message>()
+           .HasMany<Attachment>(g => g.Attachments)
+           .WithOne(s => s.Message).HasForeignKey(s => s.MessageId);
 
-            builder.Entity<Bot>().HasData(new Bot { Id = 1, Token = "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8", Name = "Jironimo", UserName = "JironimoBot", CreateAt = DateTime.Now,Chats=new List<Chat> { } });
-            builder.Entity<Bot>().HasData(new Bot { Id = 2, Token = "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM", Name = "TelegramBotBlazor", UserName = "TelegramBotBlazorBot", CreateAt = DateTime.Now,Chats=new List<Chat> { } });
+            builder.Entity<Bot>().HasData(new Bot { Id = 1, Token = "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8", Name = "Jironimo", UserName = "JironimoBot", CreateAt = DateTime.Now, Chats = new List<Chat> { } });
+            builder.Entity<Bot>().HasData(new Bot { Id = 2, Token = "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM", Name = "TelegramBotBlazor", UserName = "TelegramBotBlazorBot", CreateAt = DateTime.Now, Chats = new List<Chat> { } });
 
             builder.Entity<Color>().HasData(new Color { Id = 1, ColorHex = "#FFFFFF" });
             builder.Entity<Color>().HasData(new Color { Id = 2, ColorHex = "#3C95FF" });
@@ -51,6 +55,7 @@ namespace TelegramChatBlazor.DAL.Context
             builder.Entity<Manager>().HasData(new Manager { Id = 3, Name = "Kate Yesipova", Email = "testEmail3@gmail.com", ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
             builder.Entity<Manager>().HasData(new Manager { Id = 4, Name = "Alex Pupkin", Email = "testEmail4@gmail.com", ImgPath = "https://image.pngaaa.com/345/1582345-middle.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
 
+      
 
             base.OnModelCreating(builder);
         }
