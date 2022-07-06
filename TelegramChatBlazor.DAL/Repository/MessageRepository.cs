@@ -20,10 +20,10 @@ namespace TelegramChatBlazor.DAL.Repository
         public void Create(Message item)
         {
             _context.Database.ExecuteSqlRaw(@"Insert into Message 
-           (Text, IsPartner, CreateAt,ChatId)
-           Values({0},{1},{2},{3})",
+           (Text, IsPartner, CreateAt,ChatId,FilePath,MessageGroupId,Type)
+           Values({0},{1},{2},{3},{4},{5},{6})",
            item.Text,item.IsPartner, item.CreateAt,
-           item.ChatId);
+           item.ChatId,item.FilePath,item.MessageGroupId,item.Type);
         }
 
         public void Delete(Guid id)

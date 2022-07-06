@@ -13,7 +13,6 @@ namespace TelegramChatBlazor.DAL.Context
         public DbSet<Bot> Bots { get; set; }
         public DbSet<Chat> Chat { get; set; }
         public DbSet<Message> Message { get; set; }
-        public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Answer> Answers { get; set; }
@@ -33,10 +32,6 @@ namespace TelegramChatBlazor.DAL.Context
             builder.Entity<Bot>()
            .HasMany<Chat>(g => g.Chats)
            .WithOne(s => s.Bot).HasForeignKey(s => s.BotId);
-
-            builder.Entity<Message>()
-           .HasMany<Attachment>(g => g.Attachments)
-           .WithOne(s => s.Message).HasForeignKey(s => s.MessageId);
 
 
             builder.Entity<Bot>().HasData(new Bot { Id = 1, Token = "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8", Name = "Jironimo", UserName = "JironimoBot", CreateAt = DateTime.Now,Chats=new List<Chat> { } });

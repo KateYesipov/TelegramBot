@@ -24,6 +24,7 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\Images\avatar\" />
+    <Folder Include="wwwroot\Images\files\" />
   </ItemGroup>
 
 </Project>

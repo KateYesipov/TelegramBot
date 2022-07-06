@@ -36,40 +36,44 @@ else
             <div class="data_correspondence">
                 @Datetime.GetDateChat(item.CreateAt)
             </div>
+            @if (item.Type == "Text")
+            {
+                <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
 
-            <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
-
-                <div class="img_sender_message">
-                    <div class="picture_sender_message">
-                        <img src="@chatModel.PartnerAvatar">
+                    <div class="img_sender_message">
+                        <div class="picture_sender_message">
+                            <img src="@(item.IsPartner?chatModel.PartnerAvatar:chatModel.BotAvatar)">
+                        </div>
+                    </div>
+                    <div class="text_block_sender">
+                        <p>@item.Text</p>
+                    </div>
+                    <div class="message_hover_block message_hover_block_none ">
+                        <img src="/Images/icons/forwarding.svg" />
+                        <img src="/Images/icons/additionally.svg" />
+                        <img src="/Images/icons/translation.svg" />
                     </div>
                 </div>
-                <div class="text_block_sender">
-                    <p>@item.Text</p>
-                </div>
-                <div class="message_hover_block message_hover_block_none ">
-                    <img src="/Images/icons/forwarding.svg" />
-                    <img src="/Images/icons/additionally.svg" />
-                    <img src="/Images/icons/translation.svg" />
-                </div>
-            </div>
+            }
+            @if (item.FilePath != null)
+            {
+                <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
 
-              <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
-
-                <div class="img_sender_message">
-                    <div class="picture_sender_message">
-                        <img src="@chatModel.PartnerAvatar">
+                    <div class="img_sender_message">
+                        <div class="picture_sender_message">
+                            <img src="@(item.IsPartner?chatModel.PartnerAvatar:chatModel.BotAvatar)">
+                        </div>
+                    </div>
+                    <div class="ImageBlock">
+                        <ImageBlock ImageList="@(new List<string>{item.FilePath})"></ImageBlock>
+                    </div>
+                    <div class=" message_picture message_picture_none ">
+                        <img src="/Images/icons/forwarding.svg" />
+                        <img src="/Images/icons/additionally.svg" />
+                        <img src="/Images/icons/translation.svg" />
                     </div>
                 </div>
-                <div class="ImageBlock">
-                    <TelegramChatBlazor.Web.Pages.ImageBlock.ImageBlock></TelegramChatBlazor.Web.Pages.ImageBlock.ImageBlock>
-                </div>
-                <div class=" message_picture message_picture_none ">
-                    <img src="/Images/icons/forwarding.svg" />
-                    <img src="/Images/icons/additionally.svg" />
-                    <img src="/Images/icons/translation.svg" />
-                </div>
-            </div>
+            }
         }
     </div>
     <div class="dropdown_block @helpWordCssClass">
@@ -222,7 +226,7 @@ else
             var typeFile = imageFile.ContentType;
             MemoryStream stream = new MemoryStream(buffer);
 
-            Attachments.Add(new Attachment { Stream = stream, FileNme = fileName, ContentType = typeFile });
+            //Attachments.Add(new Attachment { Stream = stream, FileNme = fileName, ContentType = typeFile });
             StateHasChanged();
         }
     }

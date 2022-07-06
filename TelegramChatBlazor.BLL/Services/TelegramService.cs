@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Text;
 using Telegram.Bot;
-using Telegram.Bot.Types.InputFiles;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
 using TelegramChatBlazor.Domain.Models;
@@ -43,7 +42,8 @@ namespace TelegramChatBlazor.BLL.Services
 
         public Chat GetChatsByIdIncludeMessages(long Id)
         {
-            return _chatRepository.GetById(Id);
+            var chat = _chatRepository.GetById(Id);     
+            return chat;
         }
 
         public List<Message> GetMessages(long ChatId)
@@ -56,10 +56,18 @@ namespace TelegramChatBlazor.BLL.Services
             if (messageRequest == null) { throw new Exception("messageRequest null"); }
             var token = messageRequest.Token;
             if (String.IsNullOrEmpty(token)) { throw new Exception("token null"); }
-        
+
             var botClient = new TelegramBotClient(token);
 
             var bot = _botService.GetByToken(messageRequest.Token);
+
+
+            string PathImage = null;
+            if (messageRequest.ImageId != null)
+            {
+                PathImage = SaveImageFromTelegram(botClient, messageRequest.ImageId, "/Images/files//").Result;
+            }
+
 
             var chatId = messageRequest.ChatId;
             var chat = _chatRepository.GetById(chatId);
@@ -70,7 +78,7 @@ namespace TelegramChatBlazor.BLL.Services
                 var newChat = new Chat
                 {
                     Id = chatId,
-                    TelegramChatId= messageRequest.TelegramChatId,
+                    TelegramChatId = messageRequest.TelegramChatId,
                     PartnerUserName = messageRequest.PartnerUserName,
                     PartnerName = messageRequest.PartnerName,
                     PartnerLastName = messageRequest.PartnerLastName,
@@ -78,8 +86,12 @@ namespace TelegramChatBlazor.BLL.Services
                     BotAvatar = messageRequest.BotAvatar,
                     BotUserName = messageRequest.BotUserName,
                     BotId = bot.Id,
-                    Messages = new List<Message> { new Message {Text= messageRequest.Text,
-                                                 CreateAt=DateTime.Now,IsPartner=messageRequest.IsPartner }}
+                    Messages = new List<Message> { new Message { Text = messageRequest.Text,
+                        CreateAt = DateTime.Now,
+                        IsPartner = messageRequest.IsPartner,
+                        FilePath = PathImage,
+                        MessageGroupId = messageRequest.MessageGroupId,
+                        Type = messageRequest.Type } }
                 };
                 _chatRepository.Create(newChat);
                 _chatRepository.Save();
@@ -91,12 +103,16 @@ namespace TelegramChatBlazor.BLL.Services
                     ChatId = chat.Id,
                     Text = messageRequest.Text,
                     IsPartner = messageRequest.IsPartner,
-                    CreateAt = DateTime.Now
+                    CreateAt = DateTime.Now,
+                    FilePath = PathImage,
+                    MessageGroupId = messageRequest.MessageGroupId,
+                    Type = messageRequest.Type
                 };
 
                 _messageRepository.Create(newMessage);
                 _messageRepository.Save();
             }
+
             return messageRequest;
         }
 
@@ -106,7 +122,7 @@ namespace TelegramChatBlazor.BLL.Services
             var botClient = new TelegramBotClient(sendMessage.Token);
             //Db
             var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId, sendMessage.TelegramChatId,
-               sendMessage.TextMessage, false, "", "", "", "", "", "");
+               sendMessage.TextMessage, false, "", "", "", "", "", "", null, 0, "");
 
             var url = _chatBlazorSettings.ApiUrl + "api/apimessage";
             var parametrs = new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");
@@ -121,8 +137,8 @@ namespace TelegramChatBlazor.BLL.Services
 
             foreach (var item in sendMessage.Attachments)
             {
-                var file = new InputOnlineFile(item.Stream, item.FileNme);
-                await botClient.SendPhotoAsync(sendMessage.TelegramChatId, file);
+                //var file = new InputOnlineFile(item.Stream, item.FileNme);
+                //await botClient.SendPhotoAsync(sendMessage.TelegramChatId, file);
 
                 //var file = new InputOnlineFile();
                 //await botClient.SendDocumentAsync(chatId, file);
@@ -145,7 +161,7 @@ namespace TelegramChatBlazor.BLL.Services
             return null;
         }
 
-        private async Task<string> UploadFileToTelegram(ITelegramBotClient botClient,string file, string pathFolder)
+        private async Task<string> UploadFileToTelegram(ITelegramBotClient botClient, string file, string pathFolder)
         {
             return "";
         }

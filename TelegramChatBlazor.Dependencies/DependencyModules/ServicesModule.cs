@@ -26,11 +26,7 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
 
             services.AddTransient<IManagerRepository, ManagerRepostitory>();
             services.AddScoped<IManagerService, ManagerService>();
-
-            services.AddTransient<IAttachmentRepository, AttachmentRepository>();
-            services.AddScoped<IAttachmentService, AttachmentService>();
-
-
+            
             services.AddSignalR();
             services.TryAddSingleton<IAppSettingsService, AppSettingsService>();
             services.AddHttpContextAccessor();

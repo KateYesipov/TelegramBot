@@ -12,8 +12,8 @@ using TelegramChatBlazor.DAL.Context;
 namespace TelegramChatBlazor.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220705053524_InitData")]
-    partial class InitData
+    [Migration("20220706092404_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,35 +53,6 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Attachment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileNme")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("FileSize")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("MessageId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MessageId");
-
-                    b.ToTable("Attachments");
-                });
-
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Bot", b =>
                 {
                     b.Property<long>("Id")
@@ -113,7 +84,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateAt = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8064),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(2771),
                             Name = "Jironimo",
                             Token = "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8",
                             UserName = "JironimoBot"
@@ -121,7 +92,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateAt = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8149),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(2853),
                             Name = "TelegramBotBlazor",
                             Token = "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM",
                             UserName = "TelegramBotBlazorBot"
@@ -281,37 +252,37 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateAt = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8350),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3023),
                             Email = "testEmail@gmail.com",
                             ImgPath = "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
-                            LastOnline = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8355),
+                            LastOnline = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3032),
                             Name = "Alex Yesipov"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateAt = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8380),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3071),
                             Email = "testEmail2@gmail.com",
                             ImgPath = "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png",
-                            LastOnline = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8384),
+                            LastOnline = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3078),
                             Name = "Alex Ivanov"
                         },
                         new
                         {
                             Id = 3L,
-                            CreateAt = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8404),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3110),
                             Email = "testEmail3@gmail.com",
                             ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png",
-                            LastOnline = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8408),
+                            LastOnline = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3112),
                             Name = "Kate Yesipova"
                         },
                         new
                         {
                             Id = 4L,
-                            CreateAt = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8427),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3125),
                             Email = "testEmail4@gmail.com",
                             ImgPath = "https://image.pngaaa.com/345/1582345-middle.png",
-                            LastOnline = new DateTime(2022, 7, 5, 8, 35, 24, 130, DateTimeKind.Local).AddTicks(8431),
+                            LastOnline = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3132),
                             Name = "Alex Pupkin"
                         });
                 });
@@ -330,11 +301,19 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsPartner")
                         .HasColumnType("bit");
 
+                    b.Property<long?>("MessageGroupId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Text")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -353,17 +332,6 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Attachment", b =>
-                {
-                    b.HasOne("TelegramChatBlazor.DAL.Entities.Message", "Message")
-                        .WithMany("Attachments")
-                        .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Message");
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Chat", b =>
@@ -401,11 +369,6 @@ namespace TelegramChatBlazor.DAL.Migrations
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Chat", b =>
                 {
                     b.Navigation("Messages");
-                });
-
-            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Message", b =>
-                {
-                    b.Navigation("Attachments");
                 });
 #pragma warning restore 612, 618
         }

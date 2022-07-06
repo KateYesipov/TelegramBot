@@ -1,58 +1,53 @@
-﻿@switch (5)
+﻿@switch (ImageList.Count())
 {
     case 1:
-                <div class="picture_block_sender">
-         <div class=picture_one> <img src="@ImageList[0]" /></div>
-         </div>
+        <div class="picture_block_sender">
+            <div class=picture_one> <img src="@ImageList[0]" /></div>
+        </div>
         break;
     case 2:
-                <div class="picture_block_sender">
-      <div class="picture_two"><img src="@ImageList[0]" /></div>
-      <div class="picture_two"><img src="@ImageList[1]" /></div>
-      </div>
+        <div class="picture_block_sender">
+            <div class="picture_two"><img src="@ImageList[0]" /></div>
+            <div class="picture_two"><img src="@ImageList[1]" /></div>
+        </div>
         break;
     case 3:
-          <div class="picture_block_sender">
-              <div>
-       <div class="picture_three"> <img src="@ImageList[0]" /></div>
-        <div class="picture_three"><img src="@ImageList[1]" /></div>
-        </div>
-        <div class="picture_three_one"><img src="@ImageList[2]" /></div>
+        <div class="picture_block_sender">
+            <div>
+                <div class="picture_three"> <img src="@ImageList[0]" /></div>
+                <div class="picture_three"><img src="@ImageList[1]" /></div>
+            </div>
+            <div class="picture_three_one"><img src="@ImageList[2]" /></div>
         </div>
         break;
     case 4:
-       <div class="picture_block_sender">
-              <div class="block_one"> 
-        <div class="picture_four"><img src="@ImageList[0]" /></div>
-        <div class="picture_four"><img src="@ImageList[1]" /></div>
+        <div class="picture_block_sender">
+            <div class="block_one">
+                <div class="picture_four"><img src="@ImageList[0]" /></div>
+                <div class="picture_four"><img src="@ImageList[1]" /></div>
+            </div>
+            <div>
+                <div class="picture_four"><img src="@ImageList[2]" /></div>
+                <div class="picture_four"><img src="@ImageList[3]" /></div>
+            </div>
         </div>
-        <div>
-         <div class="picture_four"><img src="@ImageList[2]" /></div>
-        <div class="picture_four"><img src="@ImageList[3]" /></div>
-        </div>
-        </div> 
         break;
     case 5:
-    <div class="picture_block_sender">
-      <div class="one_block_five">
-        <div class="picture_five"> <img src="@ImageList[0]" /></div>
-       <div class="picture_five"> <img src="@ImageList[1]" /></div>
-       </div>
-       <div class="two_block_five">
-       <div class="picture_five"> <img src="@ImageList[2]" /></div>
-       <div class="picture_five"> <img src="@ImageList[3]" /></div>
-       <div class="picture_five"> <img src="@ImageList[4]" /></div>
-       </div>
-       </div>
+        <div class="picture_block_sender">
+            <div class="one_block_five">
+                <div class="picture_five"> <img src="@ImageList[0]" /></div>
+                <div class="picture_five"> <img src="@ImageList[1]" /></div>
+            </div>
+            <div class="two_block_five">
+                <div class="picture_five"> <img src="@ImageList[2]" /></div>
+                <div class="picture_five"> <img src="@ImageList[3]" /></div>
+                <div class="picture_five"> <img src="@ImageList[4]" /></div>
+            </div>
+        </div>
         break;
 }
 
 @code {
-    List<string> ImageList = new List<string>(){
-        "https://storge.pic2.me/c/1360x800/639/55510c2d0710e.jpg",
-        "https://storge.pic2.me/c/1360x800/639/55510c2d0710e.jpg",
-        "https://storge.pic2.me/c/1360x800/639/55510c2d0710e.jpg",
-        "https://storge.pic2.me/c/1360x800/639/55510c2d0710e.jpg",
-        "https://storge.pic2.me/c/1360x800/639/55510c2d0710e.jpg"
-    };
+    [Parameter]
+    public List<string> ImageList { get; set; }
 }
