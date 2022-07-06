@@ -12,7 +12,7 @@ using TelegramChatBlazor.DAL.Context;
 namespace TelegramChatBlazor.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220706092404_Init")]
+    [Migration("20220706093925_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,7 +84,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(2771),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(3586),
                             Name = "Jironimo",
                             Token = "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8",
                             UserName = "JironimoBot"
@@ -92,7 +92,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(2853),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(3656),
                             Name = "TelegramBotBlazor",
                             Token = "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM",
                             UserName = "TelegramBotBlazorBot"
@@ -252,37 +252,37 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3023),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5251),
                             Email = "testEmail@gmail.com",
                             ImgPath = "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
-                            LastOnline = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3032),
+                            LastOnline = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5433),
                             Name = "Alex Yesipov"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3071),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5504),
                             Email = "testEmail2@gmail.com",
                             ImgPath = "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png",
-                            LastOnline = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3078),
+                            LastOnline = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5512),
                             Name = "Alex Ivanov"
                         },
                         new
                         {
                             Id = 3L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3110),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5535),
                             Email = "testEmail3@gmail.com",
                             ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png",
-                            LastOnline = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3112),
+                            LastOnline = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5538),
                             Name = "Kate Yesipova"
                         },
                         new
                         {
                             Id = 4L,
-                            CreateAt = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3125),
+                            CreateAt = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5551),
                             Email = "testEmail4@gmail.com",
                             ImgPath = "https://image.pngaaa.com/345/1582345-middle.png",
-                            LastOnline = new DateTime(2022, 7, 6, 12, 24, 4, 250, DateTimeKind.Local).AddTicks(3132),
+                            LastOnline = new DateTime(2022, 7, 6, 12, 39, 25, 181, DateTimeKind.Local).AddTicks(5553),
                             Name = "Alex Pupkin"
                         });
                 });

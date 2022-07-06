@@ -3,7 +3,6 @@ namespace TelegramChatBlazor.Domain.Models.Messages
 {
     public class Message
     {
-        public long Id { get; set; }
         public string Text { get; set; }
         public bool IsPartner { get; set; }
         public DateTime CreateAt { get; set; }
