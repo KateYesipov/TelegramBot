@@ -10,10 +10,10 @@
             <SelectChat OnClickCallback="@GetMessages" token="@bot.Token"></SelectChat>
         </div>
         <div class="main_block_two @styleTwoBlock">
-            <Messages chatModel="chatModel" ShowOrHideRightCallback="ShowOrHideRightTab" token="@bot.Token"></Messages>
+            <Messages chatModel="@chatModel" ShowOrHideRightCallback="ShowOrHideRightTab" token="@bot.Token"></Messages>
         </div>
         <div class="main_block_three @styleThreeBlock">
-            <PartnerInfo chatModel="chatModel"></PartnerInfo>
+            <PartnerInfo chatModel="@chatModel"></PartnerInfo>
         </div>
     </div>
 }

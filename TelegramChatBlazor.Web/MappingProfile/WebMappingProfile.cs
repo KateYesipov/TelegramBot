@@ -12,6 +12,7 @@ namespace TelegramChatBlazor.Web.MappingProfile
             CreateMap<MessageRequest, Message>().ReverseMap();
             CreateMap<MessageNotification, MessageRequest>()
                 .ForMember(dest => dest.Text, e => e.MapFrom(src => src.Message.Text))
+                 .ForMember(dest => dest.Type, e => e.MapFrom(src => src.Message.Type))
                     .ForMember(dest => dest.IsPartner, e => e.MapFrom(src => src.Message.IsPartner))
                     .ForMember(dest => dest.ChatId, e => e.MapFrom(src => src.Message.ChatId)).ReverseMap();
         }

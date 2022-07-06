@@ -140,15 +140,17 @@ namespace TelegramChatBlazor.BLL.Services
 
                 var messageId = _messageRepository.Create(newMessage);
 
-                var attachment = new Attachment
+                if (PathImage != null)
                 {
-                    FilePath = PathImage,
-                    Type = messageRequest.Type,
-                    MessageId = messageId
-                };
-
-                _attachmentRepository.Create(attachment);
-                _attachmentRepository.Save();
+                    var attachment = new Attachment
+                    {
+                        FilePath = PathImage,
+                        Type = messageRequest.Type,
+                        MessageId = messageId
+                    };
+                    _attachmentRepository.Create(attachment);
+                    _attachmentRepository.Save();
+                }
             }
 
             return messageRequest;

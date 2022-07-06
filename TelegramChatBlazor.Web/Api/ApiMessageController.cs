@@ -7,8 +7,6 @@ using TelegramChatBlazor.Domain.Models.Api;
 using TelegramChatBlazor.Domain.Models.Settings;
 using TelegramChatBlazor.Domain.Models.SignalR;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace TelegramChatBlazor.Web.Api
 {
     [Route("api/[controller]")]
