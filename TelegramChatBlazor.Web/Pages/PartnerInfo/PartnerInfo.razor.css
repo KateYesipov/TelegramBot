@@ -24,16 +24,33 @@
     left: 5%;
 }
 .general_block3 {
-    max-height: 65vh;
+    max-height: 63vh;
     overflow: auto;
     height: inherit;
 }
 .apple_block {
     border: 2px solid rgb(68, 67, 67);
     height: 90px;
-}
-.apple_block_img{
+    position: relative;
+    
+} 
 
+.apple_block_img {
+    background:#FFFFFF;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+   margin-top:20px;
+   margin-left:20px;
+}
+
+.apple_img {
+ margin:23%;
+}
+
+.telegram_img {
+    position: absolute;
+    left:17%;
 }
 .status_block {
     height: 100px;
