@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TelegramChatBlazor.DAL.Context;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Models;
+using TelegramChatBlazor.Domain.Models.Chats;
 
 namespace TelegramChatBlazor.DAL.Repository
 {
@@ -32,7 +33,7 @@ namespace TelegramChatBlazor.DAL.Repository
 
         public Chat GetById(long Id)
         {
-            var chat = _context.Chat.Include(m=>m.Messages).Include(x=>x.Bot).FirstOrDefault(x => x.Id == Id);
+            var chat = _mapper.Map<Chat>(_context.Chat.Include(m=>m.Messages).Include(x=>x.Bot).FirstOrDefault(x => x.Id == Id));
             return _mapper.Map<Chat>(chat);
         }
 

@@ -23,7 +23,7 @@
     public string userName { get; set; }
 
     public Bot? bot;
-    public Domain.Models.Chat chatModel;
+    public Domain.Models.Chats.Chat chatModel;
 
     //style class
     public string styleTwoBlock = "twoBlock";
@@ -36,7 +36,7 @@
 
     private void GetMessages(long ChatId)
     {
-        chatModel = TelegramService.GetChatsByIdIncludeMessages(ChatId);
+        chatModel = TelegramService.GetChatByIdIncludeMessages(ChatId);
     }
 
     private void ShowOrHideRightTab()

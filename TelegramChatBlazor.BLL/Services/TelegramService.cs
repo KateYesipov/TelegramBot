@@ -4,8 +4,8 @@ using System.Text;
 using Telegram.Bot;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
-using TelegramChatBlazor.Domain.Models;
 using TelegramChatBlazor.Domain.Models.Api;
+using TelegramChatBlazor.Domain.Models.Chats;
 using TelegramChatBlazor.Domain.Models.Messages;
 using TelegramChatBlazor.Domain.Models.Settings;
 
@@ -40,7 +40,7 @@ namespace TelegramChatBlazor.BLL.Services
             return _chatRepository.GetByBotId(botId);
         }
 
-        public Chat GetChatsByIdIncludeMessages(long Id)
+        public Chat GetChatByIdIncludeMessages(long Id)
         {
             var chat = _chatRepository.GetById(Id);     
             return chat;

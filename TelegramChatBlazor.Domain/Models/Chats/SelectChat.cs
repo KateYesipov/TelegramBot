@@ -1,7 +1,13 @@
-﻿using TelegramChatBlazor.Domain.Models.Messages;
-namespace TelegramChatBlazor.Domain.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TelegramChatBlazor.Domain.Models.Messages;
+
+namespace TelegramChatBlazor.Domain.Models.Chats
 {
-    public class Chat
+    public class SelectChat
     {
         public long Id { get; set; }
         public long TelegramChatId { get; set; }
@@ -12,11 +18,6 @@ namespace TelegramChatBlazor.Domain.Models
         public string BotUserName { get; set; }
         public string? BotAvatar { get; set; }
         public long BotId { get; set; }
-        public Bot Bot { get; set; }
-        public List<Message> Messages { get; set; }
-        public Chat()
-        {
-            Messages = new List<Message>();
-        }
+        public Message LastMessage { get; set; }
     }
 }
