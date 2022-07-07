@@ -30,6 +30,10 @@ else
             <button class="up_button_block_fifth" @onclick="ShowOrHideRightTab"></button>
         </div>
     </div>
+    <div class="dropdown_block_ontop">
+        <p>Raymond speaks <a>English</a>, is that correct? </p>
+        <div></div>
+    </div>
     <div class="block_correspondence @correspondenceMiniCssClass @(imageDataUrls.Count()>0?"block_correspondence_attachement":"")" id="block_message">
         @foreach (var item in chatModel.Messages)
         {
@@ -68,6 +72,7 @@ else
                             <img src="@(item.IsPartner?chatModel.PartnerAvatar:chatModel.BotAvatar)">
                         </div>
                     </div>
+                 
                     <div class="ImageBlock">
                         <ImageBlock ImageList="@(item.Attachments.Take(5).ToList())"></ImageBlock>
                     </div>
@@ -76,6 +81,9 @@ else
                         <img src="/Images/icons/additionally.svg" />
                         <img src="/Images/icons/translation.svg" />
                     </div>
+                </div>
+                    <div class="@(item.IsPartner?"time_correspondence_left":"time_correspondence_right")">
+                    16:25
                 </div>
             }
         }

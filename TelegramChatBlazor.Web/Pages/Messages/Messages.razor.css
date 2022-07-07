@@ -94,20 +94,40 @@
 }
 
 
+.dropdown_block_ontop {
+    height: 40px;
+    background: #FFFFFF40;
+    display:flex;
+}
+    .dropdown_block_ontop p {
+        color: #FFFFFF;
+        font-size: 16px;
+        padding-top:6px;
+        padding-left:10px;
+    }
+    .dropdown_block_ontop div{
+        background-image: url(/Images/icons/close.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 12px;
+        height: 12px;
+        margin-right: 20px;
+        margin-top:12px;
+        margin-left: auto;
+    }
+
+
 
 
 .block_correspondence {
-   max-height: 69vh;
+    max-height: 63vh;
     overflow: auto;
     height: inherit;
-
- 
-
-
 }
 
 .block_correspondence_mini {
-    max-height: 42vh;
+    max-height: 36.5vh;
 }
 
 .data_correspondence {
@@ -174,6 +194,7 @@
     font-size: 14px;
     margin-left: 80px;
     margin-top: 0.5%;
+    margin-bottom:-20px;
 }
 
 .time_correspondence_right {
@@ -494,7 +515,7 @@
 }
 
 .block_correspondence_attachement{
-    height:60vh;
+    height:56vh;
 }
 
 
