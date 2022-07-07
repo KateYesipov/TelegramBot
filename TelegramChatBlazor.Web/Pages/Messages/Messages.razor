@@ -57,10 +57,10 @@ else
                         <img src="/Images/icons/additionally.svg" />
                         <img src="/Images/icons/translation.svg" />
                     </div>
-                   
+
                 </div>
                 <div class="@(item.IsPartner?"time_correspondence_left":"time_correspondence_right")">
-                    16:25
+                    @item.CreateAt.ToString("HH:mm")
                 </div>
             }
             @if (item.Type == "Photo")
@@ -72,7 +72,7 @@ else
                             <img src="@(item.IsPartner?chatModel.PartnerAvatar:chatModel.BotAvatar)">
                         </div>
                     </div>
-                 
+
                     <div class="ImageBlock">
                         <ImageBlock ImageList="@(item.Attachments.Take(5).ToList())"></ImageBlock>
                     </div>
@@ -82,8 +82,8 @@ else
                         <img src="/Images/icons/translation.svg" />
                     </div>
                 </div>
-                    <div class="@(item.IsPartner?"time_correspondence_left":"time_correspondence_right")">
-                    16:25
+                <div class="@(item.IsPartner?"time_correspondence_left":"time_correspondence_right")">
+                    @item.CreateAt.ToString("HH:mm")
                 </div>
             }
         }
@@ -183,7 +183,7 @@ else
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender) { }
-        await Task.Delay(100);   
+        await Task.Delay(100);
         await ScrollToElementId("block_message");
     }
 
@@ -191,21 +191,37 @@ else
     {
         if (chatModel != null && chatModel.Id == message.Message.ChatId && message.Token == token)
         {
-            var newMessage = new Message
-                {
-                    Text = message.Message.Text,
-                    MessageGroupId = message.Message.MessageGroupId,
-                    IsPartner = message.Message.IsPartner,
-                    CreateAt = message.Message.CreateAt,
-                    Type = message.Message.Type,
-                    Attachments = new List<Attachment>() { new Attachment
+            Message oldMessage = null;
+            var messageGroupId = message.Message.MessageGroupId;
+            if (messageGroupId != 0)
+            {
+                oldMessage = chatModel.Messages.FirstOrDefault(x => x.MessageGroupId == messageGroupId);
+            }
+
+
+            if (oldMessage == null)
+            {
+                var newMessage = new Message
+                    {
+                        Text = message.Message.Text,
+                        MessageGroupId = message.Message.MessageGroupId,
+                        IsPartner = message.Message.IsPartner,
+                        CreateAt = message.Message.CreateAt,
+                        Type = message.Message.Type,
+                        Attachments = new List<Attachment>() { new Attachment
+                                                             {FilePath = message.Message.FilePath,
+                                                             Type = message.Message.Type}}
+                    };
+                chatModel.Messages.Add(newMessage);
+            }
+            else
+            {
+                oldMessage.Attachments.Add(new Attachment
                     {
                         FilePath = message.Message.FilePath,
                         Type = message.Message.Type
-                    }}
-                };
-
-        chatModel.Messages.Add(newMessage);
+                    });
+            }
             await ScrollToElementId("block_message");
             StateHasChanged();
         }
@@ -244,7 +260,7 @@ else
         foreach (var imageFile in e.GetMultipleFiles())
         {
             var resizedImageFile = await imageFile.RequestImageFileAsync(format, 100, 100);
-            var buffer = new byte[imageFile.Size];
+            var buffer = new byte[resizedImageFile.Size];
             await imageFile.OpenReadStream().ReadAsync(buffer);
             var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
             imageDataUrls.Add(imageDataUrl);
@@ -253,7 +269,7 @@ else
             var typeFile = imageFile.ContentType;
             MemoryStream stream = new MemoryStream(buffer);
 
-            //Attachments.Add(new Attachment { Stream = stream, FileNme = fileName, ContentType = typeFile });
+            Attachments.Add(new Attachment { Stream = stream, FileName = fileName, Type = typeFile });
             StateHasChanged();
         }
     }
@@ -262,4 +278,4 @@ else
     {
         showHelpWord = !showHelpWord;
     }
-    }
+  }

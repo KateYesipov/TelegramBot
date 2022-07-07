@@ -63,12 +63,11 @@ namespace TelegramChatBlazor.BLL.Services
             var botClient = new TelegramBotClient(token);
             var bot = _botService.GetByToken(messageRequest.Token);
 
-
             string FilePath = null;
             if (messageRequest.FileId != null && messageRequest.Type == "Photo")
             {
                 FilePath = SaveImageFromTelegram(botClient, messageRequest.FileId, "/Images/files//").Result;
-                
+
                 messageRequest.FileId = FilePath;
             }
 
@@ -95,6 +94,12 @@ namespace TelegramChatBlazor.BLL.Services
             {
                 messageRequest.PartnerAvatar = SaveImageFromTelegram(botClient, messageRequest.PartnerAvatar, "/Images/avatar//").Result;
 
+                var attachments = !String.IsNullOrWhiteSpace(FilePath) ? new List<Attachment>(){ new Attachment
+                                          {
+                                              FilePath = FilePath,
+                                              Type = messageRequest.Type,
+                                          }} : new List<Attachment>();
+
                 var newChat = new Chat
                 {
                     Id = chatId,
@@ -110,18 +115,9 @@ namespace TelegramChatBlazor.BLL.Services
                         CreateAt = DateTime.Now,
                         IsPartner = messageRequest.IsPartner,
                         Type=messageRequest.Type,
-                        MessageGroupId = messageRequest.MessageGroupId} }
+                        MessageGroupId = messageRequest.MessageGroupId,
+                        Attachments=attachments }}
                 };
-
-                if (FilePath != null)
-                {
-                    newChat.Messages.FirstOrDefault().Attachments =
-                                          new List<Attachment>(){ new Attachment
-                                          {
-                                              FilePath = FilePath,
-                                              Type = messageRequest.Type,
-                                          }};
-                }
 
                 _chatRepository.Create(newChat);
                 _chatRepository.Save();

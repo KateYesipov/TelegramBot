@@ -12,5 +12,9 @@ namespace TelegramChatBlazor.Domain.Models.Messages
         public string Type { get; set; }
         public long MessageId { get; set; }
         public Message Message { get; set; }
+
+
+        public string FileName { get; set; }
+        public Stream Stream { get; set; }
     }
 }
