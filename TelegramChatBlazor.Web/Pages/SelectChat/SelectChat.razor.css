@@ -140,11 +140,19 @@ input.nosubmit {
     width: 40px;
     height: 40px;
     margin: 5px;
+    position: relative;
 }
 
-    .lower_block_img img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit:cover;
-    }
+.img_lower {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.green_circle {
+    position: absolute;
+    z-index: 1;
+    left: 70%;
+    top: -8%;
+}

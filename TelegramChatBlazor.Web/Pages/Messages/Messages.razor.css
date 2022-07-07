@@ -169,7 +169,24 @@
     }
 
 
- 
+.time_correspondence_left {
+    color: #FFFFFF40;
+    font-size: 14px;
+    margin-left: 80px;
+    margin-top: 0.5%;
+}
+
+.time_correspondence_right {
+    color: #FFFFFF40;
+    font-size: 14px;
+   float:right;
+    margin-top: 0.5%;
+    margin-right:83px;
+}
+
+.sender_message_right .time_correspondence {
+    float: right;
+}
 
 
 
@@ -394,7 +411,7 @@
 
 .dialing_sms_input textarea {
     height: 40px;
-    width: 510px;
+    width: 95%;
     margin-left: 10px;
     margin-top: 10px;
     border: none;
@@ -451,7 +468,7 @@
 }
 
 .twoBlock .dialing_sms_input textarea{
-    width:80%; 
+    width:98%; 
 }
 
 .label-wrapper {
