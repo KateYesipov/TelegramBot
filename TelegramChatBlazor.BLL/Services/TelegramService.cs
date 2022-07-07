@@ -63,10 +63,13 @@ namespace TelegramChatBlazor.BLL.Services
             var botClient = new TelegramBotClient(token);
             var bot = _botService.GetByToken(messageRequest.Token);
 
+
             string FilePath = null;
             if (messageRequest.FileId != null && messageRequest.Type == "Photo")
             {
                 FilePath = SaveImageFromTelegram(botClient, messageRequest.FileId, "/Images/files//").Result;
+                
+                messageRequest.FileId = FilePath;
             }
 
             if (messageRequest.MessageGroupId > 0)
