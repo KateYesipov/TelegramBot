@@ -55,7 +55,7 @@ else
                     </div>
                 </div>
             }
-            @if (item.Type=="Photo")
+            @if (item.Type == "Photo")
             {
                 <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
 
@@ -164,7 +164,7 @@ else
         hubConnection = new HubConnectionBuilder()
        .WithUrl(_navigationManager.ToAbsoluteUri("/signalRHub"))
        .Build();
-        hubConnection.On<MessageNotification>("Send", this.Send);
+        hubConnection.On<ChatNotification>("Send", this.Send);
         await hubConnection.StartAsync();
     }
 
@@ -174,11 +174,25 @@ else
         await ScrollToElementId("block_message");
     }
 
-    async Task Send(MessageNotification message)
+    async Task Send(ChatNotification message)
     {
         if (chatModel != null && chatModel.Id == message.Message.ChatId && message.Token == token)
         {
-            chatModel.Messages.Add(message.Message);
+            var newMessage = new Message
+                {
+                    Text = message.Message.Text,
+                    MessageGroupId = message.Message.MessageGroupId,
+                    IsPartner = message.Message.IsPartner,
+                    CreateAt = message.Message.CreateAt,
+                    Type = message.Message.Type,
+                    Attachments = new List<Attachment>() { new Attachment
+                    {
+                        FilePath = message.Message.FilePath,
+                        Type = message.Message.Type
+                    }}
+                };
+
+        chatModel.Messages.Add(newMessage);
             await ScrollToElementId("block_message");
             StateHasChanged();
         }
@@ -235,4 +249,4 @@ else
     {
         showHelpWord = !showHelpWord;
     }
- }
+    }

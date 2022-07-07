@@ -52,10 +52,10 @@ namespace TelegramChatBlazor.BLL.Services
 
                 var message = update.Message;
 
-                string? imageId = null;
+                string? fileId = null;
                 if (message.Photo != null)
                 {
-                     imageId = (await botClient.GetFileAsync(message.Photo[message.Photo.Count() - 1].FileId)).FileId;
+                     fileId = (await botClient.GetFileAsync(message.Photo[message.Photo.Count() - 1].FileId)).FileId;
                 }
 
                 var chat = await botClient.GetChatAsync(message.Chat.Id);
@@ -70,7 +70,7 @@ namespace TelegramChatBlazor.BLL.Services
                     message.Text, true, avatarPartnerId, message.Chat.Username,
                     message.Chat.FirstName, message.Chat.LastName,
                     bot.FirstName, "https://flowxo.com/wp-content/uploads/2021/03/Telegram-Logo-512x512.png",
-                    imageId, mediaGroupIdConvert, type);
+                    fileId, mediaGroupIdConvert, type);
 
 
                 var url = _chatBlazorSettings.ApiUrl + "api/apimessage";

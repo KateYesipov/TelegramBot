@@ -89,7 +89,7 @@
                     <div class="messange_block" @onclick="(()=>LoadMessageById(selectedChat.Id))">
                         <div class="avatar">
                             <div class="img_messange">
-                               
+
                                 <img src="@selectedChat.PartnerAvatar">
                             </div>
                         </div>
@@ -111,9 +111,9 @@
                     {
                         <div class="messange_block" @onclick="(()=>LoadMessageById(item.Id))">
                             <div class="avatar">
-                               
+
                                 <div class="img_messange">
-                                      <img class="telegram_img" src="/Images/telegram.svg"/>
+                                    <img class="telegram_img" src="/Images/telegram.svg" />
                                     <img class="avatar_img_message" src="@item.PartnerAvatar">
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
         hubConnection = new HubConnectionBuilder()
        .WithUrl(_navigationManager.ToAbsoluteUri("/signalRHub"))
        .Build();
-        hubConnection.On<MessageNotification>("Send", this.Send);
+        hubConnection.On<ChatNotification>("Send", this.Send);
         await hubConnection.StartAsync();
 
         var botId = BotService.GetByToken(token);
@@ -174,7 +174,7 @@
         return await Task.FromResult(Chats.Where(x => x.PartnerName.ToLower().Contains(searchChat.ToLower())).ToList());
     }
 
-    Task Send(MessageNotification messageNotification)
+    Task Send(ChatNotification messageNotification)
     {
         if (messageNotification.Token == token)
         {
@@ -186,13 +186,18 @@
                         Id = messageNotification.Message.ChatId,
                         PartnerName = messageNotification.PartnerName,
                         PartnerAvatar = messageNotification.PartnerAvatar,
-                        Messages = new List<Message> { messageNotification.Message }
+                        Messages = new List<Message> { new Message {Text= messageNotification.Message.Text,
+                                                                    CreateAt=messageNotification.Message.CreateAt} }
                     };
                 Chats.Add(newChat);
             }
             else
             {
-                Chats[index].Messages.Add(messageNotification.Message);
+                Chats[index].Messages.Add(new Message
+                    {
+                        Text = messageNotification.Message.Text,
+                        CreateAt = messageNotification.Message.CreateAt
+                    });
             }
         }
         StateHasChanged();

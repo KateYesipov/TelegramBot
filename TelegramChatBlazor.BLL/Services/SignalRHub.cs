@@ -7,7 +7,7 @@ namespace TelegramChatBlazor.BLL.Services
 {
     public class SignalRHub : Hub
     {
-        public async Task SendMessageAsync(MessageNotification message)
+        public async Task SendMessageAsync(ChatNotification message)
         {
             await Clients.All.SendAsync("Send", message);
         }

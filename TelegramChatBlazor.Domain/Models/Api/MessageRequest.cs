@@ -5,7 +5,7 @@
         public MessageRequest(string token, long chatId,long telegramChatId,
             string? text,bool isPartner, string partnerAvatar, string partnerUserName,
             string partnerName, string partnerLastName, string botUserName,
-            string botAvatar,string? imageId,long messageGroupId,string? type)
+            string botAvatar,string? fileId,long messageGroupId,string? type)
         {
             Token = token;
             ChatId = chatId;
@@ -18,7 +18,7 @@
             PartnerLastName = partnerLastName;
             BotUserName = botUserName;
             BotAvatar = botAvatar;
-            ImageId = imageId;
+            FileId = fileId;
             MessageGroupId = messageGroupId;
             Type = type;
         }
@@ -34,7 +34,7 @@
         public string BotUserName { get; set; }
         public string? BotAvatar { get; set; }
         public string Token { get; set; }
-        public string? ImageId { get; set; }
+        public string? FileId { get; set; }
         public long MessageGroupId { get; set; }
         public string? Type { get; set; }
     }

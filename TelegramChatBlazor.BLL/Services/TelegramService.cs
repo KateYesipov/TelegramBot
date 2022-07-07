@@ -64,22 +64,20 @@ namespace TelegramChatBlazor.BLL.Services
 
             var bot = _botService.GetByToken(messageRequest.Token);
 
-
-            string PathImage = null;
-            if (messageRequest.ImageId != null)
+            string FilePath = null;
+            if (messageRequest.FileId != null && messageRequest.Type == "Photo")
             {
-                PathImage = SaveImageFromTelegram(botClient, messageRequest.ImageId, "/Images/files//").Result;
+                FilePath = SaveImageFromTelegram(botClient, messageRequest.FileId, "/Images/files//").Result;
             }
-
 
             if (messageRequest.MessageGroupId > 0)
             {
                 var messagesId = _messageRepository.GetByMessageGroupId(messageRequest.MessageGroupId)?.Id;
-                if (messagesId !=null)
+                if (messagesId != null)
                 {
                     var attachment = new Attachment
                     {
-                        FilePath = PathImage,
+                        FilePath = FilePath,
                         MessageId = (long)messagesId,
                         Type = messageRequest.Type
                     };
@@ -113,12 +111,12 @@ namespace TelegramChatBlazor.BLL.Services
                         MessageGroupId = messageRequest.MessageGroupId} }
                 };
 
-                if (PathImage != null)
+                if (FilePath != null)
                 {
                     newChat.Messages.FirstOrDefault().Attachments =
                                           new List<Attachment>(){ new Attachment
                                           {
-                                              FilePath = PathImage,
+                                              FilePath = FilePath,
                                               Type = messageRequest.Type,
                                           }};
                 }
@@ -140,11 +138,11 @@ namespace TelegramChatBlazor.BLL.Services
 
                 var messageId = _messageRepository.Create(newMessage);
 
-                if (PathImage != null)
+                if (FilePath != null)
                 {
                     var attachment = new Attachment
                     {
-                        FilePath = PathImage,
+                        FilePath = FilePath,
                         Type = messageRequest.Type,
                         MessageId = messageId
                     };
@@ -191,12 +189,12 @@ namespace TelegramChatBlazor.BLL.Services
             var file = await botClient.GetFileAsync(fileId);
             if (file != null)
             {
-                var fileName = pathFolder + Guid.NewGuid() + "_" + file.FilePath.Remove(0, file.FilePath.IndexOf("/") + 1);
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + fileName, FileMode.Create))
+                var PathFile = pathFolder + Guid.NewGuid() + "_" + file.FilePath.Remove(0, file.FilePath.IndexOf("/") + 1);
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + PathFile, FileMode.Create))
                 {
                     await botClient.DownloadFileAsync(file.FilePath, fileStream);
                 }
-                return fileName;
+                return PathFile;
             }
             return null;
         }
