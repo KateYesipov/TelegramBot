@@ -61,7 +61,6 @@ namespace TelegramChatBlazor.BLL.Services
             if (String.IsNullOrEmpty(token)) { throw new Exception("token null"); }
 
             var botClient = new TelegramBotClient(token);
-
             var bot = _botService.GetByToken(messageRequest.Token);
 
             string FilePath = null;
@@ -150,7 +149,6 @@ namespace TelegramChatBlazor.BLL.Services
                     _attachmentRepository.Save();
                 }
             }
-
             return messageRequest;
         }
 
@@ -160,7 +158,7 @@ namespace TelegramChatBlazor.BLL.Services
             var botClient = new TelegramBotClient(sendMessage.Token);
             //Db
             var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId, sendMessage.TelegramChatId,
-               sendMessage.TextMessage, false, "", "", "", "", "", "", null, 0, "");
+            sendMessage.TextMessage, false, "", "", "", "", "", "", null, 0, "Text");
 
             var url = _chatBlazorSettings.ApiUrl + "api/apimessage";
             var parametrs = new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");
@@ -168,7 +166,7 @@ namespace TelegramChatBlazor.BLL.Services
             await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);
 
             //Telegram send
-            if (String.IsNullOrWhiteSpace(sendMessage.TextMessage))
+            if (!String.IsNullOrWhiteSpace(sendMessage.TextMessage))
             {
                 await botClient.SendTextMessageAsync(sendMessage.TelegramChatId, sendMessage.TextMessage);
             }

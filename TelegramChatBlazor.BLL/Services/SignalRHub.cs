@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using TelegramChatBlazor.Domain.Models;
-using TelegramChatBlazor.Domain.Models.Api;
 using TelegramChatBlazor.Domain.Models.SignalR;
 
 namespace TelegramChatBlazor.BLL.Services

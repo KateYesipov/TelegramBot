@@ -171,6 +171,7 @@ else
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender) { }
+        await Task.Delay(100);   
         await ScrollToElementId("block_message");
     }
 
