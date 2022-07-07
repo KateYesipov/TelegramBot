@@ -126,7 +126,7 @@ else
             <div class="sticer_block">
                 <label for="fileinput" class="label-wrapper">
                     <span></span>
-                    <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple />
+                    <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple accept=".png,.jpg" />
                 </label>
                 <button @onclick="ShowHelpWord" class="button_helpworld"></button>
                 <button class="button_smile"></button>
@@ -235,6 +235,7 @@ else
                 TelegramChatId = chatModel.TelegramChatId,
                 TextMessage = TextMessage,
                 Token = token,
+                Type=Attachments.Count()>0?"Photo":"Text",
                 Attachments = Attachments
             };
 
@@ -259,7 +260,7 @@ else
         var format = "image/png";
         foreach (var imageFile in e.GetMultipleFiles())
         {
-            var resizedImageFile = await imageFile.RequestImageFileAsync(format, 100, 100);
+            var resizedImageFile = await imageFile.RequestImageFileAsync(format, 400, 400);
             var buffer = new byte[resizedImageFile.Size];
             await imageFile.OpenReadStream().ReadAsync(buffer);
             var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
@@ -269,7 +270,7 @@ else
             var typeFile = imageFile.ContentType;
             MemoryStream stream = new MemoryStream(buffer);
 
-            Attachments.Add(new Attachment { Stream = stream, FileName = fileName, Type = typeFile });
+            Attachments.Add(new Attachment { Stream = stream, FileName = fileName, Type = "Photo" });
             StateHasChanged();
         }
     }

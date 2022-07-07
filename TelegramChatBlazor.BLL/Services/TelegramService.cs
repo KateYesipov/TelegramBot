@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Text;
 using Telegram.Bot;
+using Telegram.Bot.Types.InputFiles;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
 using TelegramChatBlazor.Domain.Models.Api;
@@ -155,14 +156,6 @@ namespace TelegramChatBlazor.BLL.Services
         {
             if (String.IsNullOrEmpty(sendMessage.Token)) { throw new Exception("token null"); }
             var botClient = new TelegramBotClient(sendMessage.Token);
-            //Db
-            var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId, sendMessage.TelegramChatId,
-            sendMessage.TextMessage, false, "", "", "", "", "", "", null, 0, "Text");
-
-            var url = _chatBlazorSettings.ApiUrl + "api/apimessage";
-            var parametrs = new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");
-
-            await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);
 
             //Telegram send
             if (!String.IsNullOrWhiteSpace(sendMessage.TextMessage))
@@ -172,13 +165,25 @@ namespace TelegramChatBlazor.BLL.Services
 
             foreach (var item in sendMessage.Attachments)
             {
-                //var file = new InputOnlineFile(item.Stream, item.FileNme);
-                //await botClient.SendPhotoAsync(sendMessage.TelegramChatId, file);
+                var file = new InputOnlineFile(item.Stream, item.FileName);
+                var message = (await botClient.SendPhotoAsync(sendMessage.TelegramChatId, file));
+                if (message.Photo != null)
+                {
+                    sendMessage.FileId = (await botClient.GetFileAsync(message.Photo[message.Photo.Count() - 1].FileId)).FileId;
+                }
 
                 //var file = new InputOnlineFile();
                 //await botClient.SendDocumentAsync(chatId, file);
             }
 
+            //Api
+            var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId, sendMessage.TelegramChatId,
+            sendMessage.TextMessage, false, "", "", "", "", "", "", sendMessage.FileId, 0, sendMessage.Type);
+
+            var url = _chatBlazorSettings.ApiUrl + "api/apimessage";
+            var parametrs = new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");
+
+            await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);
         }
 
         private async Task<string> SaveImageFromTelegram(ITelegramBotClient botClient, string fileId, string pathFolder)
