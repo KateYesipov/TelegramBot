@@ -1,19 +1,20 @@
 ﻿@page "/chat/{userName}"
 @inject ITelegramService TelegramService
 @inject IBotService BotService;
+@inject IManagerService ManagerService
 
 <PageTitle>Chat</PageTitle>
 @if (!string.IsNullOrEmpty(bot.Token))
 {
     <div class="common_block">
         <div class="main_block">
-            <SelectChat OnClickCallback="@GetMessages" token="@bot.Token"></SelectChat>
+            <SelectChat OnClickCallback="@GetMessages" managersList="managersList" token="@bot.Token"></SelectChat>
         </div>
         <div class="main_block_two @styleTwoBlock">
             <Messages chatModel="@chatModel" ShowOrHideRightCallback="ShowOrHideRightTab" token="@bot.Token"></Messages>
         </div>
         <div class="main_block_three @styleThreeBlock">
-            <PartnerInfo chatModel="@chatModel"></PartnerInfo>
+            <PartnerInfo chatModel="@chatModel" managersList="managersList"></PartnerInfo>
         </div>
     </div>
 }
@@ -24,6 +25,7 @@
 
     public Bot? bot;
     public Domain.Models.Chats.Chat chatModel;
+    public List<Manager> managersList { get; set; } = new List<Manager>();
 
     //style class
     public string styleTwoBlock = "twoBlock";
@@ -32,11 +34,13 @@
     protected override async Task OnInitializedAsync()
     {
         bot = BotService.GetByUsername(userName);
+
     }
 
     private void GetMessages(long ChatId)
     {
         chatModel = TelegramService.GetChatByIdIncludeMessages(ChatId);
+        managersList = ManagerService.GetAll();
     }
 
     private void ShowOrHideRightTab()

@@ -343,6 +343,5 @@ healthchecksdb
 node_modules/
 **/wwwroot/dist
 
-*/wwwroot/Images/avatar
-*/wwwroot/Images/files
-TelegramChatBlazor.Web/appsettings.json
+*/wwwroot/Images/avatar/
+*/wwwroot/Images/files/

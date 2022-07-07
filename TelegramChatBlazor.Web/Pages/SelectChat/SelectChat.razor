@@ -2,7 +2,6 @@
 @using TelegramChatBlazor.Domain.Models.SignalR
 @inject NavigationManager _navigationManager
 @inject ITelegramService TelegramService
-@inject IManagerService ManagerService
 @inject IBotService BotService
 
 <style>
@@ -129,7 +128,7 @@
             }
         </div>
         <div class="lower_block">
-            @foreach (var item in Managers)
+            @foreach (var item in managersList)
             {
                 <div class="lower_block_img">
                     <img class="green_circle" src="/Images/icons/greenCircle.svg"/>
@@ -148,9 +147,11 @@
     [Parameter]
     public string token { get; set; }
 
+    [Parameter]
+    public List<Manager> managersList { get; set; }
+
     HubConnection? hubConnection;
     public List<Chat> Chats { get; set; } = new List<Chat>();
-    public List<Manager> Managers { get; set; } = new List<Manager>();
 
     public Chat selectedChat;
 
@@ -166,8 +167,6 @@
 
         var botId = BotService.GetByToken(token);
         Chats = TelegramService.GetChatListByBotId(botId.Id);
-
-        Managers = ManagerService.GetAll();
     }
 
     private async Task<IEnumerable<Chat>> AutoSearch(string searchChat)

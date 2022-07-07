@@ -11,74 +11,75 @@ else
             </div>
             <div class="last_online_avatar">
                 last online
-           </div>
-        </div >
+            </div>
+        </div>
         <div class="general_block3">
-        <div class="apple_block">
-            
-            <div class="apple_block_img">
-                 <img class="telegram_img" src="/Images/telegram.svg"/>
-                <img class="apple_img" src="/Images/apple.svg"/>
-               
+            <div class="apple_block">
+
+                <div class="apple_block_img">
+                    <img class="telegram_img" src="/Images/telegram.svg" />
+                    <img class="apple_img" src="/Images/apple.svg" />
+
+                </div>
+            </div>
+            <div class="status_block">
+                <div class=" funnel_status">
+                    Funnel status
+                </div>
+                <select class="status_slect">
+                    <option>Status</option>
+                    <option>Пункт 2</option>
+                </select>
+            </div>
+            <div class="tags_block">
+                <p>Tags</p>
+                <button> Add tag</button>
+            </div>
+            <div class="information_block">
+                <div class="information_block_mini">
+                    <p>Bot</p>
+                    <a>develmbot</a>
+                </div>
+                <div class="information_block_mini">
+                    <p>Telegram</p>
+                    <a>nikoladev </a>
+                </div>
+                <div class="information_block_mini">
+                    <p> Creation date</p>
+                    <a>20.03.2022 at 14:02</a>
+                </div>
+                <div class="information_block_mini">
+                    <p>Last action</p>
+                    <a>22.03.2022 at 11:42</a>
+                </div>
+                <div class="information_block_mini">
+                    <p>Edit user</p>
+                    <a>78</a>
+                </div>
+                <div class="information_block_mini">
+                    <p>Purchase date</p>
+                    <a>20.03.2022</a>
+                </div>
+            </div>
+            <div class="lower_block">
+            </div>
+            <div class="operators_block">
+                <p>Operators</p>
+                <select class="contact_select_block">
+                    @foreach (var item in managersList)
+                    {
+                        <option value="volvo">
+                            @item.Name
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="buttons_lower_block3">
+                <button>Newsletters (0)</button>
+                <button>Notes (0)</button>
+                <button>Fast responds (0)</button>
             </div>
         </div>
-        <div class="status_block">
-            <div class=" funnel_status">
-                Funnel status
-            </div>
-            <select class="status_slect">
-                <option>Status</option>
-                <option>Пункт 2</option>
-            </select>
-        </div>
-        <div class="tags_block"> 
-            <p>Tags</p>
-            <button> Add tag</button>
-        </div>
-        <div class="information_block">
-            <div class="information_block_mini">
-                <p>Bot</p>
-                <a>develmbot</a>
-            </div>
-            <div class="information_block_mini">
-                <p>Telegram</p>
-                <a>nikoladev </a>
-            </div>
-            <div class="information_block_mini">
-                <p> Creation date</p>
-                <a>20.03.2022 at 14:02</a>
-            </div>
-            <div class="information_block_mini">
-                <p>Last action</p>
-                <a>22.03.2022 at 11:42</a>
-            </div>
-            <div class="information_block_mini">
-                <p>Edit user</p>
-                <a>78</a>
-            </div>
-            <div class="information_block_mini">
-                <p>Purchase date</p>
-                <a>20.03.2022</a>
-            </div>
-        </div>
-        <div class="lower_block">
-        </div>
-        <div class="operators_block">
-            <p>Operators</p>
-              <select class="contact_select_block">
-          @* 
-                <img src="@chatModel.PartnerAvatar" />*@
-                <option value="volvo">                               
-                    Andrii Chutilov
-                    </option>
-            </select>
-        </div>
-        <div class="buttons_lower_block3">
-            <button>Newsletters (0)</button>
-            <button>Notes (0)</button>
-            <button>Fast responds (0)</button>
-        </div>
-    </div>
     </div>
 }
 
@@ -86,4 +87,6 @@ else
     [Parameter]
     public Chat chatModel { get; set; }
 
+    [Parameter]
+    public List<Manager> managersList { get; set; }
 }
