@@ -156,3 +156,9 @@ input.nosubmit {
     left: 70%;
     top: -8%;
 }
+
+@media screen and (max-device-width:480px) {
+    .lower_block{
+        display:none;
+    }
+}

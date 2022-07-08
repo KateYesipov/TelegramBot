@@ -64,3 +64,10 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+@media screen and (max-device-width:480px) {
+.content{
+    padding:0px;
+}
+}
+
