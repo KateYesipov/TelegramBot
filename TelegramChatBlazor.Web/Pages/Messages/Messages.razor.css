@@ -126,13 +126,14 @@
 
 
 .block_correspondence {
-    max-height: 63vh;
+    max-height: 65vh;
     overflow: auto;
     height: inherit;
 }
 
+
 .block_correspondence_mini {
-    max-height: 36.5vh;
+    max-height:36.5vh !important;
 }
 
 .data_correspondence {
@@ -141,16 +142,15 @@
     margin-top:15px;
 }
 
-.sender_message {
-   
+.block_correspondence_language_hide {
+    max-height: 70vh;
+}
 
-    width:100%;
-    display:flex;
-    margin-top:15px;
-    
- 
- 
-  
+
+.sender_message {
+    width: 100%;
+    display: flex;
+    margin-top: 15px;
 }
 
 .img_sender_message {
@@ -520,7 +520,7 @@
 }
 
 .block_correspondence_attachement{
-    height:56vh;
+    height:58vh;
 }
 
 

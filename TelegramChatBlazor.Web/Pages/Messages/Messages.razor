@@ -2,35 +2,38 @@
 @inject IJSRuntime JSRuntime
 @inject ITelegramService TelegramService
 
-    <div class="companion_block ">
-        <div class="companion_img">
-            <div class="companion_picture">
-                <img src="@chatModel?.PartnerAvatar">
-            </div>
-        </div>
-        <div class="name_and_last_block">
-            <div class="name_companion">
-                @chatModel?.PartnerName @chatModel?.PartnerLastName
-            </div>
-            <div class="last_online">
-                last online
-            </div>
-        </div>
-        <div class="up_button_block">
-            <button class="up_button_block_first"></button>
-            <button class="up_button_block_second"></button>
-            <button class="up_button_block_third"></button>
-            <button class="up_button_block_fourth"></button>
-            <button class="up_button_block_fifth" @onclick="ShowOrHideRightTab"></button>
+<div class="companion_block ">
+    <div class="companion_img">
+        <div class="companion_picture">
+            <img src="@chatModel?.PartnerAvatar">
         </div>
     </div>
+    <div class="name_and_last_block">
+        <div class="name_companion">
+            @chatModel?.PartnerName @chatModel?.PartnerLastName
+        </div>
+        <div class="last_online">
+            last online
+        </div>
+    </div>
+    <div class="up_button_block">
+        <button class="up_button_block_first"></button>
+        <button class="up_button_block_second"></button>
+        <button class="up_button_block_third"></button>
+        <button class="up_button_block_fourth"></button>
+        <button class="up_button_block_fifth" @onclick="ShowOrHideRightTab"></button>
+    </div>
+</div>
 @if (chatModel != null)
 {
-    <div class="dropdown_block_ontop">
-        <p>@chatModel?.PartnerName speaks <a href="#">English</a>, is that correct? </p>
-        <div></div>
-    </div>
-    <div class="block_correspondence @correspondenceMiniCssClass @(imageDataUrls.Count()>0?"block_correspondence_attachement":"")" id="block_message">
+    @if (showLanguagePanel)
+    {
+        <div class="dropdown_block_ontop">
+            <p>@chatModel?.PartnerName speaks <a href="#">English</a>, is that correct? </p>
+            <div @onclick="@(async () => await CloseLanguagePanel())"></div>
+        </div>
+    }
+    <div class="block_correspondence @correspondenceMiniCssClass @(Attachments.Count()>0?"block_correspondence_attachement":"") @(showLanguagePanel?"":"block_correspondence_language_hide")" id="block_message">
         @foreach (var item in chatModel.Messages)
         {
             <div class="data_correspondence">
@@ -99,51 +102,54 @@
             }
         </div>
     </div>
-    @if (imageDataUrls.Count() > 0)
+    @if (Attachments.Count() > 0)
     {
-        <div class="inserted_pictures ">
-            @foreach (var item in imageDataUrls)
+        <div class="inserted_pictures">
+            @foreach (var item in Attachments)
             {
-                <div>
-                    <button class="button_close_img button_close_img_none ">
-                        <img src="/Images/icons/close_img.svg" />
-                    </button>
-                    <img src="@item" />
-                </div>
+                @if (item.Type == "Photo")
+                {
+                    <div>
+                        <button class="button_close_img button_close_img_none" @onclick="@(async () => await RemovePicture(item))">
+                            <img src="/Images/icons/close_img.svg" />
+                        </button>
+                        <img src="@item.FilePath" />
+                    </div>
+                }
             }
         </div>
     }
-    }
-    <div class="dialing_sms">
+}
+<div class="dialing_sms">
 
-        <div class="dialing_sms_input">
-            <textarea @bind="@TextMessage" id="text3" type="text" placeholder="Press CTRL + Enter to send"></textarea>
+    <div class="dialing_sms_input">
+        <textarea @bind="@TextMessage" id="text3" type="text" placeholder="Press CTRL + Enter to send"></textarea>
+    </div>
+    <div class="sticer_button_block">
+        <div class="sticer_block">
+            <label for="fileinput" class="label-wrapper">
+                <span></span>
+                <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple accept=".png,.jpg" />
+            </label>
+            <button @onclick="ShowHelpWord" class="button_helpworld"></button>
+            <button class="button_smile" id="button3"></button>
         </div>
-        <div class="sticer_button_block">
-            <div class="sticer_block">
-                <label for="fileinput" class="label-wrapper">
-                    <span></span>
-                    <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple accept=".png,.jpg" />
-                </label>
-                <button @onclick="ShowHelpWord" class="button_helpworld"></button>
-                <button class="button_smile" id="button3"></button>
-            </div>
-            <div class="send_button">
-                <button @onclick="@(async () => await SendMessage())">
-                    <img src="/Images/icons/arrow-up.svg" />
-                    send
-                </button>
-            </div>
+        <div class="send_button">
+            <button @onclick="@(async () => await SendMessage())">
+                <img src="/Images/icons/arrow-up.svg" />
+                send
+            </button>
         </div>
     </div>
+</div>
 
-    <style>
-        .custom-input-hide {
-            width: 0;
-            height: 0;
-            overflow: hidden;
-        }
-    </style>
+<style>
+    .custom-input-hide {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+</style>
 
 
 @code {
@@ -158,12 +164,12 @@
 
 
     public List<Attachment> Attachments = new List<Attachment>();
-    private IList<string> imageDataUrls = new List<string>();
 
-    private string TextMessage { get; set; }
+    private string TextMessage = String.Empty;
     HubConnection? hubConnection;
 
     private bool showHelpWord = false;
+    private bool showLanguagePanel = true;
 
     private string? correspondenceMiniCssClass => showHelpWord ? "block_correspondence_mini" : null;
     private string? helpWordCssClass => showHelpWord ? null : "dropdown_block_hide";
@@ -181,11 +187,11 @@
     {
         if (firstRender)
         {
-              await JSRuntime.InvokeVoidAsync("jsMethod"); 
-        }    
+            await JSRuntime.InvokeVoidAsync("jsMethod");
+        }
         await Task.Delay(100);
-        await ScrollToElementId("block_message");   
-             
+        await ScrollToElementId("block_message");
+
     }
 
     async Task Send(ChatNotification message)
@@ -230,25 +236,27 @@
 
     private async Task SendMessage()
     {
-        var newSendmessage = new SendMessage
-            {
-                ChatId = chatModel.Id,
-                TelegramChatId = chatModel.TelegramChatId,
-                TextMessage = TextMessage,
-                Token = token,
-                Type=Attachments.Count()>0?"Photo":"Text",
-                Attachments = Attachments
-            };
+        if (!String.IsNullOrWhiteSpace(TextMessage) || Attachments.Count() > 0)
+        {
+            var newSendmessage = new SendMessage
+                {
+                    ChatId = chatModel.Id,
+                    TelegramChatId = chatModel.TelegramChatId,
+                    TextMessage = TextMessage,
+                    Token = token,
+                    Type = Attachments.Count() > 0 ? "Photo" : "Text",
+                    Attachments = Attachments
+                };
 
-        await TelegramService.SendMessage(newSendmessage);
-        TextMessage = String.Empty;
-        imageDataUrls.Clear();
-        Attachments.Clear();
+            await TelegramService.SendMessage(newSendmessage);
+            TextMessage = String.Empty;
+            Attachments.Clear();
+        }
     }
 
     public async Task ScrollToElementId(string elementId)
     {
-        await JSRuntime.InvokeVoidAsync("scrollToElementId", elementId);         
+        await JSRuntime.InvokeVoidAsync("scrollToElementId", elementId);
     }
 
 
@@ -266,15 +274,24 @@
             var buffer = new byte[resizedImageFile.Size];
             await imageFile.OpenReadStream().ReadAsync(buffer);
             var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
-            imageDataUrls.Add(imageDataUrl);
 
             var fileName = imageFile.Name;
             var typeFile = imageFile.ContentType;
             MemoryStream stream = new MemoryStream(buffer);
 
-            Attachments.Add(new Attachment { Stream = stream, FileName = fileName, Type = "Photo" });
+            Attachments.Add(new Attachment { FilePath = imageDataUrl, Stream = stream, FileName = fileName, Type = "Photo" });
             StateHasChanged();
         }
+    }
+
+    private async Task RemovePicture(Attachment item)
+    {
+        Attachments.Remove(item);
+    }
+
+    private async Task CloseLanguagePanel()
+    {
+        showLanguagePanel = false;
     }
 
     private void ShowHelpWord()
