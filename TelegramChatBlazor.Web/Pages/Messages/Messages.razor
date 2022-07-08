@@ -2,21 +2,15 @@
 @inject IJSRuntime JSRuntime
 @inject ITelegramService TelegramService
 
-
-@if (chatModel == null)
-{
-}
-else
-{
     <div class="companion_block ">
         <div class="companion_img">
             <div class="companion_picture">
-                <img src="@chatModel.PartnerAvatar">
+                <img src="@chatModel?.PartnerAvatar">
             </div>
         </div>
         <div class="name_and_last_block">
             <div class="name_companion">
-                @chatModel.PartnerName @chatModel.PartnerLastName
+                @chatModel?.PartnerName @chatModel?.PartnerLastName
             </div>
             <div class="last_online">
                 last online
@@ -30,8 +24,10 @@ else
             <button class="up_button_block_fifth" @onclick="ShowOrHideRightTab"></button>
         </div>
     </div>
+@if (chatModel != null)
+{
     <div class="dropdown_block_ontop">
-        <p>@chatModel.PartnerName speaks <a href="#">English</a>, is that correct? </p>
+        <p>@chatModel?.PartnerName speaks <a href="#">English</a>, is that correct? </p>
         <div></div>
     </div>
     <div class="block_correspondence @correspondenceMiniCssClass @(imageDataUrls.Count()>0?"block_correspondence_attachement":"")" id="block_message">
@@ -117,10 +113,11 @@ else
             }
         </div>
     }
+    }
     <div class="dialing_sms">
 
         <div class="dialing_sms_input">
-            <textarea @bind="@TextMessage" type="text" placeholder="Press CTRL + Enter to send"></textarea>
+            <textarea @bind="@TextMessage" id="text3" type="text" placeholder="Press CTRL + Enter to send"></textarea>
         </div>
         <div class="sticer_button_block">
             <div class="sticer_block">
@@ -129,7 +126,7 @@ else
                     <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple accept=".png,.jpg" />
                 </label>
                 <button @onclick="ShowHelpWord" class="button_helpworld"></button>
-                <button class="button_smile"></button>
+                <button class="button_smile" id="button3"></button>
             </div>
             <div class="send_button">
                 <button @onclick="@(async () => await SendMessage())">
@@ -147,7 +144,7 @@ else
             overflow: hidden;
         }
     </style>
-}
+
 
 @code {
     [Parameter]
@@ -182,9 +179,13 @@ else
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender) { }
+        if (firstRender)
+        {
+              await JSRuntime.InvokeVoidAsync("jsMethod"); 
+        }    
         await Task.Delay(100);
-        await ScrollToElementId("block_message");
+        await ScrollToElementId("block_message");   
+             
     }
 
     async Task Send(ChatNotification message)
@@ -247,8 +248,9 @@ else
 
     public async Task ScrollToElementId(string elementId)
     {
-        await JSRuntime.InvokeVoidAsync("scrollToElementId", elementId);
+        await JSRuntime.InvokeVoidAsync("scrollToElementId", elementId);         
     }
+
 
     private void ShowOrHideRightTab()
     {

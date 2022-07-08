@@ -23,6 +23,9 @@ builder.Services.AddServerSideBlazor();
 builder.Services.RegisterDependencyModules();
 builder.Services.AddAutoMapper(typeof(WebMappingProfile), typeof(DataAccessMapingProfile));
 
+builder.Services
+  .AddServerSideBlazor()
+  .AddCircuitOptions(options => { options.DetailedErrors = true; });
 
 var app = builder.Build();
 

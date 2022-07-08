@@ -13,6 +13,7 @@
     <link href="TelegramChatBlazor.Web.styles.css" rel="stylesheet" />
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
     <link href="_content/Blazored.Typeahead/blazored-typeahead.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/emojibuttonlistjs.css" />
 </head>
 <body>
     @RenderBody()
@@ -28,21 +29,8 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <script>
-        window.scrollToElementId = (elementId) => {
-            console.info('scrolling to element', elementId);
-            var element = document.getElementById(elementId);
-            console.info('element', element);
-            if(!element)
-            {
-                console.warn('element was not found', elementId);
-            }else{
-            element.scrollTop = element.scrollHeight;
-            }
-        }
-
-    </script>
-
+    <script src="js/emojibuttonlistjs.js"></script>
+    <script src="js/scripts.js"></script>
     <script src="_content/Blazored.Typeahead/blazored-typeahead.js"></script>
     <script src="_framework/blazor.server.js"></script>
 </body>

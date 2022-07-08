@@ -164,31 +164,33 @@ namespace TelegramChatBlazor.BLL.Services
                 await botClient.SendTextMessageAsync(sendMessage.TelegramChatId, sendMessage.TextMessage);
             }
 
-            //send Photo
-            var file = new List<Telegram.Bot.Types.IAlbumInputMedia>();
-            foreach (var item in sendMessage.Attachments)
+            if (sendMessage.Attachments != null && sendMessage.Attachments.Count > 0)
             {
-                 file.Add(new Telegram.Bot.Types.InputMediaPhoto(new Telegram.Bot.Types.InputMedia(item.Stream, item.FileName)));
-
-                //var file = new InputOnlineFile(item.Stream, item.FileName);
-                //var message = (await botClient.SendPhotoAsync(sendMessage.TelegramChatId, file));
-                //if (message.Photo != null)
-                //{
-                //    sendMessage.FileId = (await botClient.GetFileAsync(message.Photo[message.Photo.Count() - 1].FileId)).FileId;
-                //}
-
-                //var file = new InputOnlineFile();
-                //await botClient.SendDocumentAsync(chatId, file);
-            }
-            var sendMessages = (await botClient.SendMediaGroupAsync(sendMessage.TelegramChatId, file));
-            foreach (var item in sendMessages)
-            {
-                if (item.Photo != null)
+                //send Photo
+                var file = new List<Telegram.Bot.Types.IAlbumInputMedia>();
+                foreach (var item in sendMessage.Attachments)
                 {
-                    sendMessage.FileId = (await botClient.GetFileAsync(item.Photo[item.Photo.Count() - 1].FileId)).FileId;
+                    file.Add(new Telegram.Bot.Types.InputMediaPhoto(new Telegram.Bot.Types.InputMedia(item.Stream, item.FileName)));
+
+                    //var file = new InputOnlineFile(item.Stream, item.FileName);
+                    //var message = (await botClient.SendPhotoAsync(sendMessage.TelegramChatId, file));
+                    //if (message.Photo != null)
+                    //{
+                    //    sendMessage.FileId = (await botClient.GetFileAsync(message.Photo[message.Photo.Count() - 1].FileId)).FileId;
+                    //}
+
+                    //var file = new InputOnlineFile();
+                    //await botClient.SendDocumentAsync(chatId, file);
+                }
+                var sendMessages = (await botClient.SendMediaGroupAsync(sendMessage.TelegramChatId, file));
+                foreach (var item in sendMessages)
+                {
+                    if (item.Photo != null)
+                    {
+                        sendMessage.FileId = (await botClient.GetFileAsync(item.Photo[item.Photo.Count() - 1].FileId)).FileId;
+                    }
                 }
             }
-
 
             //Api
             var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId, sendMessage.TelegramChatId,
