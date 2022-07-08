@@ -37,6 +37,7 @@ namespace TelegramChatBlazor.Web.Api
             if (newMessage != null)
             {
                 var messageNotification = _mapper.Map<ChatNotification>(newMessage);
+                messageNotification.Message.CreateAt = DateTime.Now;
                 await _hubConnection.StartAsync();
                 await _hubConnection.SendAsync("SendMessageAsync", messageNotification);
             }

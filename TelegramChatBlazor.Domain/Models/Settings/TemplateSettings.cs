@@ -12,8 +12,6 @@ namespace TelegramChatBlazor.Domain.Models.Settings
 
         public TelegramChatBlazorSettings() { }
 
-        public string? BotClient { get; set; }
-
         public string? BaseUrl { get; set; }
 
         public string? ApiUrl { get; set; }
