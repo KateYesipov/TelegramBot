@@ -48,7 +48,3 @@ namespace TelegramChatBlazor.BLL.Services
     }
 }
 
-
-
-    }
-}
