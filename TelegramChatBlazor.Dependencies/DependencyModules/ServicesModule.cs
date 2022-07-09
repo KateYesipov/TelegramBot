@@ -30,6 +30,11 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
             services.AddTransient<IAttachmentRepository, AttachmentRepository>();
             services.AddTransient<IAttachmentService, AttachmentService>();
 
+            services.AddTransient<ICategoryAnswerRepository, CategoryAnswerRepository>();
+            services.AddTransient<ICategoryAnswerService, CategoryAnswerService>();
+
+            services.AddTransient< IAnswerRepository , AnswerRepository>();
+            services.AddTransient<IAnswerService, AnswerService>();
 
             services.AddSignalR();
             services.TryAddSingleton<IAppSettingsService, AppSettingsService>();

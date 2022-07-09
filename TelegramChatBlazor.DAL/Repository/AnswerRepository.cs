@@ -1,55 +1,48 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TelegramChatBlazor.DAL.Context;
 using TelegramChatBlazor.Domain.Abstract.Repository;
-using TelegramChatBlazor.Domain.Models.Messages;
+using TelegramChatBlazor.Domain.Models.HelpWord;
 
 namespace TelegramChatBlazor.DAL.Repository
 {
-    public class AttachmentRepository : IAttachmentRepository
+    public class AnswerRepository: IAnswerRepository
     {
         protected readonly ApplicationDbContext _context;
         protected readonly IMapper _mapper;
 
-        public AttachmentRepository(ApplicationDbContext context, IMapper mapper)
+        public AnswerRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public List<Attachment> GetAll()
+        public List<Answer> GetAll()
         {
-            var attachment = _context.Managers.ToList();
-            return _mapper.Map<List<Attachment>>(attachment);
+            var answers = _context.Answers.ToList();
+            return _mapper.Map<List<Answer>>(answers);
         }
 
-        public void Create(Attachment item)
+        public void Create(Answer item)
         {
-           _context.Database.ExecuteSqlRaw(@"Insert into Attachments
-           (FilePath, Type, MessageId)
-           Values({0},{1},{2})",
-           item.FilePath, item.Type, item.MessageId);         
+            var answer = _mapper.Map<Entities.Answer>(item);
+            _context.Answers.Add(answer);
         }
 
         public void Delete(long id)
         {
-            var attachment = _context.Managers.Find(id);
-            if (attachment != null)
-                _context.Managers.Remove(attachment);
+            var answer = _context.Answers.Find(id);
+            if (answer != null)
+                _context.Answers.Remove(answer);
         }
 
-        public Attachment GetById(long Id)
+        public Answer GetById(long Id)
         {
-            var attachment = _context.Managers.FirstOrDefault(x => x.Id == Id);
-            return _mapper.Map<Attachment>(attachment);
+            var answer = _context.Answers.FirstOrDefault(x => x.Id == Id);
+            return _mapper.Map<Answer>(answer);
         }
 
-        public void Update(Attachment item)
+        public void Update(Answer item)
         {
             _context.Update(item);
             _context.Entry(item).State = EntityState.Modified;
@@ -81,4 +74,5 @@ namespace TelegramChatBlazor.DAL.Repository
         }
     }
 }
+
 

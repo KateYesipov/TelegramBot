@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TelegramChatBlazor.DAL.Context;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Models.Managers;
@@ -39,6 +40,12 @@ namespace TelegramChatBlazor.DAL.Repository
         {
             var manager = _context.Managers.FirstOrDefault(x => x.Id == Id);
             return _mapper.Map<Manager>(manager);
+        }
+
+        public void Update(Manager item)
+        {
+            _context.Update(item);
+            _context.Entry(item).State = EntityState.Modified;
         }
 
         public void Save()

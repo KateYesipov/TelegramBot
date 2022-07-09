@@ -4,7 +4,7 @@ using TelegramChatBlazor.Domain.Models.Managers;
 
 namespace TelegramChatBlazor.BLL.Services
 {
-    public class ManagerService: IManagerService
+    public class ManagerService : IManagerService
     {
         private readonly IManagerRepository _managerRepostitory;
 
@@ -42,8 +42,8 @@ namespace TelegramChatBlazor.BLL.Services
 
         public void Update(Manager item)
         {
-            //_managerRepostitory.Update(item);
-            //_managerRepostitory.Save();
+            _managerRepostitory.Update(item);
+            _managerRepostitory.Save();
         }
     }
 }

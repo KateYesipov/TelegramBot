@@ -7,49 +7,47 @@ using System.Text;
 using System.Threading.Tasks;
 using TelegramChatBlazor.DAL.Context;
 using TelegramChatBlazor.Domain.Abstract.Repository;
-using TelegramChatBlazor.Domain.Models.Messages;
+using TelegramChatBlazor.Domain.Models.HelpWord;
 
 namespace TelegramChatBlazor.DAL.Repository
 {
-    public class AttachmentRepository : IAttachmentRepository
+    public class CategoryAnswerRepository: ICategoryAnswerRepository
     {
         protected readonly ApplicationDbContext _context;
         protected readonly IMapper _mapper;
 
-        public AttachmentRepository(ApplicationDbContext context, IMapper mapper)
+        public CategoryAnswerRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public List<Attachment> GetAll()
+        public List<Category> GetAll()
         {
-            var attachment = _context.Managers.ToList();
-            return _mapper.Map<List<Attachment>>(attachment);
+            var category = _context.Categories.ToList();
+            return _mapper.Map<List<Category>>(category);
         }
 
-        public void Create(Attachment item)
+        public void Create(Category item)
         {
-           _context.Database.ExecuteSqlRaw(@"Insert into Attachments
-           (FilePath, Type, MessageId)
-           Values({0},{1},{2})",
-           item.FilePath, item.Type, item.MessageId);         
+            var category = _mapper.Map<Entities.Category>(item);
+            _context.Categories.Add(category);
         }
 
         public void Delete(long id)
         {
-            var attachment = _context.Managers.Find(id);
-            if (attachment != null)
-                _context.Managers.Remove(attachment);
+            var category = _context.Categories.Find(id);
+            if (category != null)
+                _context.Categories.Remove(category);
         }
 
-        public Attachment GetById(long Id)
+        public Category GetById(long Id)
         {
-            var attachment = _context.Managers.FirstOrDefault(x => x.Id == Id);
-            return _mapper.Map<Attachment>(attachment);
+            var category = _context.Categories.FirstOrDefault(x => x.Id == Id);
+            return _mapper.Map<Category>(category);
         }
 
-        public void Update(Attachment item)
+        public void Update(Category item)
         {
             _context.Update(item);
             _context.Entry(item).State = EntityState.Modified;

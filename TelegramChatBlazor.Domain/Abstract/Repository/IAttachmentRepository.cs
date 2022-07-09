@@ -12,6 +12,7 @@ namespace TelegramChatBlazor.Domain.Abstract.Repository
         Attachment GetById(long id);
         List<Attachment> GetAll();
         void Create(Attachment item);
+        void Update(Attachment item);
         void Delete(long id);
         void Save();
     }

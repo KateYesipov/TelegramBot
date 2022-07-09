@@ -41,8 +41,8 @@ namespace TelegramChatBlazor.BLL.Services
 
         public void Update(Attachment item)
         {
-            //_managerRepostitory.Update(item);
-            //_managerRepostitory.Save();
+            _attachmentRepository.Update(item);
+            _attachmentRepository.Save();
         }
     }
 }

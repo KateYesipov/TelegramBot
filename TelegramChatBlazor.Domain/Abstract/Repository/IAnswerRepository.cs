@@ -2,11 +2,12 @@
 
 namespace TelegramChatBlazor.Domain.Abstract.Repository
 {
-    public interface IAnswerRepostitory
+    public interface IAnswerRepository
     {
         Answer GetById(long id);
         List<Answer> GetAll();
         void Create(Answer item);
+        void Update(Answer item);
         void Delete(long id);
         void Save();
     }
