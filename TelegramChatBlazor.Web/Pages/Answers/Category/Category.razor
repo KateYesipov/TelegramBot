@@ -1,6 +1,64 @@
 ﻿@page "/answers/category"
-<h3>Category</h3>
+@inject IJSRuntime JsRuntime
+@inject ICategoryAnswerService CategoryAnswerService
+
+<NavLink class="nav-link" href="answers/category/add">
+    <span class="oi oi-plus" aria-hidden="true">Add New</span>
+</NavLink>
+
+<h1>Categories Info</h1>
+@if (Categories is null)
+{
+    <p><em>Loading... !</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category Id</th>
+                <th>Name Category</th>
+                <th>CreateAt</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Categories)
+            {
+                <tr>                     
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.CreatedAt</td>
+                    <td>
+                        <a class="nav-link" href="EditBot/@item.Id">
+                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                        </a>
+                        <a class="nav-link" onclick="@(async () => await Delete(item.Id))">
+                            <span class="oi oi-trash"  aria-hidden="true">Delete</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 
 @code {
+    List<Domain.Models.HelpWord.Category> Categories;
+    protected override async Task OnInitializedAsync()
+    {
+        Categories = await Task.Run(() => CategoryAnswerService.GetAll());
+    }
 
+     private async Task Delete(long Id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            CategoryAnswerService.DeleteById(Id);
+            Categories = await Task.Run(() => CategoryAnswerService.GetAll());
+            StateHasChanged();
+        }
+    }
 }

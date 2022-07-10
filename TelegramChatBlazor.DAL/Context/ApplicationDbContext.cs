@@ -55,7 +55,10 @@ namespace TelegramChatBlazor.DAL.Context
             builder.Entity<Manager>().HasData(new Manager { Id = 3, Name = "Kate Yesipova", Email = "testEmail3@gmail.com", ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
             builder.Entity<Manager>().HasData(new Manager { Id = 4, Name = "Alex Pupkin", Email = "testEmail4@gmail.com", ImgPath = "https://image.pngaaa.com/345/1582345-middle.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
 
-      
+            builder.Entity<Category>().HasData(new Category { Id = 1, Name = "Hello-bye",CreatedAt=DateTime.Now });
+            builder.Entity<Category>().HasData(new Category { Id = 2, Name = "Продажа", CreatedAt = DateTime.Now });
+            builder.Entity<Category>().HasData(new Category { Id = 3, Name = "Брокеры", CreatedAt = DateTime.Now });
+
 
             base.OnModelCreating(builder);
         }

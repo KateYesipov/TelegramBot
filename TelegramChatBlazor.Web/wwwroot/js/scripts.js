@@ -1,10 +1,10 @@
 ﻿
 window.jsMethod = () => {
     var margin = 10,
-        instance3 = new emojiButtonList("button3", {
+        instance3 = new emojiButtonList("emojiButton", {
             dropDownXAlign: "center",
             dropDownYAlign: "top",
-            textBoxID: "text3",
+            textBoxID: "textMessage",
             yAlignMargin: margin,
             xAlignMargin: margin
         });

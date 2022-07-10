@@ -12,9 +12,12 @@
         <div class="name_companion">
             @chatModel?.PartnerName @chatModel?.PartnerLastName
         </div>
-        <div class="last_online">
-            last online
-        </div>
+        @if (chatModel != null)
+        {
+            <div class="last_online">
+                last online at @(chatModel.LastSeen.ToString("HH:mm"))
+            </div>
+        }
     </div>
     <div class="up_button_block">
         <button class="up_button_block_first"></button>
@@ -123,7 +126,7 @@
 <div class="dialing_sms">
 
     <div class="dialing_sms_input">
-        <textarea @bind="@TextMessage" id="text3" type="text" placeholder="Press CTRL + Enter to send"></textarea>
+        <textarea @bind="@TextMessage" id="textMessage" type="text" placeholder="Press CTRL + Enter to send"></textarea>
     </div>
     <div class="sticer_button_block">
         <div class="sticer_block">
@@ -132,7 +135,7 @@
                 <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple accept=".png,.jpg" />
             </label>
             <button @onclick="ShowHelpWord" class="button_helpworld"></button>
-            <button class="button_smile" id="button3"></button>
+            <button class="button_smile" id="emojiButton"></button>
         </div>
         <div class="send_button">
             <button @onclick="@(async () => await SendMessage())">
@@ -198,6 +201,11 @@
     {
         if (chatModel != null && chatModel.Id == message.Message.ChatId && message.Token == token)
         {
+            if (message.Message.IsPartner)
+            {
+                chatModel.LastSeen = message.Message.CreateAt;
+            }
+
             Message oldMessage = null;
             var messageGroupId = message.Message.MessageGroupId;
             if (messageGroupId != 0)
@@ -228,6 +236,7 @@
                         FilePath = message.Message.FilePath,
                         Type = message.Message.Type
                     });
+                chatModel.Messages.Add(oldMessage);
             }
             await ScrollToElementId("block_message");
             StateHasChanged();

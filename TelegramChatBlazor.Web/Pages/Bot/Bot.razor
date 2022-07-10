@@ -1,9 +1,9 @@
 ﻿@page "/bots"
+@inject IJSRuntime JsRuntime
 @inject IBotService BotService
 
 <NavLink class="nav-link" href="AddBots">
     <span class="oi oi-plus" aria-hidden="true">Add New</span>
-
 </NavLink>
 
 <h1>Bots Info</h1>
@@ -37,7 +37,7 @@ else
                         <a class="nav-link" href="EditBot/@item.Id">
                             <span class="oi oi-pencil" aria-hidden="true">Edit</span>
                         </a>
-                        <a class="nav-link" href="DeleteBot/@item.Id">
+                        <a class="nav-link" onclick="@(async () => await Delete(item.Id))">
                             <span class="oi oi-trash" aria-hidden="true">Delete</span>
                         </a>
                     </td>
@@ -47,11 +47,21 @@ else
     </table>
 }
 
-
 @code {
     List<Domain.Models.Bot> Bots;
     protected override async Task OnInitializedAsync()
     {
         Bots = await Task.Run(() => BotService.GetAll());
+    }
+
+    private async Task Delete(long Id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            BotService.DeleteById(Id);
+            Bots = await Task.Run(() => BotService.GetAll());
+            StateHasChanged();
+        }
     }
 }
