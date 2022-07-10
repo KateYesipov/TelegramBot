@@ -522,7 +522,37 @@
 .block_correspondence_attachement{
     height:58vh;
 }
+/*быстрые ответы после нажимания */
+.quick_response{
+    z-index:100;
+}
 
+
+
+.fast_anwers_button_two {
+    margin-top: 6px;
+    margin-left: 10px;
+    overflow: auto;
+    height: 16.3vh;
+}
+    .fast_anwers_button_two button {
+        background: #FFFFFF40;
+        width: 48.5%;
+        height: 30px;
+        margin: 3px;
+        margin-right: 0px;
+        border: none;
+        border-radius: 6px;
+    }
+
+.img_pencil_close{
+    float:right;
+    margin-right:10px;
+}
+
+.img_pencil_close img:first-child{
+  margin-right:5px;
+}
 
 
 

@@ -92,35 +92,41 @@
             }
         }
     </div>
-    <div class="dropdown_block @helpWordCategoryCssClass">
-        <div class="fast_answersx_block">
-            <p> Fast answers: (Choose category)</p>
-            <div @onclick="ShowHelpWordCategory"></div>
+    @if (!showHelpWordAnswer)
+    {
+        <div class="dropdown_block @helpWordCategoryCssClass">
+            <div class="fast_answersx_block">
+                <p> Fast answers: (Choose category)</p>
+                <div @onclick="ShowHelpWordCategory"></div>
+            </div>
+            <div class="input_fast_anwers">
+                <input type="text" />
+            </div>
+            <div class="fast_anwers_button">
+                @foreach (var item in CategoriesAnswer)
+                {
+                    <button @onclick="@(async () => await ShowFastAnswer(item.Id))">@item.Name</button>
+                }
+            </div>
         </div>
-        <div class="input_fast_anwers">
-            <input type="text" />
-        </div>
-        <div class="fast_anwers_button">
-            @foreach (var item in CategoriesAnswer)
-            {
-                <button @onclick="@(async () => await ShowFastAnswer(item.Id))">@item.Name</button>
-            }
-        </div>
-    </div>
+    }
 
 
-       <div class="dropdown_block @helpWordAnswerCssClass">
+    <div class="dropdown_block @helpWordAnswerCssClass">
         <div class="fast_answersx_block">
             <p> Fast answers: (Choose category)</p>
             <div @onclick="CloseHelpWordAnswer"></div>
         </div>
-        <div class="input_fast_anwers">
-            <input type="text" />
-        </div>
-        <div class="fast_anwers_button">
+       
+        <div class="fast_anwers_button_two">
             @foreach (var item in Answers)
             {
-                <button @onclick="@(async () => await ShowFastAnswer(item.Id))">@item.ShortName</button>
+                <button>@item.ShortName
+                   <div class="img_pencil_close"> 
+                    <img src="/Images/icons/pencil.svg">
+                    <img src="/Images/icons/close.svg"/>
+                    </div>
+                </button>
             }
         </div>
     </div>
@@ -199,8 +205,7 @@
 
     private string? correspondenceMiniCssClass => showHelpWordCategory ? "block_correspondence_mini" : null;
     private string? helpWordCategoryCssClass => showHelpWordCategory ? null : "dropdown_block_hide";
-
-    private string? helpWordAnswerCssClass => showHelpWordAnswer ? null : "dropdown_block_hide"; 
+    private string? helpWordAnswerCssClass => showHelpWordAnswer ? "" : "dropdown_block_hide";
 
 
     protected override async Task OnInitializedAsync()
@@ -341,7 +346,7 @@
         showHelpWordCategory = !showHelpWordCategory;
     }
 
-      private void CloseHelpWordAnswer()
+    private void CloseHelpWordAnswer()
     {
         showHelpWordAnswer = false;
     }

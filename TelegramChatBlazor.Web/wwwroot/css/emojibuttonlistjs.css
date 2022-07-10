@@ -39,10 +39,7 @@ div.emoji-drop-down div.emoji {
 
 div.emoji-drop-down div.emoji:hover {
   cursor: pointer;
-  -webkit-transition: all .3s;
-  transition: all .3s;
-  background-color: #282828;
-  color: #F5F5F5;
+ 
 }
 
 div.emoji-drop-down div.emoji:active {
