@@ -42,6 +42,11 @@ namespace TelegramChatBlazor.DAL.Repository
             return _mapper.Map<Answer>(answer);
         }
 
+        public List<Answer> GetByCategoryId(long categoryId)
+        {
+            var answer = _context.Answers.Where(x => x.CategoryId == categoryId);
+            return _mapper.Map<List<Answer>>(answer);
+        }
         public void Update(Answer item)
         {
             _context.Update(item);

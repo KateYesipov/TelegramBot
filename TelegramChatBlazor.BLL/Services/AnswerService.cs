@@ -39,6 +39,10 @@ namespace TelegramChatBlazor.BLL.Services
             return _answerRepository.GetById(Id);
         }
 
+        public List<Answer> GetByCategoryId(long categoryId)
+        {
+            return _answerRepository.GetByCategoryId(categoryId);
+        }
 
         public void Update(Answer item)
         {

@@ -1,5 +1,7 @@
 ﻿@inject NavigationManager _navigationManager
 @inject IJSRuntime JSRuntime
+@inject ICategoryAnswerService CategoryAnswerService
+@inject IAnswerService AnswerService
 @inject ITelegramService TelegramService
 
 <div class="companion_block ">
@@ -99,9 +101,9 @@
             <input type="text" />
         </div>
         <div class="fast_anwers_button">
-            @for (var i = 0; i < 50; i++)
+            @foreach (var item in CategoriesAnswer)
             {
-                <button></button>
+                <button @onclick="@(async () => await ShowFastAnswer(item.Id))">@item.Name</button>
             }
         </div>
     </div>
@@ -124,7 +126,6 @@
     }
 }
 <div class="dialing_sms">
-
     <div class="dialing_sms_input">
         <textarea @bind="@TextMessage" id="textMessage" type="text" placeholder="Press CTRL + Enter to send"></textarea>
     </div>
@@ -167,6 +168,8 @@
 
 
     public List<Attachment> Attachments = new List<Attachment>();
+    public List<Category> CategoriesAnswer = new List<Category>();
+    public List<Answer> Answers = new List<Answer>();
 
     private string TextMessage = String.Empty;
     HubConnection? hubConnection;
@@ -184,6 +187,8 @@
        .Build();
         hubConnection.On<ChatNotification>("Send", this.Send);
         await hubConnection.StartAsync();
+
+        CategoriesAnswer = CategoryAnswerService.GetAll();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -197,7 +202,7 @@
 
     }
 
-    async Task Send(ChatNotification message)
+    protected async Task Send(ChatNotification message)
     {
         if (chatModel != null && chatModel.Id == message.Message.ChatId && message.Token == token)
         {
@@ -263,18 +268,22 @@
         }
     }
 
-    public async Task ScrollToElementId(string elementId)
+    private async Task ScrollToElementId(string elementId)
     {
         await JSRuntime.InvokeVoidAsync("scrollToElementId", elementId);
     }
-
 
     private void ShowOrHideRightTab()
     {
         ShowOrHideRightCallback.InvokeAsync();
     }
 
-    private async void LoadFiles(InputFileChangeEventArgs e)
+    private async Task ShowFastAnswer(long categoryId)
+    {
+        Answers = AnswerService.GetByCategoryId(categoryId);
+    }
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
     {
         var format = "image/png";
         foreach (var imageFile in e.GetMultipleFiles())
