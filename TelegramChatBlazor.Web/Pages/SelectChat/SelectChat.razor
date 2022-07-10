@@ -87,10 +87,10 @@
                 {
                     <div class="messange_block" @onclick="(()=>LoadMessageById(selectedChat.Id))">
                         <div class="avatar">
-                            <div class="img_messange">
-
-                                <img src="@selectedChat.PartnerAvatar">
-                            </div>
+                           <div class="img_messange">
+                                    <img class="telegram_img" src="/Images/telegram.svg" />
+                                    <img class="avatar_img_message" src="@selectedChat.PartnerAvatar">
+                                </div>
                         </div>
                         <div class="sender_name">
                             @selectedChat.PartnerName

@@ -129,6 +129,7 @@
     max-height: 65vh;
     overflow: auto;
     height: inherit;
+    padding-bottom:20px;
 }
 
 
@@ -554,6 +555,32 @@
   margin-right:5px;
 }
 
+
+
+.fast_answersx_block_two {
+    display: flex;
+    margin: 15px;
+    margin-bottom: 5px;
+    width: 100%;
+    height: 28px;
+    flex-flow: row wrap;
+}
+
+.fast_answersx_block_two p {
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.fast_answersx_block_two div {
+    background-image: url("/Images/icons/left arrow.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 8px;
+    height: 15px;
+    margin-right: 38px;
+    margin-left: auto;
+}
 
 
 
