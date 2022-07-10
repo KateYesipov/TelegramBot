@@ -1,13 +1,14 @@
-﻿@page "/answers/category"
+﻿@page "/answers/{id:long}"
 @inject IJSRuntime JsRuntime
-@inject ICategoryAnswerService CategoryAnswerService
+@inject IAnswerService AnswerService
 
-<NavLink class="nav-link" href="answers/category/add">
+
+<NavLink class="nav-link" href="answers/add">
     <span class="oi oi-plus" aria-hidden="true">Add New</span>
 </NavLink>
 
-<h1>Categories Info</h1>
-@if (categories is null)
+<h1>Answer Info</h1>
+@if (answers is null)
 {
     <p><em>Loading... !</em></p>
 }
@@ -23,17 +24,14 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in categories)
+            @foreach (var item in answers)
             {
                 <tr>
                     <td>@item.Id</td>
-                    <td>@item.Name</td>
+                    <td>@item.ShortName</td>
                     <td>@item.CreatedAt</td>
                     <td>
-                        <a class="nav-link" href="answers/@item.Id">
-                            <span class="" aria-hidden="true">Answers</span>
-                        </a>
-                        <a class="nav-link" href="answers/category/edit/@item.Id">
+                        <a class="nav-link" href="answers/edit/@item.Id">
                             <span class="oi oi-pencil" aria-hidden="true">Edit</span>
                         </a>
                         <a class="nav-link" onclick="@(async () => await Delete(item.Id))">
@@ -46,12 +44,15 @@ else
     </table>
 }
 
-
 @code {
-    List<Domain.Models.HelpWord.Category> categories;
+    [Parameter]
+    public long id { get; set; }
+
+     List<Domain.Models.HelpWord.Answer> answers = new List<Domain.Models.HelpWord.Answer>();
+
     protected override async Task OnInitializedAsync()
     {
-        categories = await Task.Run(() => CategoryAnswerService.GetAll());
+        answers = await Task.Run(() => AnswerService.GetByCategoryId(id));
     }
 
     private async Task Delete(long Id)
@@ -59,9 +60,10 @@ else
         bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
         if (confirmed)
         {
-            CategoryAnswerService.DeleteById(Id);
-            categories = await Task.Run(() => CategoryAnswerService.GetAll());
+            AnswerService.DeleteById(Id);
+            answers = await Task.Run(() => AnswerService.GetAll());
             StateHasChanged();
         }
     }
 }
+

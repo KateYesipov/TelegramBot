@@ -1,8 +1,8 @@
-﻿@page "/answers/category/edit/{id}"
+﻿@page "/answers/category/edit/{id:long}"
 @inject ICategoryAnswerService CategoryAnswerService
 @inject NavigationManager NavigationManager
 
-<h2>Edit Bot</h2>
+<h2>Edit Category</h2>
 <hr />
 
 <form>
@@ -27,11 +27,13 @@
 
 @code {
     [Parameter]
-    public string Id { get; set; }
+    public long Id { get; set; }
+
     Domain.Models.HelpWord.Category category = new Domain.Models.HelpWord.Category();
+
     protected override async Task OnInitializedAsync()
     {
-        category = await Task.Run(() => CategoryAnswerService.GetById(Convert.ToInt64(Id)));
+        category = await Task.Run(() => CategoryAnswerService.GetById(Id));
     }
     void Update()
     {

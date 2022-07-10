@@ -1,0 +1,65 @@
+﻿@page "/answers/edit/{id:long}"
+@inject IAnswerService AnswerService
+@inject ICategoryAnswerService CategoryAnswerService
+@inject NavigationManager NavigationManager
+
+<h2>Edit Answer</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">ShortName</label>
+                <input form="Name" class="form-control" @bind="@answer.ShortName" />
+            </div>
+        </div>
+        <div class="form-group">
+            <select @bind="answer.CategoryId">
+                @if (categories != null)
+                {
+                    @foreach (var item in categories)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="UserName" class="control-label">UserName:</label>
+            <input form="UserName" class="form-control" @bind="@answer.FullAnswer" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@Update" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    [Parameter]
+    public long Id { get; set; }
+
+    Domain.Models.HelpWord.Answer answer = new Domain.Models.HelpWord.Answer();
+    List<Domain.Models.HelpWord.Category> categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await Task.Run(() => CategoryAnswerService.GetAll());
+        answer = await Task.Run(() => AnswerService.GetById(Id));
+    }
+    void Update()
+    {
+        AnswerService.Update(answer);
+        NavigationManager.NavigateTo("answers");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("answers/");
+    }
+}
