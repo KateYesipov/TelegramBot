@@ -92,10 +92,10 @@
             }
         }
     </div>
-    <div class="dropdown_block @helpWordCssClass">
+    <div class="dropdown_block @helpWordCategoryCssClass">
         <div class="fast_answersx_block">
             <p> Fast answers: (Choose category)</p>
-            <div @onclick="ShowHelpWord"></div>
+            <div @onclick="ShowHelpWordCategory"></div>
         </div>
         <div class="input_fast_anwers">
             <input type="text" />
@@ -107,6 +107,25 @@
             }
         </div>
     </div>
+
+
+       <div class="dropdown_block @helpWordAnswerCssClass">
+        <div class="fast_answersx_block">
+            <p> Fast answers: (Choose category)</p>
+            <div @onclick="CloseHelpWordAnswer"></div>
+        </div>
+        <div class="input_fast_anwers">
+            <input type="text" />
+        </div>
+        <div class="fast_anwers_button">
+            @foreach (var item in Answers)
+            {
+                <button @onclick="@(async () => await ShowFastAnswer(item.Id))">@item.ShortName</button>
+            }
+        </div>
+    </div>
+
+
     @if (Attachments.Count() > 0)
     {
         <div class="inserted_pictures">
@@ -135,7 +154,7 @@
                 <span></span>
                 <InputFile id="fileinput" class="custom-input-hide" OnChange="@LoadFiles" multiple accept=".png,.jpg" />
             </label>
-            <button @onclick="ShowHelpWord" class="button_helpworld"></button>
+            <button @onclick="ShowHelpWordCategory" class="button_helpworld"></button>
             <button class="button_smile" id="emojiButton"></button>
         </div>
         <div class="send_button">
@@ -174,11 +193,15 @@
     private string TextMessage = String.Empty;
     HubConnection? hubConnection;
 
-    private bool showHelpWord = false;
+    private bool showHelpWordCategory = false;
+    private bool showHelpWordAnswer = false;
     private bool showLanguagePanel = true;
 
-    private string? correspondenceMiniCssClass => showHelpWord ? "block_correspondence_mini" : null;
-    private string? helpWordCssClass => showHelpWord ? null : "dropdown_block_hide";
+    private string? correspondenceMiniCssClass => showHelpWordCategory ? "block_correspondence_mini" : null;
+    private string? helpWordCategoryCssClass => showHelpWordCategory ? null : "dropdown_block_hide";
+
+    private string? helpWordAnswerCssClass => showHelpWordAnswer ? null : "dropdown_block_hide"; 
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -281,6 +304,7 @@
     private async Task ShowFastAnswer(long categoryId)
     {
         Answers = AnswerService.GetByCategoryId(categoryId);
+        showHelpWordAnswer = true;
     }
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
@@ -312,8 +336,13 @@
         showLanguagePanel = false;
     }
 
-    private void ShowHelpWord()
+    private void ShowHelpWordCategory()
     {
-        showHelpWord = !showHelpWord;
+        showHelpWordCategory = !showHelpWordCategory;
+    }
+
+      private void CloseHelpWordAnswer()
+    {
+        showHelpWordAnswer = false;
     }
   }
