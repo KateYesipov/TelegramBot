@@ -4,7 +4,7 @@ namespace TelegramChatBlazor.Domain.Abstract.Repository
 {
     public interface ICategoryAnswerRepository
     {
-        Category GetById(long id);
+        Task<Category> GetById(long Id);
         List<Category> GetAll();
         void Create(Category item);
         void Update(Category item);

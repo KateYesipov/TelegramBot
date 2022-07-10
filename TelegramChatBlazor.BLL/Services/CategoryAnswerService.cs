@@ -33,9 +33,9 @@ namespace TelegramChatBlazor.BLL.Services
             return _categoryAnswerRepository.GetAll();
         }
 
-        public Category GetById(long Id)
+        public async Task<Category> GetById(long Id)
         {
-            return _categoryAnswerRepository.GetById(Id);
+            return await _categoryAnswerRepository.GetById(Id);
         }
 
 

@@ -41,16 +41,16 @@ namespace TelegramChatBlazor.DAL.Repository
                 _context.Categories.Remove(category);
         }
 
-        public Category GetById(long Id)
+        public async Task<Category> GetById(long Id)
         {
-            var category = _context.Categories.FirstOrDefault(x => x.Id == Id);
+            var category = await _context.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
             return _mapper.Map<Category>(category);
         }
 
         public void Update(Category item)
         {
-            _context.Update(item);
-            _context.Entry(item).State = EntityState.Modified;
+            var category = _mapper.Map<Entities.Category>(item);
+            _context.Update(category);
         }
 
         public void Save()

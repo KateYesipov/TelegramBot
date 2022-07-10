@@ -1,6 +1,39 @@
 ﻿@page "/answers/category/add/"
-<h3>AddCategory</h3>
+@inject ICategoryAnswerService CategoryAnswerServic
+@inject NavigationManager NavigationManager
+
+<h2>Add Category</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="category.Name" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@Create" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
 
 @code {
-
+    Domain.Models.HelpWord.Category category = new Domain.Models.HelpWord.Category();
+    protected async void Create()
+    {
+        CategoryAnswerServic.Create(category);
+        NavigationManager.NavigateTo("answers/category");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("answers/category");
+    }
 }

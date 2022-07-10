@@ -1,7 +1,45 @@
 ﻿@page "/answers/category/edit/{id}"
-<h3>EditCategory</h3>
+@inject ICategoryAnswerService CategoryAnswerService
+@inject NavigationManager NavigationManager
+
+<h2>Edit Bot</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="@category.Name" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@Update" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
 
 @code {
     [Parameter]
-    public long id { get; set; }
+    public string Id { get; set; }
+    Domain.Models.HelpWord.Category category = new Domain.Models.HelpWord.Category();
+    protected override async Task OnInitializedAsync()
+    {
+        category = await Task.Run(() => CategoryAnswerService.GetById(Convert.ToInt64(Id)));
+    }
+    void Update()
+    {
+        CategoryAnswerService.Update(category);
+        NavigationManager.NavigateTo("answers/category");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("answers/category");
+    }
 }

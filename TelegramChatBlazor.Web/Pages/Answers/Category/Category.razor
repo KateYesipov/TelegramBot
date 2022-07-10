@@ -7,7 +7,7 @@
 </NavLink>
 
 <h1>Categories Info</h1>
-@if (Categories is null)
+@if (categories is null)
 {
     <p><em>Loading... !</em></p>
 }
@@ -23,14 +23,14 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Categories)
+            @foreach (var item in categories)
             {
                 <tr>                     
                     <td>@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.CreatedAt</td>
                     <td>
-                        <a class="nav-link" href="EditBot/@item.Id">
+                        <a class="nav-link" href="answers/category/edit/@item.Id">
                             <span class="oi oi-pencil" aria-hidden="true">Edit</span>
                         </a>
                         <a class="nav-link" onclick="@(async () => await Delete(item.Id))">
@@ -45,10 +45,10 @@ else
 
 
 @code {
-    List<Domain.Models.HelpWord.Category> Categories;
+    List<Domain.Models.HelpWord.Category> categories;
     protected override async Task OnInitializedAsync()
     {
-        Categories = await Task.Run(() => CategoryAnswerService.GetAll());
+        categories = await Task.Run(() => CategoryAnswerService.GetAll());
     }
 
      private async Task Delete(long Id)
@@ -57,7 +57,7 @@ else
         if (confirmed)
         {
             CategoryAnswerService.DeleteById(Id);
-            Categories = await Task.Run(() => CategoryAnswerService.GetAll());
+            categories = await Task.Run(() => CategoryAnswerService.GetAll());
             StateHasChanged();
         }
     }
