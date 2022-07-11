@@ -35,7 +35,7 @@
     {
         <div class="dropdown_block_ontop">
             <p>@chatModel?.PartnerName speaks <a href="#">English</a>, is that correct? </p>
-            <div @onclick="@(async () => await CloseLanguagePanel())"></div>
+            <div @onclick="@(() => CloseLanguagePanel())"></div>
         </div>
     }
     <div class="block_correspondence @correspondenceMiniCssClass @(Attachments.Count()>0?"block_correspondence_attachement":"") @(showLanguagePanel?"":"block_correspondence_language_hide")" id="block_message">
@@ -105,33 +105,30 @@
             <div class="fast_anwers_button">
                 @foreach (var item in CategoriesAnswer)
                 {
-                    <button @onclick="@(async () => await ShowFastAnswer(item.Id))">@item.Name</button>
+                    <button @onclick="@(() => ShowFastAnswer(item.Id))">@item.Name</button>
                 }
             </div>
         </div>
     }
-
-
     <div class="dropdown_block @helpWordAnswerCssClass">
         <div class="fast_answersx_block_two">
             <p>Fast answers: (Category Hello-bye) </p>
             <div @onclick="CloseHelpWordAnswer"></div>
         </div>
-       
+
         <div class="fast_anwers_button_two">
             @foreach (var item in Answers)
             {
-                <button>@item.ShortName
-                   <div class="img_pencil_close"> 
-                    <img src="/Images/icons/pencil.svg">
-                    <img src="/Images/icons/close.svg"/>
+                <button @onclick="@(() =>InsertFastAnswer(item.FullAnswer))">
+                    @item.ShortName
+                    <div class="img_pencil_close">
+                        <img src="/Images/icons/pencil.svg">
+                        <img src="/Images/icons/close.svg" />
                     </div>
                 </button>
             }
         </div>
     </div>
-
-
     @if (Attachments.Count() > 0)
     {
         <div class="inserted_pictures">
@@ -140,7 +137,7 @@
                 @if (item.Type == "Photo")
                 {
                     <div>
-                        <button class="button_close_img button_close_img_none" @onclick="@(async () => await RemovePicture(item))">
+                        <button class="button_close_img button_close_img_none" @onclick="@(() => RemovePicture(item))">
                             <img src="/Images/icons/close_img.svg" />
                         </button>
                         <img src="@item.FilePath" />
@@ -306,7 +303,7 @@
         ShowOrHideRightCallback.InvokeAsync();
     }
 
-    private async Task ShowFastAnswer(long categoryId)
+    private void ShowFastAnswer(long categoryId)
     {
         Answers = AnswerService.GetByCategoryId(categoryId);
         showHelpWordAnswer = true;
@@ -331,12 +328,17 @@
         }
     }
 
-    private async Task RemovePicture(Attachment item)
+    private void InsertFastAnswer(string value)
+    {
+        TextMessage = TextMessage + value;
+    }
+
+    private void RemovePicture(Attachment item)
     {
         Attachments.Remove(item);
     }
 
-    private async Task CloseLanguagePanel()
+    private void CloseLanguagePanel()
     {
         showLanguagePanel = false;
     }
