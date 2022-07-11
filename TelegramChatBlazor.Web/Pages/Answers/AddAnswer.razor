@@ -1,6 +1,65 @@
 ﻿@page "/answers/add/"
-<h3>AddAnswer</h3>
+@inject IAnswerService AnswerService
+@inject ICategoryAnswerService CategoryAnswerService
+@inject NavigationManager NavigationManager
+<div class="background_category">
+<h2>Add Answer</h2>
+<hr />
 
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="ShortName" class="control-label">ShortName</label>
+                <input form="ShortName" class="form-control  form-control_one" @bind="@answer.ShortName" />
+            </div>
+        </div>
+        <div class="form-group">
+            <p>Category</p>
+            <select class="form-select"  @bind="answer.CategoryId">
+                @if (categories != null)
+                { <option value="0">Select Category</option>
+                    @foreach (var item in categories)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="FullAnswer" class="control-label">FullAnswer:</label>
+            <input form="FullAnswer" class="form-control" @bind="@answer.FullAnswer" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                 <button class="btn btn-primary" @onclick="@Create">Save</button>
+                <button class="btn btn-danger" @onclick="@Cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
 @code {
+    [Parameter]
+    public long Id { get; set; }
 
+    Domain.Models.HelpWord.Answer answer = new Domain.Models.HelpWord.Answer();
+    List<Domain.Models.HelpWord.Category> categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await Task.Run(() => CategoryAnswerService.GetAll());
+    }
+    void Create()
+    {
+        AnswerService.Create(answer);
+        NavigationManager.NavigateTo("answers");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("answers/");
+    }
 }
