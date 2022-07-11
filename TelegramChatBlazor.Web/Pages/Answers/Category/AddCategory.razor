@@ -1,7 +1,7 @@
 ﻿@page "/answers/category/add/"
 @inject ICategoryAnswerService CategoryAnswerServic
 @inject NavigationManager NavigationManager
-
+<div class="background_category">
 <h2>Add Category</h2>
 <hr />
 
@@ -18,13 +18,13 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="button" class="btn btn-primary" @onclick="@Create" value="Save" />
-                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                <button class="btn btn-primary" @onclick="@Create">Save</button>
+                <button class="btn btn-danger" @onclick="@Cancel">Cancel</button>
             </div>
         </div>
     </div>
 </form>
-
+</div>
 @code {
     Domain.Models.HelpWord.Category category = new Domain.Models.HelpWord.Category();
     protected async void Create()

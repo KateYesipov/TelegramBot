@@ -1,7 +1,7 @@
 ﻿@page "/answers/category/edit/{id:long}"
 @inject ICategoryAnswerService CategoryAnswerService
 @inject NavigationManager NavigationManager
-
+<div class="background_category">
 <h2>Edit Category</h2>
 <hr />
 
@@ -24,7 +24,7 @@
         </div>
     </div>
 </form>
-
+</div>
 @code {
     [Parameter]
     public long Id { get; set; }

@@ -1,2 +1,25 @@
-﻿body {
+﻿.background_category {
+    background: #ffffff;
+    height: 100vh;
 }
+
+.add_new {
+    margin: 20px;
+  
+}
+a {
+    color:#ffffff;
+}
+
+    a:hover {
+        color: #ffffff;
+    }
+
+.links_block {
+    display: flex;
+}
+
+.links_block a{
+    margin-left:20px;
+}
+

@@ -2,7 +2,7 @@
 @inject IAnswerService AnswerService
 @inject ICategoryAnswerService CategoryAnswerService
 @inject NavigationManager NavigationManager
-
+<div class="background_category">
 <h2>Edit Answer</h2>
 <hr />
 
@@ -11,11 +11,12 @@
         <div class="col-md-8">
             <div class="form-group">
                 <label for="Name" class="control-label">ShortName</label>
-                <input form="Name" class="form-control" @bind="@answer.ShortName" />
+                <input form="Name" class="form-control  form-control_one" @bind="@answer.ShortName" />
             </div>
         </div>
         <div class="form-group">
-            <select @bind="answer.CategoryId">
+            <p>Category</p>
+            <select class="form-select"  @bind="answer.CategoryId">
                 @if (categories != null)
                 {
                     @foreach (var item in categories)
@@ -40,7 +41,7 @@
         </div>
     </div>
 </form>
-
+</div>
 @code {
     [Parameter]
     public long Id { get; set; }

@@ -1,2 +1,13 @@
-﻿body {
+﻿.background_category {
+    background: #ffffff;
+    height: 100vh;
 }
+.add_new{
+    margin:20px;
+}
+ a{
+     color:#ffffff;
+ }
+    a:hover {
+        color: #ffffff;
+    }

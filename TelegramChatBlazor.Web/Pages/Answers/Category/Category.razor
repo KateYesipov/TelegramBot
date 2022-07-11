@@ -1,51 +1,51 @@
 ﻿@page "/answers/category"
 @inject IJSRuntime JsRuntime
 @inject ICategoryAnswerService CategoryAnswerService
+<div class="background_category">
+    <a class="btn btn-primary add_new" href="answers/category/add">
+        <span class="oi oi-plus" aria-hidden="true">Add New</span>
+    </a>
 
-<NavLink class="nav-link" href="answers/category/add">
-    <span class="oi oi-plus" aria-hidden="true">Add New</span>
-</NavLink>
-
-<h1>Categories Info</h1>
-@if (categories is null)
-{
-    <p><em>Loading... !</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Category Id</th>
-                <th>Name Category</th>
-                <th>CreateAt</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in categories)
-            {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Name</td>
-                    <td>@item.CreatedAt</td>
-                    <td>
-                        <a class="nav-link" href="answers/@item.Id">
-                            <span class="" aria-hidden="true">Answers</span>
-                        </a>
-                        <a class="nav-link" href="answers/category/edit/@item.Id">
-                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
-                        </a>
-                        <a class="nav-link" onclick="@(async () => await Delete(item.Id))">
-                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
-                        </a>
-                    </td>
+    <h1>Categories Info</h1>
+    @if (categories is null)
+    {
+        <p><em>Loading... !</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr class="">
+                    <th>Category Id</th>
+                    <th>Name Category</th>
+                    <th>CreateAt</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
-
+            </thead>
+            <tbody>
+                @foreach (var item in categories)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.CreatedAt</td>
+                        <td class="links_block">
+                            <a class="btn btn-primary" href="answers/@item.Id">
+                                <span class="" aria-hidden="true">Answers</span>
+                            </a>
+                            <a class="btn btn-warning" href="answers/category/edit/@item.Id">
+                                <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                            </a>
+                            <a class="btn btn-danger" onclick="@(async () => await Delete(item.Id))">
+                                <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 
 @code {
     List<Domain.Models.HelpWord.Category> categories;
