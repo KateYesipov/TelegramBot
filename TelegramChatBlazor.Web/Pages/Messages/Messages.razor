@@ -221,6 +221,7 @@
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("jsMethod");
+            await JSRuntime.InvokeVoidAsync("autoHeightTextarea");            
         }
         await Task.Delay(100);
         await ScrollToElementId("block_message");
