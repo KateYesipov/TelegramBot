@@ -1,0 +1,27 @@
+﻿<div class="popup @(isShowModal?"":"popup_none")">
+    <div class="popup_body">
+        <div class="popup_content">
+            <a @onclick="CloseModal" class="popup_close">
+                <img src="/Images/icons/close.svg">
+            </a>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool isShowModal { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickCallback { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    public void CloseModal()
+    {
+        OnClickCallback.InvokeAsync();
+    }
+}
