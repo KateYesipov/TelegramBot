@@ -54,20 +54,20 @@ namespace TelegramChatBlazor.DAL.Context
             builder.Entity<Manager>().HasData(new Manager { Id = 2, Name = "Alex Ivanov", Email = "testEmail2@gmail.com", ImgPath = "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
             builder.Entity<Manager>().HasData(new Manager { Id = 3, Name = "Kate Yesipova", Email = "testEmail3@gmail.com", ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
             builder.Entity<Manager>().HasData(new Manager { Id = 4, Name = "Alex Pupkin", Email = "testEmail4@gmail.com", ImgPath = "https://image.pngaaa.com/345/1582345-middle.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
-            builder.Entity<Manager>().HasData(new Manager { Id = 1, Name = "Alex Yesipov", Email = "testEmail@gmail.com", ImgPath = "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
-            builder.Entity<Manager>().HasData(new Manager { Id = 2, Name = "Alex Ivanov", Email = "testEmail2@gmail.com", ImgPath = "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
-            builder.Entity<Manager>().HasData(new Manager { Id = 3, Name = "Kate Yesipova", Email = "testEmail3@gmail.com", ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
-            builder.Entity<Manager>().HasData(new Manager { Id = 4, Name = "Alex Pupkin", Email = "testEmail4@gmail.com", ImgPath = "https://image.pngaaa.com/345/1582345-middle.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
+            builder.Entity<Manager>().HasData(new Manager { Id = 5, Name = "Alex Yesipov", Email = "testEmail@gmail.com", ImgPath = "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
+            builder.Entity<Manager>().HasData(new Manager { Id = 6, Name = "Alex Ivanov", Email = "testEmail2@gmail.com", ImgPath = "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
+            builder.Entity<Manager>().HasData(new Manager { Id = 7, Name = "Kate Yesipova", Email = "testEmail3@gmail.com", ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
+            builder.Entity<Manager>().HasData(new Manager { Id = 8, Name = "Alex Pupkin", Email = "testEmail4@gmail.com", ImgPath = "https://image.pngaaa.com/345/1582345-middle.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
 
             builder.Entity<Category>().HasData(new Category { Id = 1, Name = "Hello-bye",CreatedAt=DateTime.Now });
             builder.Entity<Category>().HasData(new Category { Id = 2, Name = "Продажа", CreatedAt = DateTime.Now });
             builder.Entity<Category>().HasData(new Category { Id = 3, Name = "Брокеры", CreatedAt = DateTime.Now });
-            builder.Entity<Category>().HasData(new Category { Id = 1, Name = "Hello-bye", CreatedAt = DateTime.Now });
-            builder.Entity<Category>().HasData(new Category { Id = 2, Name = "Продажа", CreatedAt = DateTime.Now });
-            builder.Entity<Category>().HasData(new Category { Id = 3, Name = "Брокеры", CreatedAt = DateTime.Now });
-            builder.Entity<Category>().HasData(new Category { Id = 1, Name = "Hello-bye", CreatedAt = DateTime.Now });
-            builder.Entity<Category>().HasData(new Category { Id = 2, Name = "Продажа", CreatedAt = DateTime.Now });
-            builder.Entity<Category>().HasData(new Category { Id = 3, Name = "Брокеры", CreatedAt = DateTime.Now });
+            builder.Entity<Category>().HasData(new Category { Id = 4, Name = "Hello-bye", CreatedAt = DateTime.Now });
+            builder.Entity<Category>().HasData(new Category { Id = 5, Name = "Продажа", CreatedAt = DateTime.Now });
+            builder.Entity<Category>().HasData(new Category { Id = 6, Name = "Брокеры", CreatedAt = DateTime.Now });
+            builder.Entity<Category>().HasData(new Category { Id = 7, Name = "Hello-bye", CreatedAt = DateTime.Now });
+            builder.Entity<Category>().HasData(new Category { Id = 8, Name = "Продажа", CreatedAt = DateTime.Now });
+            builder.Entity<Category>().HasData(new Category { Id = 9, Name = "Брокеры", CreatedAt = DateTime.Now });
 
             builder.Entity<Answer>().HasData(new Answer { Id = 1, ShortName = "Hi",FullAnswer= "Hello-bye",CategoryId=1, CreatedAt = DateTime.Now });
             builder.Entity<Answer>().HasData(new Answer { Id = 2, ShortName = "Hi how", FullAnswer = "Hello how are you?", CategoryId = 1, CreatedAt = DateTime.Now });
