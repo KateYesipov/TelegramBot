@@ -168,6 +168,7 @@
         </div>
     </div>
 </div>
+<EditMessage isShowModal="isEditMessageShowModal" OnClickCallback="CloseEditMessageModal"></EditMessage>
 
 <style>
     .custom-input-hide {
@@ -200,6 +201,9 @@
     private bool showHelpWordAnswer = false;
     private bool showLanguagePanel = true;
 
+    //moadal
+    private bool isEditMessageShowModal=false;
+
     private string? correspondenceMiniCssClass => showHelpWordCategory ? "block_correspondence_mini" : null;
     private string? helpWordCategoryCssClass => showHelpWordCategory ? null : "dropdown_block_hide";
     private string? helpWordAnswerCssClass => showHelpWordAnswer ? "" : "dropdown_block_hide";
@@ -221,7 +225,7 @@
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("jsMethod");
-            await JSRuntime.InvokeVoidAsync("autoHeightTextarea");            
+            await JSRuntime.InvokeVoidAsync("autoHeightTextarea");
         }
         await Task.Delay(100);
         await ScrollToElementId("block_message");
@@ -352,5 +356,15 @@
     private void CloseHelpWordAnswer()
     {
         showHelpWordAnswer = false;
+    }
+
+    public void ShowEditMessageModal()
+    {
+        isEditMessageShowModal = true;
+    }
+
+    public void CloseEditMessageModal()
+    {
+        isEditMessageShowModal = false;
     }
   }
