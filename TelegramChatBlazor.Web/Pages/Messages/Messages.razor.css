@@ -134,13 +134,14 @@
 
 
 .block_correspondence_mini {
-    max-height:36.5vh !important;
+    max-height:43vh !important;
 }
 
 .data_correspondence {
     color: #808080;
     text-align: center;
     margin-top:15px;
+    margin-right:120px;
 }
 
 .block_correspondence_language_hide {
@@ -323,7 +324,7 @@
         }
 
 .dialing_sms {
-    height: 14vh;
+    height: auto;
     background: #40484A;
     position: absolute;
     bottom: 0;
