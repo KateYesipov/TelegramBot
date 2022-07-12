@@ -109,7 +109,9 @@
         .dropdown_block_ontop p a {
             color: #FFFFFF;
             font-size: 16px;
+            text-decoration:underline;
         }
+
         .dropdown_block_ontop div {
             background-image: url(/Images/icons/close.svg);
             background-size: 100%;
@@ -276,14 +278,15 @@
     display: flex;
 }
 
-.message_hover_block_none{
-    opacity:0;
-}
+    .message_hover_block_none {
+        opacity: 0;
+    }
 
 .message_hover_block img {
     width: 15px;
     height: 15px;
     margin-right: 10px;
+    cursor:pointer;
 }
 
 .sender_message_right .img_sender_message {
