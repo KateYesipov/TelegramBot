@@ -56,10 +56,10 @@
     void Create()
     {
         AnswerService.Create(answer);
-        NavigationManager.NavigateTo("answers");
+        NavigationManager.NavigateTo("answers",true);
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("answers/");
+        NavigationManager.NavigateTo("answers",true);
     }
 }

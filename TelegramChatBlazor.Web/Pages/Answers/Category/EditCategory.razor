@@ -38,10 +38,10 @@
     void Update()
     {
         CategoryAnswerService.Update(category);
-        NavigationManager.NavigateTo("answers/category");
+        NavigationManager.NavigateTo("answers/category",true);
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("answers/category");
+        NavigationManager.NavigateTo("answers/category",true);
     }
 }

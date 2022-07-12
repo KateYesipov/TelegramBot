@@ -46,10 +46,10 @@
     void Create()
     {
         ManagerService.Create(manager);
-        NavigationManager.NavigateTo("answers");
+        NavigationManager.NavigateTo("manager",true);
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("answers/");
+       NavigationManager.NavigateTo("manager",true);
     }
 }

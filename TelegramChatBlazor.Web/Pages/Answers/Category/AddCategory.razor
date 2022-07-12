@@ -1,7 +1,7 @@
-﻿@page "/answers/category/add/"
+﻿@page "/answers/category/add"
+@inject NavigationManager NavigationManager
 @inject ICategoryAnswerService CategoryAnswerServic
 @inject ICategoryAnswerService CategoryAnswerService
-@inject NavigationManager NavigationManager
 <div class="background_category">
 <h2>Add Category</h2>
 <hr />
@@ -28,13 +28,13 @@
 </div>
 @code {
     Domain.Models.HelpWord.Category category = new Domain.Models.HelpWord.Category();
-    protected void Create()
+    void Create()
     {
         CategoryAnswerServic.Create(category);
-        NavigationManager.NavigateTo("/answers/category");
+        NavigationManager.NavigateTo("answers/category",true);
     }
-    protected void Cancel()
+    void Cancel()
     {
-        NavigationManager.NavigateTo("/answers/category");
+        NavigationManager.NavigateTo("answers/category",true);
     }
 }
