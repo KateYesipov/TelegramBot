@@ -1,0 +1,24 @@
+﻿<div class="popup @(isShowModal?"":"popup_none")">
+    <div class="popup_body">
+        <div class="popup_content">
+
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool isShowModal { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickCallback { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    public void CloseModal()
+    {
+        OnClickCallback.InvokeAsync();
+    }
+}
