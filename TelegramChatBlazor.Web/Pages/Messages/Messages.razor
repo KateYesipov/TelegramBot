@@ -3,6 +3,7 @@
 @inject ICategoryAnswerService CategoryAnswerService
 @inject IAnswerService AnswerService
 @inject ITelegramService TelegramService
+@inject IDeepService DeepService
 
 
 <div class="companion_block ">
@@ -55,12 +56,12 @@
                         </div>
                     </div>
                     <div class="text_block_sender">
-                        <p>@item.Text</p>
+                        <p>@(item.IsTranslated?@item.TranslatedText:item.Text)</p>
                     </div>
                     <div class="message_hover_block message_hover_block_none ">
                         <img src="/Images/icons/forwarding.svg" />
                         <img src="/Images/icons/additionally.svg" @onclick="ShowEditMessageModal" />
-                        <img src="/Images/icons/translation.svg" />
+                        <img src="/Images/icons/translation.svg" @onclick="@(async()=>await Translate(item))" />
                     </div>
 
                 </div>
@@ -338,6 +339,12 @@
         }
     }
 
+    private async Task Translate(Message item)
+    {
+        item.TranslatedText = await DeepService.Translate(item.Text);
+        item.IsTranslated = ! item.IsTranslated;
+    }
+
     private void InsertFastAnswer(string value)
     {
         TextMessage = TextMessage + value;
@@ -375,12 +382,12 @@
 
     public void RemoveAnswer(long Id)
     {
-        var answer = Answers.FirstOrDefault(x=>x.Id==Id);
-        if  (answer  !=  null)      
+        var answer = Answers.FirstOrDefault(x => x.Id == Id);
+        if (answer != null)
         {
-                AnswerService.DeleteById(answer.Id);
-                Answers.Remove(answer);
-                StateHasChanged();
+            AnswerService.DeleteById(answer.Id);
+            Answers.Remove(answer);
+            StateHasChanged();
         }
     }
 

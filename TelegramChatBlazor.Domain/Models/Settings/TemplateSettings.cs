@@ -15,5 +15,7 @@ namespace TelegramChatBlazor.Domain.Models.Settings
         public string? BaseUrl { get; set; }
 
         public string? ApiUrl { get; set; }
+
+        public string? DeeplToken { get; set; }
     }
 }
