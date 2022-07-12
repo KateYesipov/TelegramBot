@@ -4,7 +4,7 @@
 @inject IAnswerService AnswerService
 @inject ITelegramService TelegramService
 
-    
+
 <div class="companion_block ">
     <div class="companion_img">
         <div class="companion_picture">
@@ -123,8 +123,8 @@
                 <button @onclick="@(() =>InsertFastAnswer(item.FullAnswer))">
                     @item.ShortName
                     <div class="img_pencil_close">
-                        <img @onclick="ShowEditAnswerModal" src="/Images/icons/pencil.svg">
-                        <img src="/Images/icons/close.svg" />
+                        <img @onmousedown="() =>ShowEditAnswerModal()" onclick="event.stopPropagation()" src="/Images/icons/pencil.svg">
+                        <img @onmousedown="() =>RemoveAnswer(item.Id)" onclick="event.stopPropagation()" src="/Images/icons/close.svg" />
                     </div>
                 </button>
             }
@@ -171,7 +171,7 @@
 </div>
 
 <EditAnswer isShowModal="isEditAnswerShowModal" OnClickCallback="CloseEditAnswerModal"></EditAnswer>
-    <EditMessage isShowModal="isEditMessageShowModal" OnClickCallback="CloseEditMessageModal"></EditMessage>
+<EditMessage isShowModal="isEditMessageShowModal" OnClickCallback="CloseEditMessageModal"></EditMessage>
 
 <style>
     .custom-input-hide {
@@ -206,7 +206,8 @@
 
     //moadal
     private bool isEditMessageShowModal = false;
-    private bool isEditAnswerShowModal = true;
+    private bool isEditAnswerShowModal = false;
+
 
     private string? correspondenceMiniCssClass => showHelpWordCategory ? "block_correspondence_mini" : null;
     private string? helpWordCategoryCssClass => showHelpWordCategory ? null : "dropdown_block_hide";
@@ -372,6 +373,16 @@
         isEditMessageShowModal = false;
     }
 
+    public void RemoveAnswer(long Id)
+    {
+        var answer = Answers.FirstOrDefault(x=>x.Id==Id);
+        if  (answer  !=  null)      
+        {
+                AnswerService.DeleteById(answer.Id);
+                Answers.Remove(answer);
+                StateHasChanged();
+        }
+    }
 
     public void ShowEditAnswerModal()
     {
