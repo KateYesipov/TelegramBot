@@ -4,6 +4,7 @@
 @inject IAnswerService AnswerService
 @inject ITelegramService TelegramService
 
+    
 <div class="companion_block ">
     <div class="companion_img">
         <div class="companion_picture">
@@ -122,7 +123,7 @@
                 <button @onclick="@(() =>InsertFastAnswer(item.FullAnswer))">
                     @item.ShortName
                     <div class="img_pencil_close">
-                        <img src="/Images/icons/pencil.svg">
+                        <img @onclick="ShowEditAnswerModal" src="/Images/icons/pencil.svg">
                         <img src="/Images/icons/close.svg" />
                     </div>
                 </button>
@@ -168,7 +169,9 @@
         </div>
     </div>
 </div>
-<EditMessage isShowModal="isEditMessageShowModal" OnClickCallback="CloseEditMessageModal"></EditMessage>
+
+<EditAnswer isShowModal="isEditAnswerShowModal" OnClickCallback="CloseEditAnswerModal"></EditAnswer>
+    <EditMessage isShowModal="isEditMessageShowModal" OnClickCallback="CloseEditMessageModal"></EditMessage>
 
 <style>
     .custom-input-hide {
@@ -202,7 +205,8 @@
     private bool showLanguagePanel = true;
 
     //moadal
-    private bool isEditMessageShowModal=false;
+    private bool isEditMessageShowModal = false;
+    private bool isEditAnswerShowModal = true;
 
     private string? correspondenceMiniCssClass => showHelpWordCategory ? "block_correspondence_mini" : null;
     private string? helpWordCategoryCssClass => showHelpWordCategory ? null : "dropdown_block_hide";
@@ -357,7 +361,7 @@
     {
         showHelpWordAnswer = false;
     }
-
+    //modal
     public void ShowEditMessageModal()
     {
         isEditMessageShowModal = true;
@@ -366,5 +370,16 @@
     public void CloseEditMessageModal()
     {
         isEditMessageShowModal = false;
+    }
+
+
+    public void ShowEditAnswerModal()
+    {
+        isEditAnswerShowModal = true;
+    }
+
+    public void CloseEditAnswerModal()
+    {
+        isEditAnswerShowModal = false;
     }
   }
