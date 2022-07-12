@@ -1,2 +1,21 @@
-﻿body {
+﻿.background_category {
+    background: #ffffff;
+    height: 100vh;
+    padding-left: 20px;
+}
+
+h2{
+   padding-top: 20px;
+}
+
+.form-control_one {
+    width: 148%!important;
+}
+
+.form-control {
+    width: 98%;
+}
+
+.form-group{
+    margin-top:20px;
 }

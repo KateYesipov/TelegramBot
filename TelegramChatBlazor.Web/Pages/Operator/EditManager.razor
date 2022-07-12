@@ -19,8 +19,11 @@
             <input type="email" class="form-control" @bind="@manager.Email" />
         </div>
         <div class="form-group">          
-            <img src="@tempImgPath" />
+            
             <label for="file" class="control-label">Image:</label>
+            <img src="@tempImgPath" />
+              </div>
+              <div>
             <input type="file" class="form-control" @bind="@manager.ImgPath" />
         </div>
     </div>

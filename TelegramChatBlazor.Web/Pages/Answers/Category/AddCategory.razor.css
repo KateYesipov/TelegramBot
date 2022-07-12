@@ -1,9 +1,10 @@
 ﻿.background_category {
     background: #ffffff;
     height: 100vh;
+   padding-left:20px;
 }
 form{
-    margin:20px;
+    margin-top:20px;
 }
 
 .form-group{
@@ -11,7 +12,7 @@ form{
 }
 
 h2{
-    margin-left:20px;
+   
     padding-top:20px;
 }
 
