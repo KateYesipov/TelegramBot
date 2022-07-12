@@ -1,0 +1,62 @@
+﻿@page "/manager/edit/{id:long}"
+@inject IManagerService ManagerService
+@inject NavigationManager NavigationManager
+
+<div class="background_category">
+<h2>Edit Manager</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control  form-control_one" @bind="@manager.Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="control-label">Email:</label>
+            <input type="email" class="form-control" @bind="@manager.Email" />
+        </div>
+        <div class="form-group">          
+            <img src="@tempImgPath" />
+            <label for="file" class="control-label">Image:</label>
+            <input type="file" class="form-control" @bind="@manager.ImgPath" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                 <button class="btn btn-primary" @onclick="@Update">Update</button>
+                <button class="btn btn-danger" @onclick="@Cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+@code {
+    [Parameter]
+    public long Id { get; set; }
+
+    Domain.Models.Managers.Manager manager = new Domain.Models.Managers.Manager();
+    public string tempImgPath;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var tempManager = ManagerService.GetById(Id);
+        tempImgPath = tempManager.ImgPath;
+        tempManager.ImgPath=string.Empty;
+        manager = tempManager;
+    }
+
+    void Update()
+    {
+        ManagerService.Update(manager);
+        NavigationManager.NavigateTo("answers");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("answers");
+    }
+}

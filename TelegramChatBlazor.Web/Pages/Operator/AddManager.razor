@@ -1,6 +1,7 @@
 ﻿@page "/manager/add"
 @inject IManagerService ManagerService
 @inject NavigationManager NavigationManager
+
 <div class="background_category">
 <h2>Add Manager</h2>
 <hr />
@@ -14,19 +15,14 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="Email" class="control-label">Email:</label>
-            <input form="Email" class="form-control" @bind="@manager.Email" />
+            <label for="email" class="control-label">Email:</label>
+            <input type="email" class="form-control" @bind="@manager.Email" />
         </div>
         <div class="form-group">
-            <label for="Email" class="control-label">Email:</label>
-            <input form="Email" class="form-control" @bind="@manager.Email" />
-        </div>
-        <div class="form-group">
-            <label for="Email" class="control-label">Image:</label>
-            <input form="File" class="form-control" @bind="@manager.Email" />
+            <label for="file" class="control-label">Image:</label>
+            <input type="file" class="form-control" @bind="@manager.ImgPath" />
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
