@@ -1,59 +1,20 @@
-﻿<div class="popup @(isShowModal?"":"popup_none")">
+﻿@inject ILanguageService LanguageService
+
+<div class="popup @(isShowModal?"":"popup_none")">
     <div class="popup_body">
         <div class="popup_content">
-<input autocomplete="off" placeholder="Search language" type="text" class="blazored-typeahead__input "/>
-       <div class="checkbox_language">
-           <label class="label_radio">
-<input class="radio_button" type="radio" name="name1">
-<span class="fake"></span>
-<span class="text"> grfffdedd</span>
-
-</label>
-
-     <label class="label_radio">
-<input class="radio_button" type="radio" name="name1" />
-  
-<span class="fake"></span>
-<span class="text"> grfffdedd</span>
-
-</label>
-     <label class="label_radio">
-<input class="radio_button" type="radio" name="name1" />
-  
-<span class="fake"></span>
-<span class="text"> grfffdedd</span>
-
-</label>
-     <label class="label_radio">
-<input class="radio_button" type="radio" name="name1" />
-  
-<span class="fake"></span>
-<span class="text"> grfffdedd</span>
-
-</label>
-     <label class="label_radio">
-<input class="radio_button" type="radio" name="name1" />
-  
-<span class="fake"></span>
-<span class="text"> grfffdedd</span>
-
-</label>
-     <label class="label_radio">
-<input class="radio_button" type="radio" name="name1" />
-  
-<span class="fake"></span>
-<span class="text"> grfffdedd</span>
-
-</label>
-     <label class="label_radio">
-<input class="radio_button" type="radio" name="name1" />
-  
-<span class="fake"></span>
-<span class="text"> grfffdedd</span>
-
-</label>
-</div>
-</div>
+            <input autocomplete="off" placeholder="Search language" type="text" class="blazored-typeahead__input " />
+            <div class="checkbox_language">
+               @foreach (var item in Lanuages)
+               {          
+                <label class="label_radio">
+                    <input class="radio_button" value="@item.languageCode" type="radio" name="name1">
+                    <span class="fake"></span>
+                    <span class="text"> @item.Name</span>
+                </label>
+               }
+            </div>
+        </div>
     </div>
 </div>
 
@@ -64,8 +25,11 @@
     [Parameter]
     public EventCallback OnClickCallback { get; set; }
 
+    public List<Language> Lanuages = new List<Language>();
+
     protected override async Task OnInitializedAsync()
     {
+        Lanuages = LanguageService.GetAll();
     }
 
     public void CloseModal()

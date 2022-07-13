@@ -37,7 +37,13 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
             services.AddTransient<IAnswerService, AnswerService>();
 
             services.AddTransient<IDeepService, DeepService>();
-            
+
+            services.AddTransient<ICategoryAnswerRepository, CategoryAnswerRepository>();
+            services.AddTransient<ICategoryAnswerService, CategoryAnswerService>();
+
+            services.AddTransient<ILanguageRepository, LanguageRepository>();
+            services.AddTransient<ILanguageService, LanguageService>();
+
             services.AddSignalR();
             services.TryAddSingleton<IAppSettingsService, AppSettingsService>();
             services.AddHttpContextAccessor();
