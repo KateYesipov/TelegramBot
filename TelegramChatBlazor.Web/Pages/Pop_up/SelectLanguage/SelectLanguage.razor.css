@@ -58,8 +58,10 @@
 
 
     .checkbox_language::-webkit-scrollbar {
-        width: 10px;
+        width: 0px;
+  
         background-color: #2e2d2d;
+        height:5px;
     }
     .checkbox_language::-webkit-scrollbar-thumb {
         border-radius: 10px;
@@ -72,6 +74,8 @@
         background-color: #2e2d2d;
     }
         
+
+
         .label_radio {
         height: 27px;
         margin-left: 5px;

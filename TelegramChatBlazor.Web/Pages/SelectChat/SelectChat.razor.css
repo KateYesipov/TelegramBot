@@ -106,7 +106,7 @@ input.nosubmit {
     overflow: hidden;
 }
 .lower_block {
-    height: 50px;
+    height: 62px;
     background: #40484A;
     display: flex;
     position: absolute;
@@ -117,20 +117,9 @@ input.nosubmit {
     overflow-y: hidden
 }
 
-/*scroll*/
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.54);
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,4,0.5);
-}
+    .lower_block::-webkit-scrollbar {
+        width: 0px;
+    }
 
 
 .lower_block_img {
