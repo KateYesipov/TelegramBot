@@ -17,6 +17,7 @@ namespace TelegramChatBlazor.DAL.Entities
         public string? BotAvatar { get; set; }
         public long BotId { get; set; }
         public Bot Bot { get; set; }
+        public string languageCode { get; set; }
         public List<Message> Messages { get; set; }
         public Chat()
         {

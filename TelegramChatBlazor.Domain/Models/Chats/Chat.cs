@@ -11,7 +11,7 @@ namespace TelegramChatBlazor.Domain.Models.Chats
         public string? PartnerLastName { get; set; }
         public string BotUserName { get; set; }
         public string? BotAvatar { get; set; }
-        public DateTime LastSeen { get; set; }
+        public string languageCode { get; set; }
         public long BotId { get; set; }
         public Bot Bot { get; set; }
         public List<Message> Messages { get; set; }

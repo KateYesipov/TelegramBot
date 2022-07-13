@@ -7,21 +7,18 @@ namespace TelegramChatBlazor.BLL.Services
     public class DeepService : IDeepService
     {
         private readonly TelegramChatBlazorSettings _chatBlazorSettings;
-        private readonly DeepLClient _deeplClient;
+        private readonly Translator _translator;
         public DeepService(IAppSettingsService appSettingsService)
         {
             _chatBlazorSettings = appSettingsService.TelegramChatBlazorSettings;
-            _deeplClient = new DeepLClient(_chatBlazorSettings.DeeplToken, useFreeApi: false);
+            _translator = new Translator(_chatBlazorSettings.DeeplToken);
         }
 
         public async Task<string> Translate(string text)
         {
-            Translation translation = await _deeplClient.TranslateAsync(
-                        text,
-                        Language.Russian
-                    );
-            var DetectedSourceLanguage = translation.DetectedSourceLanguage;
-            return translation.Text;
+            var translated = await _translator.TranslateTextAsync(text, LanguageCode.English,LanguageCode.Russian);
+            var detectedSourceLanguageCode = translated.DetectedSourceLanguageCode;
+            return translated.Text;
         }
     }
 }

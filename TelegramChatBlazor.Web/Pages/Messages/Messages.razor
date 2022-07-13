@@ -19,7 +19,7 @@
         @if (chatModel != null)
         {
             <div class="last_online">
-                last online at @(chatModel.LastSeen.ToString("HH:mm"))
+                last online at @(chatModel.Messages.LastOrDefault().CreateAt.ToString("HH:mm"))
             </div>
         }
     </div>
@@ -245,11 +245,6 @@
     {
         if (chatModel != null && chatModel.Id == message.Message.ChatId && message.Token == token)
         {
-            if (message.Message.IsPartner)
-            {
-                chatModel.LastSeen = message.Message.CreateAt;
-            }
-
             Message oldMessage = null;
             var messageGroupId = message.Message.MessageGroupId;
             if (messageGroupId != 0)

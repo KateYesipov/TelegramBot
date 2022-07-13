@@ -70,7 +70,7 @@ namespace TelegramChatBlazor.BLL.Services
                     message.Text, true, avatarPartnerId, message.Chat.Username,
                     message.Chat.FirstName, message.Chat.LastName,
                     bot.FirstName, "https://flowxo.com/wp-content/uploads/2021/03/Telegram-Logo-512x512.png",
-                    fileId, mediaGroupIdConvert, type);
+                    fileId, mediaGroupIdConvert, type, message.From.LanguageCode);
 
 
                 var url = _chatBlazorSettings.ApiUrl + "api/apimessage";

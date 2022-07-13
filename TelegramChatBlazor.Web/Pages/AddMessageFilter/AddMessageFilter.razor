@@ -1,4 +1,5 @@
 ﻿@inject IColorService colorService
+@inject IBotService BotService
 
 @if (Colors == null)
 {
@@ -35,17 +36,17 @@ else
                         <div>
                             <p> Message status</p>
                             <select>
-                                <option>All </option>
-                                <option>All </option>
-                                <option>All </option>
+                                <option>All</option>
+                                <option>Read</option>
+                                <option>Unread</option>
                             </select>
                         </div>
                         <div>
                             <p>Chat status</p>
                             <select>
-                                <option>All </option>
-                                <option>All </option>
-                                <option>All </option>
+                                <option>All</option>
+                                <option>Archived</option>
+                                <option>Not Archived</option>
                             </select>
                         </div>
                     </div>
@@ -53,17 +54,19 @@ else
                         <div>
                             <p>Mailing list status </p>
                             <select>
-                                <option>All </option>
-                                <option>All </option>
-                                <option>All </option>
+                                <option>All</option>
+                                <option>Yes</option>
+                                <option>No</option>
                             </select>
                         </div>
                         <div>
                             <p> Bot messages</p>
                             <select>
-                                <option>All </option>
-                                <option>All </option>
-                                <option>All </option>
+                                <option>All</option>
+                                @foreach (var item in Bots)
+                                {
+                                    <option>@item.Name</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -84,10 +87,12 @@ else
     public EventCallback OnClickCallback { get; set; }
 
     private List<Color> Colors;
+    private List<Domain.Models.Bot> Bots = new List<Bot>();
 
     protected override async Task OnInitializedAsync()
     {
         Colors = colorService.GetColors();
+        Bots = await Task.Run(() => BotService.GetAll());
     }
 
     public void CloseModal()
