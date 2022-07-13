@@ -27,9 +27,12 @@
 
     public List<Language> Lanuages = new List<Language>();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnParametersSet()
     {
-        Lanuages = LanguageService.GetAll();
+        if (isShowModal)
+        {
+            Lanuages = LanguageService.GetAll();
+        }
     }
 
     public void CloseModal()
