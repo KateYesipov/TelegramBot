@@ -63,6 +63,10 @@ input.nosubmit {
    
 }
 
+.messange_block_unread {
+    background: #FFFFFF1A !important;
+}
+
 .avatar {
     width: 80px;
     height: 80px;

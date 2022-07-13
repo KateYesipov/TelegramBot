@@ -157,6 +157,10 @@
     margin-top: 15px;
 }
 
+.sender_message_unread {
+    background: #FFFFFF1A;
+}
+
 .img_sender_message {
     width: 80px;
     height: 50px;

@@ -48,8 +48,8 @@
             </div>
             @if (item.Type == "Text")
             {
+                 <div class="@(item.IsPartner && !item.IsRead?"sender_message_unread":"")">
                 <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
-
                     <div class="img_sender_message">
                         <div class="picture_sender_message">
                             <img src="@(item.IsPartner?chatModel.PartnerAvatar:chatModel.BotAvatar)">
@@ -67,6 +67,7 @@
                 </div>
                 <div class="@(item.IsPartner?"time_correspondence_left":"time_correspondence_right")">
                     @item.CreateAt.ToString("HH:mm")
+                </div>
                 </div>
             }
             @if (item.Type == "Photo")

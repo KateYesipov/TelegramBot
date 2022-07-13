@@ -108,7 +108,7 @@
                     var lastMessage = item.Messages.LastOrDefault();
                     if (lastMessage != null)
                     {
-                        <div class="messange_block" @onclick="(()=>LoadMessageById(item.Id))">
+                        <div class="messange_block messange_block_unread" @onclick="(()=>LoadMessageById(item.Id))">
                             <div class="avatar">
 
                                 <div class="img_messange">
