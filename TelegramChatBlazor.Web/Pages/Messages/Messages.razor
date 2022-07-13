@@ -102,10 +102,10 @@
                 <div @onclick="ShowHelpWordCategory"></div>
             </div>
             <div class="input_fast_anwers">
-                <input type="text" />
+                <input  @bind-value="search_fast_answer" @bind-value:event="oninput" type="text" />
             </div>
             <div class="fast_anwers_button">
-                @foreach (var item in CategoriesAnswer)
+                @foreach (var item in FilteredCategory)
                 {
                     <button @onclick="@(() => ShowFastAnswer(item.Id))">@item.Name</button>
                 }
@@ -124,7 +124,7 @@
                 <button @onclick="@(() =>InsertFastAnswer(item.FullAnswer))">
                     @item.ShortName
                     <div class="img_pencil_close">
-                        <img @onmousedown="() =>ShowEditAnswerModal()" onclick="event.stopPropagation()" src="/Images/icons/pencil.svg">
+                        <img @onmousedown="() =>ShowEditAnswerModal(item)" onclick="event.stopPropagation()" src="/Images/icons/pencil.svg">
                         <img @onmousedown="() =>RemoveAnswer(item.Id)" onclick="event.stopPropagation()" src="/Images/icons/close.svg" />
                     </div>
                 </button>
@@ -171,7 +171,7 @@
     </div>
 </div>
 <SelectLanguage isShowModal="isSelectLanguageShowModal" OnClickCallback="CloseEditAnswerModal"></SelectLanguage>
-<EditAnswer isShowModal="isEditAnswerShowModal" OnClickCallback="CloseEditAnswerModal"></EditAnswer>
+<EditAnswer isShowModal="isEditAnswerShowModal" answer="editAnswer" OnClickCallback="CloseEditAnswerModal"></EditAnswer>
 <EditMessage isShowModal="isEditMessageShowModal" Coord="coordMessageEdit" OnClickCallback="CloseEditMessageModal"></EditMessage>
 
 <style>
@@ -196,9 +196,11 @@
     //coord message edit
     public Coord coordMessageEdit = new Coord();
 
+    //search
+    public string search_fast_answer=String.Empty;
 
     public List<Attachment> Attachments = new List<Attachment>();
-    public List<Category> CategoriesAnswer = new List<Category>();
+    private List<Category> CategoriesAnswer = new List<Category>();
     public List<Answer> Answers = new List<Answer>();
 
     private string TextMessage = String.Empty;
@@ -212,6 +214,9 @@
     private bool isEditMessageShowModal = false;
     private bool isEditAnswerShowModal = false;
     private bool isSelectLanguageShowModal = false;
+
+    //model editAnswer
+    public Answer editAnswer = new Answer();
 
     private string? correspondenceMiniCssClass => showHelpWordCategory ? "block_correspondence_mini" : null;
     private string? helpWordCategoryCssClass => showHelpWordCategory ? null : "dropdown_block_hide";
@@ -228,6 +233,9 @@
 
         CategoriesAnswer = CategoryAnswerService.GetAll();
     }
+
+     List<Category> FilteredCategory => CategoriesAnswer.Where(i => i.Name.ToLower().Contains(search_fast_answer.ToLower())).ToList();
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -391,8 +399,9 @@
         }
     }
 
-    public void ShowEditAnswerModal()
+    public void ShowEditAnswerModal(Answer item)
     {
+        editAnswer = item;
         isEditAnswerShowModal = true;
     }
 

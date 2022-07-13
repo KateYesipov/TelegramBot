@@ -1,18 +1,18 @@
 ﻿@inject ILanguageService LanguageService
 
-<div class="popup @(isShowModal?"":"popup_none")">
+<div class="popup @(isShowModal?"":"popup_none")" @onmouseout="MouseOut">
     <div class="popup_body">
         <div class="popup_content">
-            <input autocomplete="off" placeholder="Search language" type="text" class="blazored-typeahead__input " />
+            <input autocomplete="off" @bind-value="search_language" @bind-value:event="oninput" placeholder="Search language" type="text" class="blazored-typeahead__input " />
             <div class="checkbox_language">
-               @foreach (var item in Lanuages)
-               {          
-                <label class="label_radio">
-                    <input class="radio_button" value="@item.languageCode" type="radio" name="name1">
-                    <span class="fake"></span>
-                    <span class="text"> @item.Name</span>
-                </label>
-               }
+                @foreach (var item in FilterLanuages)
+                {
+                    <label class="label_radio">
+                        <input class="radio_button" value="@item.languageCode" type="radio" name="name1">
+                        <span class="fake"></span>
+                        <span class="text"> @item.Name</span>
+                    </label>
+                }
             </div>
         </div>
     </div>
@@ -25,7 +25,10 @@
     [Parameter]
     public EventCallback OnClickCallback { get; set; }
 
+    public string search_language = String.Empty;
+
     public List<Language> Lanuages = new List<Language>();
+    public List<Language> FilterLanuages => Lanuages.Where(i => i.Name.ToLower().Contains(search_language.ToLower())).ToList();
 
     protected override void OnParametersSet()
     {
@@ -38,5 +41,10 @@
     public void CloseModal()
     {
         OnClickCallback.InvokeAsync();
+    }
+
+    void MouseOut()
+    {
+        isShowModal = false; 
     }
 }

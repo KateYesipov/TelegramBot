@@ -1,43 +1,44 @@
-﻿<div class="popup @(isShowModal?"":"popup_none")">
+﻿@inject ICategoryAnswerService CategoryAnswerService
+@inject IAnswerService AnswerService
+
+<div class="popup @(isShowModal?"":"popup_none")">
     <div class="popup_body">
         <div class="popup_content">
             <a @onclick="CloseModal" class="popup_close">
                 <img src="/Images/icons/close.svg">
             </a>
-<div>
-    <div class="edit_answer">
-        <h2> Edit answer</h2>
-        <p>Fill all the fields below to edit the answer </p>
-    </div>
-    <div >
-        <p>Answer name </p>
-        <input class="edit_answer_input" type="text" placeholder="Just asking"/>
-    </div>
-    <div class="edit_answer_select">
-        <p>Categorie</p>
-         <select>
-           <option>Hello-bye </option>
-          <option>All </option>
-           <option>All </option>
-       </select>
-    </div>
-    <div class="categorie_block">
-        <p>Categorie </p>
-        <input type="text" placeholder="Hi, how are you? Any results with the ELM_EA?"/>
-    </div>
-      <div class="input_file">
-    
-      <label for="fileinput" class="label_file">
-            <img src="/Images/icons/upload.svg"/>  
-            <span></span>
-
-
-             </label>
-    </div> 
-     <div class="continue_button">
-                    <button>Confirm </button>
+            <div>
+                <div class="edit_answer">
+                    <h2> Edit answer</h2>
+                    <p>Fill all the fields below to edit the answer </p>
                 </div>
-</div>
+                <div>
+                    <p>Answer name </p>
+                    <input class="edit_answer_input" @bind="answer.ShortName" type="text" placeholder="Just asking" />
+                </div>
+                <div class="edit_answer_select">
+                    <p>Categorie</p>
+                    <select @bind="answer.CategoryId">
+                        @foreach (var item in Categories)
+                        {
+                            <option>@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="categorie_block">
+                    <p>Full anwer </p>
+                    <input type="text" @bind="answer.FullAnswer" placeholder="Hi, how are you? Any results with the ELM_EA?" />
+                </div>
+                <div class="input_file">
+                    <label for="fileinput" class="label_file">
+                        <img src="/Images/icons/upload.svg" />
+                        <span></span>
+                    </label>
+                </div>
+                <div class="continue_button">
+                    <button @onclick="@(()=>Update(answer))">Confirm</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -47,10 +48,24 @@
     public bool isShowModal { get; set; }
 
     [Parameter]
+    public Answer answer { get; set; }
+
+    [Parameter]
     public EventCallback OnClickCallback { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    public List<Category> Categories = new List<Category>();
+
+    protected override void OnParametersSet()
     {
+        if (isShowModal)
+        {
+            Categories = CategoryAnswerService.GetAll();
+        }
+    }
+
+    protected void Update(Answer item)
+    {
+        AnswerService.Update(item);
     }
 
     public void CloseModal()
