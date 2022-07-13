@@ -48,26 +48,26 @@
             </div>
             @if (item.Type == "Text")
             {
-                 <div class="@(item.IsPartner && !item.IsRead?"sender_message_unread":"")">
-                <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
-                    <div class="img_sender_message">
-                        <div class="picture_sender_message">
-                            <img src="@(item.IsPartner?chatModel.PartnerAvatar:chatModel.BotAvatar)">
+                <div class="@(item.IsPartner && !item.IsRead?"sender_message_unread":"")" @onmouseover="@(()=>ReadMessage(item))">
+                    <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
+                        <div class="img_sender_message">
+                            <div class="picture_sender_message">
+                                <img src="@(item.IsPartner?chatModel.PartnerAvatar:chatModel.BotAvatar)">
+                            </div>
                         </div>
-                    </div>
-                    <div class="text_block_sender">
-                        <p>@(item.IsTranslated?@item.TranslatedText:item.Text)</p>
-                    </div>
-                    <div class="message_hover_block message_hover_block_none ">
-                        <img src="/Images/icons/forwarding.svg" />
-                        <img src="/Images/icons/additionally.svg" @onclick="ShowEditMessageModal" />
-                        <img src="/Images/icons/translation.svg" @onclick="@(async()=>await Translate(item))" />
-                    </div>
+                        <div class="text_block_sender">
+                            <p>@(item.IsTranslated?@item.TranslatedText:item.Text)</p>
+                        </div>
+                        <div class="message_hover_block message_hover_block_none ">
+                            <img src="/Images/icons/forwarding.svg" />
+                            <img src="/Images/icons/additionally.svg" @onclick="ShowEditMessageModal" />
+                            <img src="/Images/icons/translation.svg" @onclick="@(async()=>await Translate(item))" />
+                        </div>
 
-                </div>
-                <div class="@(item.IsPartner?"time_correspondence_left":"time_correspondence_right")">
-                    @item.CreateAt.ToString("HH:mm")
-                </div>
+                    </div>
+                    <div class="@(item.IsPartner?"time_correspondence_left":"time_correspondence_right")">
+                        @item.CreateAt.ToString("HH:mm")
+                    </div>
                 </div>
             }
             @if (item.Type == "Photo")
@@ -103,7 +103,7 @@
                 <div @onclick="ShowHelpWordCategory"></div>
             </div>
             <div class="input_fast_anwers">
-                <input  @bind-value="search_fast_answer" @bind-value:event="oninput" type="text" />
+                <input @bind-value="search_fast_answer" @bind-value:event="oninput" type="text" />
             </div>
             <div class="fast_anwers_button">
                 @foreach (var item in FilteredCategory)
@@ -171,7 +171,7 @@
         </div>
     </div>
 </div>
-<SelectLanguage isShowModal="isSelectLanguageShowModal" OnClickCallback="CloseEditAnswerModal"></SelectLanguage>
+<SelectLanguage isShowModal="isSelectLanguageShowModal" OnClickCallback="CloseSelectLanguageModal"></SelectLanguage>
 <EditAnswer isShowModal="isEditAnswerShowModal" answer="editAnswer" OnClickCallback="CloseEditAnswerModal"></EditAnswer>
 <EditMessage isShowModal="isEditMessageShowModal" Coord="coordMessageEdit" OnClickCallback="CloseEditMessageModal"></EditMessage>
 
@@ -198,7 +198,7 @@
     public Coord coordMessageEdit = new Coord();
 
     //search
-    public string search_fast_answer=String.Empty;
+    public string search_fast_answer = String.Empty;
 
     public List<Attachment> Attachments = new List<Attachment>();
     private List<Category> CategoriesAnswer = new List<Category>();
@@ -235,7 +235,7 @@
         CategoriesAnswer = CategoryAnswerService.GetAll();
     }
 
-     List<Category> FilteredCategory => CategoriesAnswer.Where(i => i.Name.ToLower().Contains(search_fast_answer.ToLower())).ToList();
+    List<Category> FilteredCategory => CategoriesAnswer.Where(i => i.Name.ToLower().Contains(search_fast_answer.ToLower())).ToList();
 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -327,6 +327,11 @@
         showHelpWordAnswer = true;
     }
 
+    private void ReadMessage(Message item)
+    {
+        item.IsRead = true;
+    }
+
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
         var format = "image/png";
@@ -349,7 +354,7 @@
     private async Task Translate(Message item)
     {
         item.TranslatedText = await DeepService.Translate(item.Text);
-        item.IsTranslated = ! item.IsTranslated;
+        item.IsTranslated = !item.IsTranslated;
     }
 
     private void InsertFastAnswer(string value)
@@ -379,8 +384,8 @@
     //modal
     public void ShowEditMessageModal(MouseEventArgs e)
     {
-        coordMessageEdit.X = (e.ClientX-500);
-        coordMessageEdit.Y=e.ClientY;
+        coordMessageEdit.X = (e.ClientX - 500);
+        coordMessageEdit.Y = e.ClientY;
         isEditMessageShowModal = true;
     }
 

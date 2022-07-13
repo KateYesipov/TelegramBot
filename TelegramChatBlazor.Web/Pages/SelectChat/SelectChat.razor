@@ -87,10 +87,10 @@
                 {
                     <div class="messange_block" @onclick="(()=>LoadMessageById(selectedChat.Id))">
                         <div class="avatar">
-                           <div class="img_messange">
-                                    <img class="telegram_img" src="/Images/telegram.svg" />
-                                    <img class="avatar_img_message" src="@selectedChat.PartnerAvatar">
-                                </div>
+                            <div class="img_messange">
+                                <img class="telegram_img" src="/Images/telegram.svg" />
+                                <img class="avatar_img_message" src="@selectedChat.PartnerAvatar">
+                            </div>
                         </div>
                         <div class="sender_name">
                             @selectedChat.PartnerName
@@ -131,8 +131,8 @@
             @foreach (var item in managersList)
             {
                 <div class="lower_block_img">
-                    <img class="green_circle" src="/Images/icons/greenCircle.svg"/>
-                    <img class="img_lower"src="@item.ImgPath" />
+                    <img class="green_circle" src="/Images/icons/greenCircle.svg" />
+                    <img class="img_lower" src="@item.ImgPath" />
                 </div>
             }
         </div>
@@ -157,16 +157,19 @@
 
     private bool isShowModal = false;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        hubConnection = new HubConnectionBuilder()
-       .WithUrl(_navigationManager.ToAbsoluteUri("/signalRHub"))
-       .Build();
-        hubConnection.On<ChatNotification>("Send", this.Send);
-        await hubConnection.StartAsync();
+        if (!String.IsNullOrWhiteSpace(token))
+        {
+            hubConnection = new HubConnectionBuilder()
+           .WithUrl(_navigationManager.ToAbsoluteUri("/signalRHub"))
+           .Build();
+            hubConnection.On<ChatNotification>("Send", this.Send);
+            await hubConnection.StartAsync();
 
-        var botId = BotService.GetByToken(token);
-        Chats = TelegramService.GetChatListByBotId(botId.Id);
+            var botId = BotService.GetByToken(token);
+            Chats = TelegramService.GetChatListByBotId(botId.Id);
+        }
     }
 
     private async Task<IEnumerable<Chat>> AutoSearch(string searchChat)

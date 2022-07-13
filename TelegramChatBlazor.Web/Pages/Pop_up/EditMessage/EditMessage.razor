@@ -2,7 +2,7 @@
 {
     <div class="popup @(isShowModal?"":"popup_none")" style="@styleTransform">
         <div class="popup_body">
-            <div class="popup_content">
+            <div class="popup_content"  @onmouseleave="MouseLeave">
                 <div>
                     <img src="/Images/icons/question.svg"/>
                 </div>
@@ -43,8 +43,9 @@
         }
     }
 
-    public void CloseModal()
+    private async void MouseLeave(EventArgs args)
     {
-        OnClickCallback.InvokeAsync();
+        await Task.Delay(300);
+        await OnClickCallback.InvokeAsync();
     }
 }
