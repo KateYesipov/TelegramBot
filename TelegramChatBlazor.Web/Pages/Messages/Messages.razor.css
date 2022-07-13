@@ -431,22 +431,23 @@
 }
 
     .fast_anwers_button button {
-        background:  #FFFFFF40;
-        width:48.5%;
-        height:30px;
-        margin:3px;
-        margin-right:0px;
-        border:none;
-        border-radius:6px;
-
+        background: #FFFFFF40;
+        width: 48.5%;
+        height: 30px;
+        margin: 3px;
+        margin-right: 0px;
+        border: none;
+        border-radius: 6px;
+        color: #FFFFFF;
     }
 
-    .input_fast_anwers input {
-        border: 2px solid #FFFFFF1A;
-        background: #40484A;
-        width: 97%;
-        margin-left: 15px;
-    }
+.input_fast_anwers input {
+    border: 2px solid #FFFFFF1A;
+    background: #40484A;
+    width: 97%;
+    margin-left: 15px;
+    color: #FFFFFF;
+}
 
 .dialing_sms_input textarea {
     height: 40px;
@@ -556,6 +557,7 @@
         margin-right: 0px;
         border: none;
         border-radius: 6px;
+        color: #FFFFFF;
     }
 
 .img_pencil_close{
