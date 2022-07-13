@@ -172,7 +172,7 @@
 </div>
 <SelectLanguage isShowModal="isSelectLanguageShowModal" OnClickCallback="CloseEditAnswerModal"></SelectLanguage>
 <EditAnswer isShowModal="isEditAnswerShowModal" OnClickCallback="CloseEditAnswerModal"></EditAnswer>
-<EditMessage isShowModal="isEditMessageShowModal" OnClickCallback="CloseEditMessageModal"></EditMessage>
+<EditMessage isShowModal="isEditMessageShowModal" Coord="coordMessageEdit" OnClickCallback="CloseEditMessageModal"></EditMessage>
 
 <style>
     .custom-input-hide {
@@ -192,6 +192,9 @@
 
     [Parameter]
     public EventCallback ShowOrHideRightCallback { get; set; }
+
+    //coord message edit
+    public Coord coordMessageEdit = new Coord();
 
 
     public List<Attachment> Attachments = new List<Attachment>();
@@ -370,8 +373,10 @@
         showHelpWordAnswer = false;
     }
     //modal
-    public void ShowEditMessageModal()
+    public void ShowEditMessageModal(MouseEventArgs e)
     {
+        coordMessageEdit.X = (e.ClientX-500);
+        coordMessageEdit.Y=e.ClientY;
         isEditMessageShowModal = true;
     }
 

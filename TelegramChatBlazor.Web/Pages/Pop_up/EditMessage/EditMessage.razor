@@ -1,35 +1,47 @@
-﻿<div class="popup @(isShowModal?"":"popup_none")">
-    <div class="popup_body">
-        <div class="popup_content">
-         <div>
-             <img src="/Images/icons/question.svg"/>
-           
-         </div>
-         <div>
-             <img src="/Images/icons/copy.svg"/>
-         </div>
-         <div>
-            <img src="/Images/icons/discuss.svg"/>
-         </div>
-         <div>
-             <img src="/Images/icons/select.svg"/>
-         </div>
-         <div>
-             <img src="/Images/icons/delete.svg"/>
-         </div>
+﻿@if (styleTransform != null)
+{
+    <div class="popup @(isShowModal?"":"popup_none")" style="@styleTransform">
+        <div class="popup_body">
+            <div class="popup_content">
+                <div>
+                    <img src="/Images/icons/question.svg"/>
+
+                </div>
+                <div>
+                    <img src="/Images/icons/copy.svg"/>
+                </div>
+                <div>
+                    <img src="/Images/icons/discuss.svg"/>
+                </div>
+                <div>
+                    <img src="/Images/icons/select.svg"/>
+                </div>
+                <div>
+                    <img src="/Images/icons/delete.svg"/>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+}
 
 @code {
     [Parameter]
     public bool isShowModal { get; set; }
 
     [Parameter]
+    public Coord Coord { get; set; }
+
+    [Parameter]
     public EventCallback OnClickCallback { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    public string? styleTransform=null;
+
+    protected override void OnParametersSet()
     {
+        if (Coord != null)
+        {
+            styleTransform = $"transform: translate3d({Coord.X}px,{Coord.Y}px, 0px)";
+        }
     }
 
     public void CloseModal()
