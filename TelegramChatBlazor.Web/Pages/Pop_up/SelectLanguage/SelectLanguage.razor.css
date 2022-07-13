@@ -24,7 +24,86 @@
     color: #000000;
     width: 180px;
     height: 195px;
-    padding: 20px;
-    position: relative;
+    padding: 10px;
+    position: absolute;
     border-radius: 10px;
+    top: 19%;
+    left:75vh;
+}
+
+.blazored-typeahead__input {
+    border: 1px solid #555;
+    width: 100%;
+    color: #FFFFFF;
+    font-size: 15px;
+    height: 40px;
+    padding: 9px 4px 9px 35px;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 11px center;
+   
+}
+
+
+
+
+
+.checkbox_language {
+    overflow: auto;
+    height: inherit;
+    max-height:17vh;
+    margin-top:10px;
+}
+
+
+
+.label_radio{
+    height:27px;
+    margin-bottom:7px;
+    margin-left:5px;
+    width:21vh;
+}
+
+    .label_radio:hover {
+        background: #FFFFFF1A;
+    }
+
+
+
+    .radio_button {
+        display: none;
+    }
+
+.fake {
+    display: inline-block;
+    width: 26px;
+    height: 20px;
+    border-radius: 4px;
+    background: #FFFFFF40;
+    position: relative;
+    vertical-align: middle;
+}
+
+    .fake:before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 15px;
+        height: 15px;
+        background: url(/Images/icons/chosen.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        opacity: 0;
+    }
+
+.radio_button:checked + .fake:before {
+    opacity: 1;
+}
+.text {
+    color: #FFFFFF;
+    font-size: 15px;
+    margin-left: 10px;
+   
 }
