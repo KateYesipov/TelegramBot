@@ -14,9 +14,9 @@ namespace TelegramChatBlazor.BLL.Services
             _translator = new Translator(_chatBlazorSettings.DeeplToken);
         }
 
-        public async Task<string> Translate(string text)
+        public async Task<string> Translate(string text, string langCode)
         {
-            var translated = await _translator.TranslateTextAsync(text, LanguageCode.English,LanguageCode.Russian);
+            var translated = await _translator.TranslateTextAsync(text, langCode, LanguageCode.Russian);
             var detectedSourceLanguageCode = translated.DetectedSourceLanguageCode;
             return translated.Text;
         }

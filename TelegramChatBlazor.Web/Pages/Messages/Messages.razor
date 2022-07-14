@@ -35,10 +35,7 @@
 {
     @if (showLanguagePanel)
     {
-        <div class="dropdown_block_ontop">
-            <p>@chatModel?.PartnerName speaks <a @onclick="(()=>ShowSelectLanguageModal())">English</a>, is that correct? </p>
-            <div @onclick="@(() => CloseLanguagePanel())"></div>
-        </div>
+        <SelectLanguage ChatModel="chatModel" languageCallback="language=>Language=language"  OnClickCallback="CloseLanguagePanel"></SelectLanguage>
     }
     <div class="block_correspondence @correspondenceMiniCssClass @(Attachments.Count()>0?"block_correspondence_attachement":"") @(showLanguagePanel?"":"block_correspondence_language_hide")" id="block_message">
         @foreach (var item in chatModel.Messages)
@@ -171,7 +168,6 @@
         </div>
     </div>
 </div>
-<SelectLanguage isShowModal="isSelectLanguageShowModal" OnClickCallback="CloseSelectLanguageModal"></SelectLanguage>
 <EditAnswer isShowModal="isEditAnswerShowModal" answer="editAnswer" OnClickCallback="CloseEditAnswerModal"></EditAnswer>
 <EditMessage isShowModal="isEditMessageShowModal" Coord="coordMessageEdit" OnClickCallback="CloseEditMessageModal"></EditMessage>
 
@@ -193,6 +189,8 @@
 
     [Parameter]
     public EventCallback ShowOrHideRightCallback { get; set; }
+
+    public Language Language;
 
     //coord message edit
     public Coord coordMessageEdit = new Coord();
@@ -223,7 +221,6 @@
     private string? helpWordCategoryCssClass => showHelpWordCategory ? null : "dropdown_block_hide";
     private string? helpWordAnswerCssClass => showHelpWordAnswer ? "" : "dropdown_block_hide";
 
-
     protected override async Task OnInitializedAsync()
     {
         hubConnection = new HubConnectionBuilder()
@@ -237,7 +234,6 @@
 
     List<Category> FilteredCategory => CategoriesAnswer.Where(i => i.Name.ToLower().Contains(search_fast_answer.ToLower())).ToList();
 
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -247,7 +243,6 @@
         }
         await Task.Delay(100);
         await ScrollToElementId("block_message");
-
     }
 
     protected async Task Send(ChatNotification message)
@@ -260,7 +255,6 @@
             {
                 oldMessage = chatModel.Messages.FirstOrDefault(x => x.MessageGroupId == messageGroupId);
             }
-
 
             if (oldMessage == null)
             {
@@ -329,8 +323,11 @@
 
     private void ReadMessage(Message item)
     {
-        item.IsRead = true;
-        MessageRepository.Update(item);
+        if (!item.IsPartner)
+        {
+            item.IsRead = true;
+            MessageRepository.Update(item);
+        }
     }
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
@@ -354,7 +351,8 @@
 
     private async Task Translate(Message item)
     {
-        item.TranslatedText = await DeepService.Translate(item.Text);
+        var langCode = Language?.languageCode??chatModel.languageCode;
+        item.TranslatedText = await DeepService.Translate(item.Text,langCode);
         item.IsTranslated = !item.IsTranslated;
     }
 
@@ -382,6 +380,7 @@
     {
         showHelpWordAnswer = false;
     }
+
     //modal
     public void ShowEditMessageModal(MouseEventArgs e)
     {
@@ -415,15 +414,5 @@
     public void CloseEditAnswerModal()
     {
         isEditAnswerShowModal = false;
-    }
-
-    public void ShowSelectLanguageModal()
-    {
-        isSelectLanguageShowModal = true;
-    }
-
-    public void CloseSelectLanguageModal()
-    {
-        isSelectLanguageShowModal = false;
     }
   }

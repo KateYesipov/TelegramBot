@@ -1,46 +1,72 @@
 ﻿@inject ILanguageService LanguageService
+@if (ChatModel != null)
+{
+    <div class="dropdown_block_ontop">
+        <p>@ChatModel.PartnerName <a @onclick="(()=>ShowSelectLanguageModal())">@Language.Name</a>, is that correct? </p>
+        <div @onclick="@(async() => await OnClickCallback.InvokeAsync())"></div>
+    </div>
 
-<div class="popup @(isShowModal?"":"popup_none")">
-    <div class="popup_body">
-        <div class="popup_content" @onmouseleave="MouseLeave">
-            <input autocomplete="off" @bind-value="search_language" @bind-value:event="oninput" placeholder="Search language" type="text" class="blazored-typeahead__input " />
-            <div class="checkbox_language">
-                @foreach (var item in FilterLanuages)
-                {
-                    <label class="label_radio" >
-                        <input class="radio_button" value="@item.languageCode" type="radio" name="name1">
-                        <span class="fake"></span>
-                        <span class="text"> @item.Name</span>
-                    </label>
-                }
+    <div class="popup @(isShowModal?"":"popup_none")">
+        <div class="popup_body">
+            <div class="popup_content" @onmouseleave="MouseLeave">
+                <input autocomplete="off" @bind-value="search_language" @bind-value:event="oninput" placeholder="Search language" type="text" class="blazored-typeahead__input " />
+                <div class="checkbox_language">
+                    @foreach (var item in FilterLanuages)
+                    {
+                        <label class="label_radio">
+                            <input class="radio_button" @onclick="@(async ()=> await Selectlanguage(item))" type="radio" name="name">
+                            <span class="fake"></span>
+                            <span class="text"> @item.Name</span>
+                        </label>
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
 
 @code {
     [Parameter]
-    public bool isShowModal { get; set; }
+    public Chat ChatModel { get; set; }
 
     [Parameter]
     public EventCallback OnClickCallback { get; set; }
 
+    [Parameter]
+    public EventCallback<Language> languageCallback { get; set; }
+
+    public bool isShowModal = false;
     public string search_language = String.Empty;
 
-    public List<Language> Lanuages = new List<Language>();
+
+    private List<Language> Lanuages;
     public List<Language> FilterLanuages => Lanuages.Where(i => i.Name.ToLower().Contains(search_language.ToLower())).ToList();
+    public Language Language;
 
     protected override void OnParametersSet()
     {
-        if (isShowModal)
+        if (ChatModel != null&&Lanuages == null)
         {
             Lanuages = LanguageService.GetAll();
+            Language = Lanuages.FirstOrDefault(x => x.languageCode == ChatModel.languageCode);
         }
     }
 
-    private async void MouseLeave(EventArgs args)
+    private async Task MouseLeave(EventArgs args)
     {
         await Task.Delay(300);
-        await OnClickCallback.InvokeAsync();
+        isShowModal = false;
+    }
+
+    public async Task Selectlanguage(Language item)
+    {
+        Language = item;
+        await languageCallback.InvokeAsync(Language);
+        StateHasChanged();
+    }
+
+    public void ShowSelectLanguageModal()
+    {
+        isShowModal = true;
     }
  }

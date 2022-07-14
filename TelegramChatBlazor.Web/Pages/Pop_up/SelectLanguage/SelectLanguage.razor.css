@@ -1,4 +1,35 @@
-﻿.popup {
+﻿.dropdown_block_ontop {
+    height: 40px;
+    background: #FFFFFF40;
+    display: flex;
+}
+
+    .dropdown_block_ontop p {
+        color: #FFFFFF;
+        font-size: 16px;
+        padding-top: 6px;
+        padding-left: 10px;
+    }
+
+        .dropdown_block_ontop p a {
+            color: #FFFFFF;
+            font-size: 16px;
+            text-decoration: underline;
+        }
+
+    .dropdown_block_ontop div {
+        background-image: url(/Images/icons/close.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 12px;
+        height: 12px;
+        margin-right: 20px;
+        margin-top: 12px;
+        margin-left: auto;
+    }
+
+.popup {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -50,27 +81,9 @@
 
 }
 
-
-
-
     .checkbox_language::-webkit-scrollbar {
         width: 0px;
     }
-  /*   background-color: #2e2d2d;
-        
-    }
-    .checkbox_language::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background-color: #61676B;
-    }
-
-    .checkbox_language::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
-        border-radius: 10px;
-        background-color: #2e2d2d;
-    }*/
-        
-
 
         .label_radio {
         height: 27px;

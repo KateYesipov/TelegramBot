@@ -1,7 +1,8 @@
-﻿namespace TelegramChatBlazor.DAL.Entities
+﻿namespace TelegramChatBlazor.Domain.Models.Filters
 {
-    public class Filter : Entity<long>
+    public class Filter
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public string ColorHex { get; set; }
         public bool? Readed { get; set; }

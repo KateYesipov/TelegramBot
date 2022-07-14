@@ -44,6 +44,9 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<ILanguageService, LanguageService>();
 
+            services.AddScoped<IFilterRepository, FilterRepository>();
+            services.AddScoped<IFilterService, FilterService>();
+           
             services.AddSignalR();
             services.AddScoped<IAppSettingsService, AppSettingsService>();
             services.AddHttpContextAccessor();

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TelegramChatBlazor.Domain.Models.Languages
+﻿namespace TelegramChatBlazor.Domain.Models.Languages
 {
     public class Language
     {

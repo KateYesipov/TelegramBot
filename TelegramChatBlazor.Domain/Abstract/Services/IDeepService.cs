@@ -2,6 +2,6 @@
 {
     public interface IDeepService
     {
-        Task<string> Translate(string text);
+        Task<string> Translate(string text,string langCode);
     }
 }
