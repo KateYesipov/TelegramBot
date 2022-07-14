@@ -27,7 +27,7 @@
 
 @code {
     [Parameter]
-    public Chat ChatModel { get; set; }
+    public Chat ChatModel { get; set; } = null;
 
     [Parameter]
     public EventCallback OnClickCallback { get; set; }
@@ -43,10 +43,13 @@
     public List<Language> FilterLanuages => Lanuages.Where(i => i.Name.ToLower().Contains(search_language.ToLower())).ToList();
     public Language Language;
 
+    private long tempChatId;
+
     protected override void OnParametersSet()
     {
-        if (ChatModel != null&&Lanuages == null)
+        if (ChatModel != null && (tempChatId == 0 || tempChatId != ChatModel.Id))
         {
+            tempChatId = ChatModel.Id;
             Lanuages = LanguageService.GetAll();
             Language = Lanuages.FirstOrDefault(x => x.languageCode == ChatModel.languageCode);
         }
