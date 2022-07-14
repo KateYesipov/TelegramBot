@@ -38,11 +38,9 @@
     public bool isShowModal = false;
     public string search_language = String.Empty;
 
-
     private List<Language> Lanuages;
     public List<Language> FilterLanuages => Lanuages.Where(i => i.Name.ToLower().Contains(search_language.ToLower())).ToList();
     public Language Language;
-
     private long tempChatId;
 
     protected override void OnParametersSet()
