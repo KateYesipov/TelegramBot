@@ -1,1 +1,107 @@
-﻿
+﻿.background_category {
+    background: #ffffff;
+    height: 100vh;
+    padding-left: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.form-group p {
+    margin-bottom: 0px;
+}
+
+.form-group {
+    margin-top: -10px;
+}
+
+h2 {
+    padding-top: 20px;
+}
+
+.form-control_one {
+    width: 152%;
+    margin-bottom: 0px;
+}
+
+.add_new {
+    margin-top: 20px;
+}
+
+.form-control_one {
+    width: 75%;
+    margin-bottom: 0px;
+    border: 1px solid #000000;
+}
+
+
+.icon_colors_block p {
+    line-height: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.label_radio {
+    display: flex;
+}
+
+.radio_button {
+    display: none;
+}
+
+.fake {
+    width: 40px;
+    height: 40px;
+    list-style-type: none;
+    border-radius: 50%;
+    margin: 3px;
+    position: relative;
+    margin-bottom: 10px;
+    opacity: 1;
+    border: 1px solid #000000;
+}
+
+    .fake:first-child {
+        margin-left: 0px !important;
+    }
+
+    .fake:before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 30px;
+        background: url(/Images/icons/chosen2.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        opacity: 0;
+    }
+
+.color_block {
+    display: flex;
+}
+
+
+.radio_button:checked + .fake:before {
+    opacity: 1;
+}
+
+select {
+    border: 2px solid #FFFFFF1A;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 50%;
+    height: 35px;
+    border: 1px solid #000000;
+}
+
+
+.select_block {
+    margin-top: 20px;
+}

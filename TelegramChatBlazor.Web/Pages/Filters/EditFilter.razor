@@ -1,6 +1,13 @@
 ﻿@page "/filter/edit/{id:long}"
 @inject IFilterService FilterService
 @inject NavigationManager NavigationManager
+@inject IColorService colorService
+
+@if (Colors == null)
+{
+}
+else
+{
 
 <div class="background_category">
     <h2>Edit Filter</h2>
@@ -14,10 +21,25 @@
                     <input form="Name" class="form-control  form-control_one" @bind="@filter.Name" />
                 </div>
             </div>
-            <div class="form-group">
-                <label for="ColorHex" class="control-label">ColorHex:</label>
-                <input type="ColorHex" class="form-control" @bind="@filter.ColorHex" />
+            <div class="icon_colors_block">
+            <p>Icon color </p>
+            <div class="color_block">
+
+                @foreach (var item in Colors)
+                {
+                    <label class="label_radio">
+                        <input class="radio_button" type="radio" name="name">
+                        <span style="background:@item.ColorHex" class="fake"></span>
+                    </label>
+                }
             </div>
+            <p> Message status</p>
+            <select @bind="filter.Readed">
+                <option value="null">All</option>
+                <option value="true">Read</option>
+                <option value="false">Unread</option>
+            </select>
+        </div>
             <div>
                 <p> Message status</p>
                 <select @bind="filter.Readed">
@@ -54,15 +76,18 @@
         </div>
     </form>
 </div>
+}
 @code {
     [Parameter]
     public long Id { get; set; }
 
     Filter filter = new Filter();
+    private List<Color> Colors;
 
     protected override async Task OnInitializedAsync()
     {
         filter = FilterService.GetById(Id);
+        Colors = colorService.GetColors();
     }
 
     void Update()
