@@ -108,6 +108,13 @@ namespace TelegramChatBlazor.DAL.Context
             builder.Entity<Language>().HasData(new Language { Id = 29, Name = "Turkish", languageCode = "tr" });
             builder.Entity<Language>().HasData(new Language { Id = 30, Name = "Chinese", languageCode = "zh" });
 
+            builder.Entity<Filter>().HasData(new Filter { Id = 1, Name = "Demo", Archived = false, Mailing = false,Readed=true,Created_at= DateTime.Now,ColorHex= "#FFCE31" }); 
+            builder.Entity<Filter>().HasData(new Filter { Id = 2, Name = "Will buy soon", Archived = false, Mailing = false, Readed = true, Created_at = DateTime.Now, ColorHex = "#ED4C5C" });
+            builder.Entity<Filter>().HasData(new Filter { Id = 3, Name = "Client", Archived = false, Mailing = false, Readed = true, Created_at = DateTime.Now, ColorHex = "#4CEDED" });
+            builder.Entity<Filter>().HasData(new Filter { Id = 4, Name = "Test", Archived = false, Mailing = true, Readed = true, Created_at = DateTime.Now, ColorHex = "#FFFFFF" });
+            builder.Entity<Filter>().HasData(new Filter { Id = 5, Name = "Readed", Archived = false, Mailing = false, Readed = true, Created_at = DateTime.Now, ColorHex = "#25CC62" });
+            builder.Entity<Filter>().HasData(new Filter { Id = 6, Name = "1 Step", Archived = true, Mailing = false, Readed = true, Created_at = DateTime.Now, ColorHex = "#ED4CB6" });
+
             base.OnModelCreating(builder);
         }
     }

@@ -25,19 +25,18 @@ else
 
                         @foreach (var item in Colors)
                         {
-                            <label class="label_radio">
+                            <label class="label_radio" @onclick="@(()=>OnColorsChanged(item))">
                                 <input class="radio_button" type="radio" name="name">
                                 <span style="background:@item.ColorHex" class="fake"></span>
                             </label>
                         }
-
                     </div>
                 </div>
                 <div class="message_status_block">
                     <div class="select_block">
                         <div>
                             <p> Message status</p>
-                            <select @bind="Filter.Readed">
+                            <select @onchange="(e) => OnReadedChanged(e.Value)">
                                 <option value="null">All</option>
                                 <option value="true">Read</option>
                                 <option value="false">Unread</option>
@@ -45,7 +44,7 @@ else
                         </div>
                         <div>
                             <p>Chat status</p>
-                            <select @bind="Filter.Archived">
+                            <select @onchange="(e) => OnArchivedChanged(e.Value)">
                                 <option value="null">All</option>
                                 <option value="true">Archived</option>
                                 <option value="false">Not Archived</option>
@@ -55,10 +54,10 @@ else
                     <div class="select_block">
                         <div>
                             <p>Mailing list status </p>
-                            <select @bind="Filter.Mailing">
+                            <select @onchange="(e) => OnMailingChanged(e.Value)">
                                 <option value="null">All</option>
                                 <option value="true">Yes</option>
-                                <option value=false>No</option>
+                                <option value="false">No</option>
                             </select>
                         </div>
                         <div>
@@ -105,6 +104,8 @@ else
     public void Create()
     {
         FilterService.Create(Filter);
+        Filter = new Filter();
+        CloseModal();
     }
 
     public void CloseModal()
@@ -116,4 +117,49 @@ else
     {
         SelectedColor = item;
     }
+
+    void OnMailingChanged(object args)
+    {
+        if (string.IsNullOrEmpty(args.ToString()))
+        {
+            Filter.Mailing = null;
+            return;
+        }
+
+        bool.TryParse(args.ToString(), out var result);
+        Filter.Mailing = result;
+    }
+
+    void OnColorsChanged(Color item)
+    {
+        if (item != null)
+        {
+            Filter.ColorHex = item.ColorHex;
+        }
+    }
+
+    void OnArchivedChanged(object args)
+    {
+        if (string.IsNullOrEmpty(args.ToString()))
+        {
+            Filter.Archived = null;
+            return;
+        }
+
+        bool.TryParse(args.ToString(), out var result);
+        Filter.Archived = result;
+    }
+
+    void OnReadedChanged(object args)
+    {
+        if (string.IsNullOrEmpty(args.ToString()))
+        {
+            Filter.Readed = null;
+            return;
+        }
+
+        bool.TryParse(args.ToString(), out var result);
+        Filter.Readed = result;
+    }
+
 }

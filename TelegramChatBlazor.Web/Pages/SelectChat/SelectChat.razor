@@ -109,7 +109,7 @@
                     var lastMessage = item.Messages.LastOrDefault();
                     if (lastMessage != null)
                     {
-                        <div class="messange_block messange_block_unread" @onclick="(()=>LoadMessageById(item.Id))">
+                        <div class="messange_block  @((item.Messages.Any(x=>x.IsRead==false))?"messange_block_unread":"")" @onclick="(()=>LoadMessageById(item.Id))">
                             <div class="avatar">
 
                                 <div class="img_messange">
@@ -224,6 +224,7 @@
     public void CloseModal()
     {
         isShowModal = false;
+        Filters = FilterService.GetAll();
     }
 }
 
