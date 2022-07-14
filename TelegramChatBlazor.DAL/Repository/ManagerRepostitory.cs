@@ -44,8 +44,11 @@ namespace TelegramChatBlazor.DAL.Repository
 
         public void Update(Manager item)
         {
-            _context.Update(item);
-            _context.Entry(item).State = EntityState.Modified;
+           _context.Database.ExecuteSqlRaw(@"UPDATE Managers SET  
+           Name={1}, Email={2}, ImgPath={3},CreateAt={4},LastOnline={5}
+           WHERE Id={0}",
+           item.Id, item.Name, item.Email, item.ImgPath,
+           item.CreateAt, item.LastOnline);
         }
 
         public void Save()

@@ -11,7 +11,7 @@ using TelegramChatBlazor.Domain.Models.HelpWord;
 
 namespace TelegramChatBlazor.DAL.Repository
 {
-    public class CategoryAnswerRepository: ICategoryAnswerRepository
+    public class CategoryAnswerRepository : ICategoryAnswerRepository
     {
         protected readonly ApplicationDbContext _context;
         protected readonly IMapper _mapper;
@@ -49,8 +49,10 @@ namespace TelegramChatBlazor.DAL.Repository
 
         public void Update(Category item)
         {
-            var category = _mapper.Map<Entities.Category>(item);
-            _context.Update(category);
+            _context.Database.ExecuteSqlRaw(@"UPDATE Categories SET  
+            Name={1}, CreatedAt={2}
+            WHERE Id={0}",
+            item.Id, item.Name, item.CreatedAt);
         }
 
         public void Save()

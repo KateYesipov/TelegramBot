@@ -13,39 +13,39 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
         public static void RegisterServices(this IServiceCollection services)
         {
             services.TryAddSingleton<IAppSettingsService, AppSettingsService>();      
-            services.AddTransient<IHasher, Hasher>();
+            services.AddScoped<IHasher, Hasher>();
             services.AddHttpClient<IBackgroundTelegramService, BackgroundTelegramService>();
-            services.AddTransient<IChatRepository, ChatRepository>();
+            services.AddScoped<IChatRepository, ChatRepository>();
             services.AddHttpClient<ITelegramService, TelegramService>();
-            services.AddTransient<IMessageRepository, MessageRepository>();
-            services.AddTransient<IBotRepository, BotRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IBotRepository, BotRepository>();
             services.AddScoped<IBotService, BotService>();
 
-            services.AddTransient<IColorRepository, ColorRepository>();
-            services.AddTransient<IColorService, ColorService>();
+            services.AddScoped<IColorRepository, ColorRepository>();
+            services.AddScoped<IColorService, ColorService>();
 
-            services.AddTransient<IManagerRepository, ManagerRepostitory>();
-            services.AddTransient<IManagerService, ManagerService>();
+            services.AddScoped<IManagerRepository, ManagerRepostitory>();
+            services.AddScoped<IManagerService, ManagerService>();
 
-            services.AddTransient<IAttachmentRepository, AttachmentRepository>();
-            services.AddTransient<IAttachmentService, AttachmentService>();
+            services.AddScoped<IAttachmentRepository, AttachmentRepository>();
+            services.AddScoped<IAttachmentService, AttachmentService>();
 
-            services.AddTransient<ICategoryAnswerRepository, CategoryAnswerRepository>();
-            services.AddTransient<ICategoryAnswerService, CategoryAnswerService>();
+            services.AddScoped<ICategoryAnswerRepository, CategoryAnswerRepository>();
+            services.AddScoped<ICategoryAnswerService, CategoryAnswerService>();
 
-            services.AddTransient< IAnswerRepository , AnswerRepository>();
-            services.AddTransient<IAnswerService, AnswerService>();
+            services.AddScoped< IAnswerRepository , AnswerRepository>();
+            services.AddScoped<IAnswerService, AnswerService>();
 
-            services.AddTransient<IDeepService, DeepService>();
+            services.AddScoped<IDeepService, DeepService>();
 
-            services.AddTransient<ICategoryAnswerRepository, CategoryAnswerRepository>();
-            services.AddTransient<ICategoryAnswerService, CategoryAnswerService>();
+            services.AddScoped<ICategoryAnswerRepository, CategoryAnswerRepository>();
+            services.AddScoped<ICategoryAnswerService, CategoryAnswerService>();
 
-            services.AddTransient<ILanguageRepository, LanguageRepository>();
-            services.AddTransient<ILanguageService, LanguageService>();
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
+            services.AddScoped<ILanguageService, LanguageService>();
 
             services.AddSignalR();
-            services.TryAddSingleton<IAppSettingsService, AppSettingsService>();
+            services.AddScoped<IAppSettingsService, AppSettingsService>();
             services.AddHttpContextAccessor();
         }
     }

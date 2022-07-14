@@ -43,9 +43,6 @@
 </form>
 </div>
 @code {
-    [Parameter]
-    public long Id { get; set; }
-
     Domain.Models.HelpWord.Answer answer = new Domain.Models.HelpWord.Answer();
     List<Domain.Models.HelpWord.Category> categories;
 
@@ -56,10 +53,10 @@
     void Create()
     {
         AnswerService.Create(answer);
-        NavigationManager.NavigateTo("answers",true);
+        NavigationManager.NavigateTo("answers/category",true);
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("answers",true);
+        NavigationManager.NavigateTo("answers/category",true);
     }
 }

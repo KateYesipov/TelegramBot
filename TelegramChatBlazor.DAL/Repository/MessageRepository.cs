@@ -57,6 +57,16 @@ namespace TelegramChatBlazor.DAL.Repository
             return _mapper.Map<Message>(messages);
         }
 
+        public void Update(Message item)
+        {
+            _context.Database.ExecuteSqlRaw(@"UPDATE Message SET  
+           Text={1}, IsPartner={2}, CreateAt={3},ChatId={4},MessageGroupId={5},IsRead={6},Type={7}
+           WHERE Id={0}",
+             item.Id,item.Text ?? "", item.IsPartner, item.CreateAt,
+             item.ChatId, item.MessageGroupId, item.IsRead, item.Type);
+            _context.SaveChanges();
+        }
+
         public void Save()
         {
             _context.SaveChanges();

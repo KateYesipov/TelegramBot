@@ -4,7 +4,7 @@
 @inject IAnswerService AnswerService
 @inject ITelegramService TelegramService
 @inject IDeepService DeepService
-
+@inject IMessageRepository MessageRepository
 
 <div class="companion_block ">
     <div class="companion_img">
@@ -330,6 +330,7 @@
     private void ReadMessage(Message item)
     {
         item.IsRead = true;
+        MessageRepository.Update(item);
     }
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
