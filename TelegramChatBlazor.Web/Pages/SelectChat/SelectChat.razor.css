@@ -55,11 +55,13 @@ input.nosubmit {
     padding: 10px;
     color: #808080;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .messange_block {
     height: 80px;
     background: #3c3b3b;
+    cursor:pointer;
    
 }
 

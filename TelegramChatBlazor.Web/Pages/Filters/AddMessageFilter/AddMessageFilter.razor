@@ -22,12 +22,15 @@ else
                 <div class="icon_colors_block">
                     <p>Icon color </p>
                     <div class="color_block">
-                        <ul>
-                            @foreach (var item in Colors)
-                            {
-                                <li style="background:@item.ColorHex"></li>
-                            }
-                        </ul>
+
+                        @foreach (var item in Colors)
+                        {
+                            <label class="label_radio">
+                                <input class="radio_button" type="radio" name="name">
+                                <span style="background:@item.ColorHex" class="fake"></span>
+                            </label>
+                        }
+
                     </div>
                 </div>
                 <div class="message_status_block">

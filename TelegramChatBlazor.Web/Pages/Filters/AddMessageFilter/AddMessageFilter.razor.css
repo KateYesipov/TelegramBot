@@ -79,24 +79,59 @@
         font-size: 14px;
         line-height: 20px;
         margin-top:20px;
+        margin-bottom:10px;
     }
-.color_block ul {
-    display: flex;
-    padding:0px;
+
+
+.label_radio {
+  display:flex;
 }
 
-.color_block ul li {
+.radio_button {
+    display: none;
+}
+
+.fake {
     width: 40px;
     height: 40px;
     list-style-type: none;
     border-radius: 50%;
     margin: 3px;
-  
+    position: relative;
+    margin-bottom: 10px;
+    opacity: 1;
+    
 }
 
-    .color_block ul li:first-child{
-        margin-left:0px;
+    .fake:first-child {
+        margin-left: 0px!important;
     }
+    .fake:before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 30px;
+        background: url(/Images/icons/chosen2.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        opacity: 0;
+    }
+
+.color_block{
+    display:flex;
+}
+
+
+.radio_button:checked + .fake:before {
+    opacity: 1;
+}
+
+
 
 .message_status_block p {
     color: #FFFFFF80;

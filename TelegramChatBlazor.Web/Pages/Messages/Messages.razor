@@ -323,7 +323,7 @@
 
     private void ReadMessage(Message item)
     {
-        if (!item.IsPartner)
+        if (item.IsPartner)
         {
             item.IsRead = true;
             MessageRepository.Update(item);
