@@ -1,0 +1,77 @@
+﻿@page "/filter/edit/{id:long}"
+@inject IFilterService FilterService
+@inject NavigationManager NavigationManager
+
+<div class="background_category">
+    <h2>Edit Filter</h2>
+    <hr />
+
+    <form>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="Name" class="control-label">Name</label>
+                    <input form="Name" class="form-control  form-control_one" @bind="@filter.Name" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ColorHex" class="control-label">ColorHex:</label>
+                <input type="ColorHex" class="form-control" @bind="@filter.ColorHex" />
+            </div>
+            <div>
+                <p> Message status</p>
+                <select @bind="filter.Readed">
+                    <option value="null">All</option>
+                    <option value="true">Read</option>
+                    <option value="false">Unread</option>
+                </select>
+            </div>
+            <div>
+                <p>Chat status</p>
+                <select @bind="filter.Archived">
+                    <option value="null">All</option>
+                    <option value="true">Archived</option>
+                    <option value="false">Not Archived</option>
+                </select>
+            </div>
+            <div>
+                <p>Mailing list status </p>
+                <select @bind="filter.Mailing">
+                    <option value="null">All</option>
+                    <option value="true">Yes</option>
+                    <option value=false>No</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button class="btn btn-primary" @onclick="@Update">Update</button>
+                    <button class="btn btn-danger" @onclick="@Cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@code {
+    [Parameter]
+    public long Id { get; set; }
+
+    Filter filter = new Filter();
+
+    protected override async Task OnInitializedAsync()
+    {
+        filter = FilterService.GetById(Id);
+    }
+
+    void Update()
+    {
+        FilterService.Update(filter);
+        NavigationManager.NavigateTo("filter", true);
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("filter", true);
+    }
+}
