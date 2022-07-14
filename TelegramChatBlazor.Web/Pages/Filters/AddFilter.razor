@@ -1,12 +1,18 @@
 ﻿@page "/filter/add"
 @inject IFilterService FilterService
+@inject IColorService colorService
 @inject NavigationManager NavigationManager
 
-<div class="background_category">
-    <h2>Add Filter</h2>
-    <hr />
+@if (Colors == null)
+{
+}
+else
+{
+    <div class="background_category">
 
-    <form>
+        <h2>Add Filter</h2>
+        <hr />
+
         <div class="row">
             <div class="col-md-8">
                 <div class="form-group">
@@ -14,34 +20,42 @@
                     <input form="Name" class="form-control  form-control_one" @bind="@filter.Name" />
                 </div>
             </div>
-            <div class="form-group">
-                <label for="ColorHex" class="control-label">ColorHex:</label>
-                <input type="ColorHex" class="form-control" @bind="@filter.ColorHex" />
+        </div>
+
+        <div class="icon_colors_block">
+            <p>Icon color </p>
+            <div class="color_block">
+
+                @foreach (var item in Colors)
+                {
+                    <label class="label_radio">
+                        <input class="radio_button" type="radio" name="name">
+                        <span style="background:@item.ColorHex" class="fake"></span>
+                    </label>
+                }
             </div>
-            <div>
-                <p> Message status</p>
-                <select @bind="filter.Readed">
-                    <option value="null">All</option>
-                    <option value="true">Read</option>
-                    <option value="false">Unread</option>
-                </select>
-            </div>
-            <div>
-                <p>Chat status</p>
-                <select @bind="filter.Archived">
-                    <option value="null">All</option>
-                    <option value="true">Archived</option>
-                    <option value="false">Not Archived</option>
-                </select>
-            </div>
-            <div>
-                <p>Mailing list status </p>
-                <select @bind="filter.Mailing">
-                    <option value="null">All</option>
-                    <option value="true">Yes</option>
-                    <option value=false>No</option>
-                </select>
-            </div>
+            <p> Message status</p>
+            <select @bind="filter.Readed">
+                <option value="null">All</option>
+                <option value="true">Read</option>
+                <option value="false">Unread</option>
+            </select>
+        </div>
+        <div class="select_block">
+            <p>Chat status</p>
+            <select @bind="filter.Archived">
+                <option value="null">All</option>
+                <option value="true">Archived</option>
+                <option value="false">Not Archived</option>
+            </select>
+        </div>
+        <div class="select_block">
+            <p>Mailing list status </p>
+            <select @bind="filter.Mailing">
+                <option value="null">All</option>
+                <option value="true">Yes</option>
+                <option value=false>No</option>
+            </select>
         </div>
         <div class="row">
             <div class="col-md-4">
@@ -51,14 +65,22 @@
                 </div>
             </div>
         </div>
-    </form>
-</div>
+    </div>
+
+
+}
 
 @code {
     [Parameter]
     public long Id { get; set; }
-
+    private List<Color> Colors;
     Filter filter = new Filter();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Colors = colorService.GetColors();
+    }
 
     void Create()
     {
