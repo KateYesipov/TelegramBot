@@ -3,6 +3,7 @@
 @inject NavigationManager _navigationManager
 @inject ITelegramService TelegramService
 @inject IBotService BotService
+@inject IFilterService FilterService
 
 <style>
     .blazored-typeahead__input {
@@ -68,10 +69,10 @@
         <div class="buttons_block">
             <button class="add_button" @onclick="ShowModal">+</button>
             <button>All</button>
-            <button style="background: #FFCE31;"> Something</button>
-            <button>Something</button>
-            <button>Something</button>
-            <button>Something</button>
+            @foreach (var item in Filters)
+            {
+                <button style="background: @item.ColorHex;">@item.Name</button>
+            }
         </div>
     </div>
     <div>
@@ -152,6 +153,7 @@
 
     HubConnection? hubConnection;
     public List<Chat> Chats { get; set; } = new List<Chat>();
+    public List<Filter> Filters = new List<Filter>();
 
     public Chat selectedChat;
 
@@ -169,6 +171,7 @@
 
             var botId = BotService.GetByToken(token);
             Chats = TelegramService.GetChatListByBotId(botId.Id);
+            Filters = FilterService.GetAll();
         }
     }
 
