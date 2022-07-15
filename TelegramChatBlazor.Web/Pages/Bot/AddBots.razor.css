@@ -163,3 +163,7 @@ margin-top:15px;
     border: none;
     margin-left:270px;
 }
+
+#fileinputBot{
+    display:none;
+}

@@ -88,7 +88,10 @@ namespace TelegramChatBlazor.BLL.Services
             var chat = _chatRepository.GetById(chatId);
             if (chat == null)
             {
-                messageRequest.PartnerAvatar = SaveImageFromTelegram(botClient, messageRequest.PartnerAvatar, "/Images/avatar//").Result;
+                if (messageRequest.PartnerAvatar != null)
+                {
+                    messageRequest.PartnerAvatar = SaveImageFromTelegram(botClient, messageRequest.PartnerAvatar, "/Images/avatar//").Result;
+                }
 
                 var attachments = !String.IsNullOrWhiteSpace(FilePath) ? new List<Attachment>(){ new Attachment
                                           {
@@ -107,7 +110,7 @@ namespace TelegramChatBlazor.BLL.Services
                     BotAvatar = messageRequest.BotAvatar,
                     BotUserName = messageRequest.BotUserName,
                     BotId = bot.Id,
-                    languageCode=messageRequest.LanguageCode,
+                    languageCode = messageRequest.LanguageCode,
                     Messages = new List<Message> { new Message { Text = messageRequest.Text,
                         CreateAt = DateTime.Now,
                         IsPartner = messageRequest.IsPartner,
@@ -192,7 +195,7 @@ namespace TelegramChatBlazor.BLL.Services
 
             //Api
             var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId, sendMessage.TelegramChatId,
-            sendMessage.TextMessage, false, "", "", "", "", "", "", sendMessage.FileId, 0, sendMessage.Type,"");
+            sendMessage.TextMessage, false, "", "", "", "", "", "", sendMessage.FileId, 0, sendMessage.Type, "");
 
             var url = _chatBlazorSettings.ApiUrl + "api/Apimessage/AddMessage";
             var parametrs = new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");

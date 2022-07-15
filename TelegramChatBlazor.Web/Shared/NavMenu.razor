@@ -38,13 +38,16 @@
                 </div>
             }
             <div>
-                <a href="/bots"><div class="plus_img"></div></a>
+                <a @onclick="@(async()=>await ShowAddBot())"><div class="plus_img"></div></a>
             </div>
         </nav>
     </div>
 </div>
 
 @code {
+    [Parameter]
+    public EventCallback OnClickCallback { get; set; }
+
     private List<Domain.Models.Bot> Bots = new List<Domain.Models.Bot>();
 
     //style class
@@ -56,6 +59,7 @@
     {
         Bots = BotService.GetAll();
     }
+
 
     private void Redirect(string value)
     {
@@ -76,7 +80,6 @@
         }
     }
 
-
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -84,5 +87,10 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async Task ShowAddBot()
+    {
+        await OnClickCallback.InvokeAsync();
     }
 }

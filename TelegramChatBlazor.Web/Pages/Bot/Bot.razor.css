@@ -1,1 +1,30 @@
-﻿
+﻿.background_category {
+    background: #ffffff;
+    height: 100vh;
+    padding-left: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.form-group p {
+    margin-bottom: 0px;
+}
+
+.form-group {
+    margin-top: 20px;
+}
+
+h2 {
+    padding-top: 20px;
+}
+
+.form-control_one {
+    width: 152%;
+    margin-bottom: 0px;
+}
+
+.add_new {
+    margin-top: 20px;
+}

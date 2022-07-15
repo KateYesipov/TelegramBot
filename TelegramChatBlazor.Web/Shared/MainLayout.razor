@@ -4,12 +4,27 @@
 
 <div class="page">
     <div class="sidebar">
-        <NavMenu />
+        <NavMenu OnClickCallback="ShowAddBot" />
     </div>
 
     <main>
         <article class="content">
             @Body
+            <AddBots isShowModal="isBotShowModal" OnClickCallback="CloseBotModal"></AddBots>
         </article>
     </main>
 </div>
+
+@code {
+    private bool isBotShowModal = false;
+
+    private void ShowAddBot()
+    {
+        isBotShowModal = true;
+    }
+
+    private void CloseBotModal()
+    {
+        isBotShowModal = false;
+    }
+}

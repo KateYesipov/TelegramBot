@@ -149,6 +149,7 @@
     HubConnection? hubConnection;
     public List<Domain.Models.Chats.SelectChat> SelectChats;
     public List<Filter> Filters = new List<Filter>();
+    private Filter FilterSelected;
 
     public Domain.Models.Chats.SelectChat selectedChat;
 
@@ -166,7 +167,7 @@
             await hubConnection.StartAsync();
 
             var botId = BotService.GetByToken(token);
-            SelectChats = ChatService.GetChatListByBotId(botId.Id);
+            SelectChats = ChatService.GetChatListByBotId(botId.Id,FilterSelected);
             Filters = FilterService.GetAll();
         }
     }
@@ -208,8 +209,8 @@
                     };
             }
         }
+        SelectChats = SelectChats.OrderByDescending(x => x.LastMessage.CreateAt).ToList();
         StateHasChanged();
-
         return Task.CompletedTask;
     }
 

@@ -1,4 +1,4 @@
-﻿@page "/AddBots"
+﻿@page "/AddBots/{isShowModal:bool}"
 @inject IBotService BotService
 @inject NavigationManager NavigationManager
 
@@ -9,39 +9,39 @@
                 <img src="/Images/icons/close.svg">
             </a>
             <buttom class="telegram_buttom">
-                <img src="/Images/icons/telegramBottom.svg"/>
+                <img src="/Images/icons/telegramBottom.svg" />
             </buttom>
             <div class="text_block">
                 <h2> Create Connection Channel</h2>
                 <p>Fill all the fields below to create connection channel </p>
             </div>
             <div class="common_block">
-             
-                       <div class="input_file">
+
+                <div class="input_file">
                     <label for="fileinputBot" class="label_file">
                         <img src="/Images/icons/upload.svg" />
-                          <input type="file" id="fileinputBot" />
+                        <input type="file" id="fileinputBot" />
                         <span></span>
                     </label>
                 </div>
-              <div class="input_block">
-                 <div>
-                  <p>Name </p>
-                  <input  type="text" placeholder="Bot announcing name" />
-                  </div>
-                   <p> Bot Username</p>
-                  <input type="text" placeholder="TimeBot" />
-              </div>
+                <div class="input_block">
+                    <div>
+                        <p>Name </p>
+                        <input type="text"  @bind="bot.Name" placeholder="Bot announcing name" />
+                    </div>
+                    <p> Bot Username</p>
+                    <input type="text"  @bind="bot.UserName" placeholder="TimeBot" />
                 </div>
-              <div class="Bot_Token">
-                     <p> Bot Token</p>
-                  <input type="text" />
-              </div>
-              <div class="button_block">
-                  <button class="Back_button">Back</button>
-                  <button class="Create">Create</button>
-              </div>
-          
+            </div>
+            <div class="Bot_Token">
+                <p> Bot Token</p>
+                <input type="text"  @bind="bot.Token" />
+            </div>
+            <div class="button_block">
+                <button @onclick="(()=>Cancel())" class="Back_button">Back</button>
+                <button @onclick="(()=>CreateBot())" class="Create">Create</button>
+            </div>
+
         </div>
     </div>
 </div>
@@ -55,14 +55,15 @@
     public EventCallback OnClickCallback { get; set; }
 
     public Domain.Models.Bot bot = new Domain.Models.Bot();
-    protected async void CreateBot()
+    protected void CreateBot()
     {
         BotService.Create(bot);
-        NavigationManager.NavigateTo("bots");
+        CloseModal();
+        NavigationManager.NavigateTo("bots",true);
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("bots");
+        NavigationManager.NavigateTo("bots",true);
     }
 
     public void CloseModal()

@@ -2,50 +2,52 @@
 @inject IJSRuntime JsRuntime
 @inject IBotService BotService
 
-<NavLink class="nav-link" href="AddBots">
-    <span class="oi oi-plus" aria-hidden="true">Add New</span>
-</NavLink>
+<div class="background_category">
+    <a class="btn btn-primary add_new" href="AddBots/true">
+        <span class="oi oi-plus" aria-hidden="true">Add New</span>
+    </a>
 
-<h1>Bots Info</h1>
-@if (Bots is null)
-{
-    <p><em>Loading... !</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Bot Id</th>
-                <th>Bot Name</th>
-                <th>UserName</th>
-                <th>Token</th>
-                <th>CreateAt</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Bots)
-            {
+    <h1>Bots Info</h1>
+    @if (Bots is null)
+    {
+        <p><em>Loading... !</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Name</td>
-                    <td>@item.UserName</td>
-                    <td>@item.Token</td>
-                    <td>@item.CreateAt</td>
-                    <td>
-                        <a class="nav-link" href="EditBot/@item.Id">
-                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
-                        </a>
-                        <a class="nav-link" onclick="@(async () => await Delete(item.Id))">
-                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
-                        </a>
-                    </td>
+                    <th>Bot Id</th>
+                    <th>Bot Name</th>
+                    <th>UserName</th>
+                    <th>Token</th>
+                    <th>CreateAt</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var item in Bots)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Token</td>
+                        <td>@item.CreateAt</td>
+                        <td>
+                            <a class="btn btn-warning" href="EditBot/@item.Id">
+                                <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                            </a>
+                            <a class="btn btn-danger" onclick="@(async () => await Delete(item.Id))">
+                                <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 
 @code {
     List<Domain.Models.Bot> Bots;

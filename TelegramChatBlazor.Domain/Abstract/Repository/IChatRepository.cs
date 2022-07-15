@@ -1,4 +1,5 @@
 ﻿using TelegramChatBlazor.Domain.Models.Chats;
+using TelegramChatBlazor.Domain.Models.Filters;
 
 namespace TelegramChatBlazor.Domain.Abstract.Repository
 {

@@ -2,6 +2,7 @@
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
 using TelegramChatBlazor.Domain.Models.Chats;
+using TelegramChatBlazor.Domain.Models.Filters;
 
 namespace TelegramChatBlazor.BLL.Services
 {
@@ -16,7 +17,7 @@ namespace TelegramChatBlazor.BLL.Services
             _mapper = mapper;
         }
 
-        public List<SelectChat> GetChatListByBotId(long botId)
+        public List<SelectChat> GetChatListByBotId(long botId, Filter filter)
         {
             var chats = _chatRepository.GetByBotId(botId);
             var selectChat = _mapper.Map<List<SelectChat>>(chats);
@@ -24,7 +25,7 @@ namespace TelegramChatBlazor.BLL.Services
             {
                 item.LastMessage = chats.FirstOrDefault(x => x.Id == item.Id).Messages.LastOrDefault();
             }
-            return selectChat;
+            return selectChat.OrderByDescending(x=>x.LastMessage.CreateAt).ToList();
         }
     }
 }
