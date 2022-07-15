@@ -17,13 +17,14 @@
             <PartnerInfo chatModel="@chatModel" managersList="managersList"></PartnerInfo>
         </div>
     </div>
+    <AddBots isShowModal="true" OnClickCallback="CloseBotModal"></AddBots>
 }
 
 @code {
     [Parameter]
     public string userName { get; set; }
 
-    public Bot? bot;
+    public Domain.Models.Bot? bot;
     public Domain.Models.Chats.Chat chatModel;
     public List<Manager> managersList { get; set; } = new List<Manager>();
 
@@ -55,5 +56,8 @@
             styleThreeBlock = "";
         }
     }
+    private void CloseBotModal()
+    {
 
+    }
 }

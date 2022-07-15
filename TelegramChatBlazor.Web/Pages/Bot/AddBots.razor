@@ -2,38 +2,48 @@
 @inject IBotService BotService
 @inject NavigationManager NavigationManager
 
-<h2>Add Bot</h2>
-<hr />
-
-<form>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="form-group">
-                <label for="Name" class="control-label">Name</label>
-                <input form="Name" class="form-control" @bind="bot.Name" />
+<div class="popup @(isShowModal?"":"popup_none")">
+    <div class="popup_body">
+        <div class="popup_content">
+            <a @onclick="CloseModal" class="popup_close">
+                <img src="/Images/icons/close.svg">
+            </a>
+            <buttom class="telegram_buttom">
+                <img src="/Images/icons/telegramBottom.svg"/>
+            </buttom>
+            <div class="text_block">
+                <h2> Create Connection Channel</h2>
+                <p>Fill all the fields below to create connection channel </p>
             </div>
-            <div class="form-group">
-                <label for="UserName" class="control-label">UserName</label>
-                <input form="UserName" class="form-control" @bind="bot.UserName" />
-            </div>
-            <div class="form-group">
-                <label for="Token" class="control-label">Token</label>
-                <input form="Token" class="form-control" @bind="bot.Token" />
+            <div class="common_block">
+             
+                       <div class="input_file">
+                    <label for="fileinput" class="label_file">
+                        <img src="/Images/icons/upload.svg" />
+                        <span></span>
+                    </label>
+                </div>
+              <div class="input_block">
+                 <div>
+                  <p>Name </p>
+                  <input  type="text" placeholder="Bot announcing name" />
+                  </div>
+                   <p> Bot Username</p>
+                  <input type="text" placeholder="TimeBot" />
+              </div>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <input type="button" class="btn btn-primary" @onclick="@CreateBot" value="Save" />
-                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
-            </div>
-        </div>
-    </div>
-</form>
+</div>
 
 @code {
+
+    [Parameter]
+    public bool isShowModal { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickCallback { get; set; }
+
     public Domain.Models.Bot bot = new Domain.Models.Bot();
     protected async void CreateBot()
     {
@@ -43,5 +53,10 @@
     void Cancel()
     {
         NavigationManager.NavigateTo("bots");
+    }
+
+    public void CloseModal()
+    {
+        OnClickCallback.InvokeAsync();
     }
 }
