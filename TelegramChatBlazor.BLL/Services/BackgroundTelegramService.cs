@@ -55,11 +55,16 @@ namespace TelegramChatBlazor.BLL.Services
                 string? fileId = null;
                 if (message.Photo != null)
                 {
-                     fileId = (await botClient.GetFileAsync(message.Photo[message.Photo.Count() - 1].FileId)).FileId;
+                    fileId = (await botClient.GetFileAsync(message.Photo[message.Photo.Count() - 1].FileId)).FileId;
                 }
 
                 var chat = await botClient.GetChatAsync(message.Chat.Id);
-                var avatarPartnerId = chat.Photo.SmallFileId;
+
+                var avatarPartnerId = String.Empty;
+                if (chat.Photo != null)
+                {
+                    avatarPartnerId = chat.Photo.SmallFileId;
+                }
 
                 var newChatId = bot.Id - message.Chat.Id;
 
