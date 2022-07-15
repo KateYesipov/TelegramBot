@@ -6,6 +6,9 @@
 @inject IDeepService DeepService
 @inject IMessageRepository MessageRepository
 
+@inject IAppSettingsService AppSettingsService
+@inject HttpClient HttpClient
+
 <div class="companion_block ">
     <div class="companion_img">
         <div class="companion_picture">
@@ -35,7 +38,7 @@
 {
     @if (showLanguagePanel)
     {
-        <SelectLanguage ChatModel="chatModel" languageCallback="language=>Language=language"  OnClickCallback="CloseLanguagePanel"></SelectLanguage>
+        <SelectLanguage ChatModel="chatModel" languageCallback="language=>Language=language" OnClickCallback="CloseLanguagePanel"></SelectLanguage>
     }
     <div class="block_correspondence @correspondenceMiniCssClass @(Attachments.Count()>0?"block_correspondence_attachement":"") @(showLanguagePanel?"":"block_correspondence_language_hide")" id="block_message">
         @foreach (var item in chatModel.Messages)
@@ -45,7 +48,7 @@
             </div>
             @if (item.Type == "Text")
             {
-                <div class="@(item.IsPartner && !item.IsRead?"sender_message_unread":"")" @onmouseover="@(()=>ReadMessage(item))">
+                <div class="@(item.IsPartner && !item.IsRead?"sender_message_unread":"")" @onmouseover="@(async ()=> await ReadMessage(item))">
                     <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
                         <div class="img_sender_message">
                             <div class="picture_sender_message">
@@ -241,8 +244,8 @@
             await JSRuntime.InvokeVoidAsync("jsMethod");
             await JSRuntime.InvokeVoidAsync("autoHeightTextarea");
         }
-        await Task.Delay(100);
-        await ScrollToElementId("block_message");
+        //await Task.Delay(100);
+        //await ScrollToElementId("block_message");
     }
 
     protected async Task Send(ChatNotification message)
@@ -321,12 +324,20 @@
         showHelpWordAnswer = true;
     }
 
-    private void ReadMessage(Message item)
+    private async Task ReadMessage(Message item)
     {
-        if (item.IsPartner)
+        if (item.IsPartner && !item.IsRead)
         {
             item.IsRead = true;
-            MessageRepository.Update(item);
+
+            try
+            {
+                var response = await HttpClient.PostAsJsonAsync(AppSettingsService.TelegramChatBlazorSettings.ApiUrl  +  "api/ApiMessage/ReadMessage", item);
+            }
+            catch(Exception ex)
+            {
+                
+            }
         }
     }
 
@@ -351,8 +362,8 @@
 
     private async Task Translate(Message item)
     {
-        var langCode = Language?.languageCode??chatModel.languageCode;
-        item.TranslatedText = await DeepService.Translate(item.Text,langCode);
+        var langCode = Language?.languageCode ?? chatModel.languageCode;
+        item.TranslatedText = await DeepService.Translate(item.Text, langCode);
         item.IsTranslated = !item.IsTranslated;
     }
 

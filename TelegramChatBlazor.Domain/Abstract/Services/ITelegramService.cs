@@ -6,7 +6,6 @@ namespace TelegramChatBlazor.Domain.Abstract.Services
 {
     public interface ITelegramService
     {
-        public List<Chat> GetChatListByBotId(long botId);
         public Chat GetChatByIdIncludeMessages(long ChatId);
         public List<Message> GetMessages(long ChatId);
         public MessageRequest AddMessage(MessageRequest message);

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TelegramChatBlazor.BLL.MappingProfile;
 using TelegramChatBlazor.BLL.Services;
 using TelegramChatBlazor.DAL.Context;
 using TelegramChatBlazor.DAL.MappingProfile;
@@ -21,7 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.RegisterDependencyModules();
-builder.Services.AddAutoMapper(typeof(WebMappingProfile), typeof(DataAccessMapingProfile));
+builder.Services.AddAutoMapper(typeof(WebMappingProfile), typeof(DataAccessMapingProfile),typeof(BllMappingProfile));
 
 builder.Services
   .AddServerSideBlazor()

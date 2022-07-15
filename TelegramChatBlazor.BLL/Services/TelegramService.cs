@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Text;
 using Telegram.Bot;
-using Telegram.Bot.Types.InputFiles;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
 using TelegramChatBlazor.Domain.Models.Api;
@@ -37,11 +36,6 @@ namespace TelegramChatBlazor.BLL.Services
             _httpclient = httpclient;
             _botService = botService;
             _attachmentRepository = attachmentRepository;
-        }
-
-        public List<Chat> GetChatListByBotId(long botId)
-        {
-            return _chatRepository.GetByBotId(botId);
         }
 
         public Chat GetChatByIdIncludeMessages(long Id)
@@ -140,6 +134,7 @@ namespace TelegramChatBlazor.BLL.Services
                 };
 
                 var messageId = _messageRepository.Create(newMessage);
+                messageRequest.MessageId = messageId;
 
                 if (FilePath != null)
                 {
@@ -199,7 +194,7 @@ namespace TelegramChatBlazor.BLL.Services
             var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId, sendMessage.TelegramChatId,
             sendMessage.TextMessage, false, "", "", "", "", "", "", sendMessage.FileId, 0, sendMessage.Type,"");
 
-            var url = _chatBlazorSettings.ApiUrl + "api/apimessage";
+            var url = _chatBlazorSettings.ApiUrl + "api/Apimessage/AddMessage";
             var parametrs = new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");
 
             await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);

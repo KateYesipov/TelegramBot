@@ -73,7 +73,7 @@ namespace TelegramChatBlazor.BLL.Services
                     fileId, mediaGroupIdConvert, type, message.From.LanguageCode);
 
 
-                var url = _chatBlazorSettings.ApiUrl + "api/apimessage";
+                var url = _chatBlazorSettings.ApiUrl + "api/Apimessage/AddMessage";
                 var parametrs = new StringContent(JsonConvert.SerializeObject(newMessage), Encoding.UTF8, "application/json");
 
                 var response = await _httpclient.PostAsync(url, parametrs).ConfigureAwait(false);

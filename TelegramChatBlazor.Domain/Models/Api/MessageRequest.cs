@@ -24,6 +24,7 @@
             LanguageCode = languageCode;
         }
 
+        public long MessageId { get; set; }
         public long ChatId { get; set; }
         public long TelegramChatId { get; set; }       
         public string? Text { get; set; }

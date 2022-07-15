@@ -1,7 +1,7 @@
 ﻿@using Blazored.Typeahead
 @using TelegramChatBlazor.Domain.Models.SignalR
 @inject NavigationManager _navigationManager
-@inject ITelegramService TelegramService
+@inject IChatService ChatService
 @inject IBotService BotService
 @inject IFilterService FilterService
 
@@ -53,7 +53,7 @@
 
 </style>
 
-@if (Chats != null)
+@if (SelectChats != null)
 {
     <div>
         <div class="search_by_name nosubmit">
@@ -83,8 +83,7 @@
 
             @if (selectedChat != null)
             {
-                var lastMessage = selectedChat.Messages.LastOrDefault();
-                if (lastMessage != null)
+                @foreach (var item in SelectChats)
                 {
                     <div class="messange_block" @onclick="(()=>LoadMessageById(selectedChat.Id))">
                         <div class="avatar">
@@ -97,34 +96,30 @@
                             @selectedChat.PartnerName
                         </div>
                         <div class="sms_content">
-                            @lastMessage.Text
+                            @item.LastMessage.Text
                         </div>
                     </div>
                 }
             }
             else
             {
-                @foreach (var item in Chats)
+                @foreach (var item in SelectChats)
                 {
-                    var lastMessage = item.Messages.LastOrDefault();
-                    if (lastMessage != null)
-                    {
-                        <div class="messange_block  @((item.Messages.Any(x=>x.IsRead==false))?"messange_block_unread":"")" @onclick="(()=>LoadMessageById(item.Id))">
-                            <div class="avatar">
+                    <div class="messange_block @((!item.LastMessage.IsRead)?"messange_block_unread":"")" @onclick="(()=>LoadMessageById(item.Id))">
+                        <div class="avatar">
 
-                                <div class="img_messange">
-                                    <img class="telegram_img" src="/Images/telegram.svg" />
-                                    <img class="avatar_img_message" src="@item.PartnerAvatar">
-                                </div>
-                            </div>
-                            <div class="sender_name">
-                                @item.PartnerName
-                            </div>
-                            <div class="sms_content">
-                                @lastMessage.Text
+                            <div class="img_messange">
+                                <img class="telegram_img" src="/Images/telegram.svg" />
+                                <img class="avatar_img_message" src="@item.PartnerAvatar">
                             </div>
                         </div>
-                    }
+                        <div class="sender_name">
+                            @item.PartnerName
+                        </div>
+                        <div class="sms_content">
+                            @item.LastMessage.Text
+                        </div>
+                    </div>
                 }
             }
         </div>
@@ -152,10 +147,10 @@
     public List<Manager> managersList { get; set; }
 
     HubConnection? hubConnection;
-    public List<Chat> Chats { get; set; } = new List<Chat>();
+    public List<Domain.Models.Chats.SelectChat> SelectChats;
     public List<Filter> Filters = new List<Filter>();
 
-    public Chat selectedChat;
+    public Domain.Models.Chats.SelectChat selectedChat;
 
     private bool isShowModal = false;
 
@@ -167,47 +162,64 @@
            .WithUrl(_navigationManager.ToAbsoluteUri("/signalRHub"))
            .Build();
             hubConnection.On<ChatNotification>("Send", this.Send);
+            hubConnection.On<Message>("ReadMessage", this.ReadMessage);
             await hubConnection.StartAsync();
 
             var botId = BotService.GetByToken(token);
-            Chats = TelegramService.GetChatListByBotId(botId.Id);
+            SelectChats = ChatService.GetChatListByBotId(botId.Id);
             Filters = FilterService.GetAll();
         }
     }
 
-    private async Task<IEnumerable<Chat>> AutoSearch(string searchChat)
+    private async Task<IEnumerable<Domain.Models.Chats.SelectChat>> AutoSearch(string searchChat)
     {
-        return await Task.FromResult(Chats.Where(x => x.PartnerName.ToLower().Contains(searchChat.ToLower())).ToList());
+        return await Task.FromResult(SelectChats.Where(x => x.PartnerName.ToLower().Contains(searchChat.ToLower())).ToList());
     }
 
     Task Send(ChatNotification messageNotification)
     {
         if (messageNotification.Token == token)
         {
-            var index = Chats.FindIndex(m => m.Id == messageNotification.Message.ChatId);
+            var index = SelectChats.FindIndex(m => m.Id == messageNotification.Message.ChatId);
             if (index == -1)
             {
-                var newChat = new Chat
+                var newSelectChat = new Domain.Models.Chats.SelectChat
                     {
                         Id = messageNotification.Message.ChatId,
                         PartnerName = messageNotification.PartnerName,
                         PartnerAvatar = messageNotification.PartnerAvatar,
-                        Messages = new List<Message> { new Message {Text= messageNotification.Message.Text,
-                                                                    CreateAt=messageNotification.Message.CreateAt} }
+                        LastMessage = new Message
+                        {
+                            Id = messageNotification.Message.Id,
+                            Text = messageNotification.Message.Text,
+                            CreateAt = messageNotification.Message.CreateAt
+                        }
                     };
-                Chats.Add(newChat);
+                SelectChats.Add(newSelectChat);
             }
             else
             {
-                Chats[index].Messages.Add(new Message
+                SelectChats[index].LastMessage = new Message
                     {
+                        Id = messageNotification.Message.Id,
                         Text = messageNotification.Message.Text,
                         CreateAt = messageNotification.Message.CreateAt
-                    });
+                    };
             }
         }
         StateHasChanged();
 
+        return Task.CompletedTask;
+    }
+
+    Task ReadMessage(Message item)
+    {
+        var index = SelectChats.FindIndex(m => m.Id == item.ChatId);
+        if (index != -1)
+        {
+            SelectChats[index].LastMessage = item;
+        }
+        StateHasChanged();
         return Task.CompletedTask;
     }
 

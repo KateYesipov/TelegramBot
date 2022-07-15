@@ -15,9 +15,14 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
             services.TryAddSingleton<IAppSettingsService, AppSettingsService>();      
             services.AddScoped<IHasher, Hasher>();
             services.AddHttpClient<IBackgroundTelegramService, BackgroundTelegramService>();
-            services.AddScoped<IChatRepository, ChatRepository>();
             services.AddHttpClient<ITelegramService, TelegramService>();
+
+            services.AddScoped<IChatRepository, ChatRepository>();
+            services.AddScoped<IChatService, ChatService>();
+          
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IMessageService, MessageService>();
+            
             services.AddScoped<IBotRepository, BotRepository>();
             services.AddScoped<IBotService, BotService>();
 

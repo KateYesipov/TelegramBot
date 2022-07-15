@@ -32,7 +32,7 @@ namespace TelegramChatBlazor.DAL.Repository
             return id;
         }
 
-        public void Delete(Guid id)
+        public void Delete(long id)
         {
             var message = _context.Message.Find(id);
             if (message != null)

@@ -8,7 +8,7 @@ namespace TelegramChatBlazor.Domain.Abstract.Repository
         List<Message> GetAll();
         long Create(Message item);
         void Update(Message item);
-        void Delete(Guid id);
+        void Delete(long id);
         void Save();
         List<Message> GetById(long chatId);
         Message GetByMessageGroupId(long messageGroupId);

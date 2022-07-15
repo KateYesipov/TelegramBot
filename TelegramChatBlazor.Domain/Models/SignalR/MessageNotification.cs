@@ -8,6 +8,7 @@ namespace TelegramChatBlazor.Domain.Models.SignalR
 {
     public class MessageNotification
     {
+        public long  Id { get; set; }
         public string Text { get; set; }
         public bool IsPartner { get; set; }
         public DateTime CreateAt { get; set; }
