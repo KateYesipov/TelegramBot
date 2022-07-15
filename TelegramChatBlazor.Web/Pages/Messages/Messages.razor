@@ -244,8 +244,8 @@
             await JSRuntime.InvokeVoidAsync("jsMethod");
             await JSRuntime.InvokeVoidAsync("autoHeightTextarea");
         }
-        //await Task.Delay(100);
-        //await ScrollToElementId("block_message");
+        await Task.Delay(100);
+        await ScrollToElementId("block_message");
     }
 
     protected async Task Send(ChatNotification message)
@@ -329,15 +329,7 @@
         if (item.IsPartner && !item.IsRead)
         {
             item.IsRead = true;
-
-            try
-            {
-                var response = await HttpClient.PostAsJsonAsync(AppSettingsService.TelegramChatBlazorSettings.ApiUrl  +  "api/ApiMessage/ReadMessage", item);
-            }
-            catch(Exception ex)
-            {
-                
-            }
+            await HttpClient.PostAsJsonAsync(AppSettingsService.TelegramChatBlazorSettings.ApiUrl  +  "api/ApiMessage/ReadMessage", item);
         }
     }
 

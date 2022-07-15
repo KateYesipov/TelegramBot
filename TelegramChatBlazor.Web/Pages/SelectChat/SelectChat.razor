@@ -105,7 +105,7 @@
             {
                 @foreach (var item in SelectChats)
                 {
-                    <div class="messange_block @((!item.LastMessage.IsRead)?"messange_block_unread":"")" @onclick="(()=>LoadMessageById(item.Id))">
+                    <div class="messange_block @((!item.LastMessage.IsRead&&item.LastMessage.IsPartner)?"messange_block_unread":"")" @onclick="(()=>LoadMessageById(item.Id))">
                         <div class="avatar">
 
                             <div class="img_messange">
@@ -202,8 +202,9 @@
                 SelectChats[index].LastMessage = new Message
                     {
                         Id = messageNotification.Message.Id,
+                        IsPartner = messageNotification.Message.IsPartner,
                         Text = messageNotification.Message.Text,
-                        CreateAt = messageNotification.Message.CreateAt
+                        CreateAt = messageNotification.Message.CreateAt,
                     };
             }
         }
@@ -217,7 +218,10 @@
         var index = SelectChats.FindIndex(m => m.Id == item.ChatId);
         if (index != -1)
         {
-            SelectChats[index].LastMessage = item;
+            if (SelectChats[index].LastMessage.Id == item.Id)
+            {
+                SelectChats[index].LastMessage = item;
+            }
         }
         StateHasChanged();
         return Task.CompletedTask;
