@@ -38,7 +38,7 @@
                 </div>
             }
             <div>
-                <a @onclick="@(async()=>await ShowAddBot())"><div class="plus_img"></div></a>
+                <a href="bots"><div class="plus_img"></div></a>
             </div>
         </nav>
     </div>
@@ -87,10 +87,5 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
-    }
-
-    private async Task ShowAddBot()
-    {
-        await OnClickCallback.InvokeAsync();
     }
 }

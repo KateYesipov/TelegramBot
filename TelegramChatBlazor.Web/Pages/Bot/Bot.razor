@@ -3,7 +3,7 @@
 @inject IBotService BotService
 
 <div class="background_category">
-    <a class="btn btn-primary add_new" href="AddBots/true">
+    <a class="btn btn-primary add_new" @onclick="@(()=>ShowAddBot())">
         <span class="oi oi-plus" aria-hidden="true">Add New</span>
     </a>
 
@@ -47,13 +47,26 @@
             </tbody>
         </table>
     }
+    <AddBots isShowModal="isBotShowModal" OnClickCallback="CloseBotModal"></AddBots>
 </div>
 
 @code {
     List<Domain.Models.Bot> Bots;
+    private bool isBotShowModal = false;
+
     protected override async Task OnInitializedAsync()
     {
         Bots = await Task.Run(() => BotService.GetAll());
+    }
+
+    private void ShowAddBot()
+    {
+        isBotShowModal = true;
+    }
+
+    private void CloseBotModal()
+    {
+        isBotShowModal = false;
     }
 
     private async Task Delete(long Id)
