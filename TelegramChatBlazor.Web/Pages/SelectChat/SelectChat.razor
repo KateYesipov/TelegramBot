@@ -83,8 +83,6 @@
 
             @if (selectedChat != null)
             {
-                @foreach (var item in SelectChats)
-                {
                     <div class="messange_block" @onclick="(()=>LoadMessageById(selectedChat.Id))">
                         <div class="avatar">
                             <div class="img_messange">
@@ -96,10 +94,9 @@
                             @selectedChat.PartnerName
                         </div>
                         <div class="sms_content">
-                            @item.LastMessage.Text
+                            @selectedChat.LastMessage.Text
                         </div>
                     </div>
-                }
             }
             else
             {
