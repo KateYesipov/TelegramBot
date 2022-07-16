@@ -15,7 +15,6 @@ namespace TelegramChatBlazor.Domain.Models.Messages
         public string? Type { get; set; }
         public bool IsRead { get; set; } = false;
         public long ChatId { get; set; }
-        //public Chat Chat { get; set; }
         public List<Attachment> Attachments { get; set; }
     }
 }

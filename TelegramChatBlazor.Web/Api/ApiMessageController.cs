@@ -49,7 +49,8 @@ namespace TelegramChatBlazor.Web.Api
         [HttpPost("ReadMessage")]
         public async Task ReadMessage(Message value)
         {
-            _messageService.Update(value);
+            value.IsRead = true;
+            await _messageService.Update(value);
             await StartIfNeededAsync();
             await _hubConnection.SendAsync("ReadMessageAsync", value);
         }

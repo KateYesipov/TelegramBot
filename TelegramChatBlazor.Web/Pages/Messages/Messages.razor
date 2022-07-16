@@ -48,7 +48,7 @@
             </div>
             @if (item.Type == "Text")
             {
-                <div class="@(item.IsPartner && !item.IsRead?"sender_message_unread":"")" @onmouseover="@(async ()=> await ReadMessage(item))">
+                <div class="@(item.IsPartner && !item.IsRead?"sender_message_unread":"")" @onmouseover="@(async ()=> await ClickReadMessage(item))">
                     <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
                         <div class="img_sender_message">
                             <div class="picture_sender_message">
@@ -248,12 +248,12 @@
         await ScrollToElementId("block_message");
     }
 
-    protected async Task Send(ChatNotification message)
+    protected async Task Send(ChatNotification chatNotification)
     {
-        if (chatModel != null && chatModel.Id == message.Message.ChatId && message.Token == token)
+        if (chatModel != null && chatModel.Id == chatNotification.Message.ChatId && chatNotification.Token == token)
         {
             Message oldMessage = null;
-            var messageGroupId = message.Message.MessageGroupId;
+            var messageGroupId = chatNotification.Message.MessageGroupId;
             if (messageGroupId != 0)
             {
                 oldMessage = chatModel.Messages.FirstOrDefault(x => x.MessageGroupId == messageGroupId);
@@ -261,16 +261,26 @@
 
             if (oldMessage == null)
             {
+                Attachment newAttachment = null;
+                if (chatNotification.Message.FilePath != null)
+                {
+                    newAttachment = new Attachment
+                        {
+                            FilePath = chatNotification.Message.FilePath,
+                            Type = chatNotification.Message.Type
+                        };
+                }
+
                 var newMessage = new Message
                     {
-                        Text = message.Message.Text,
-                        MessageGroupId = message.Message.MessageGroupId,
-                        IsPartner = message.Message.IsPartner,
-                        CreateAt = message.Message.CreateAt,
-                        Type = message.Message.Type,
-                        Attachments = new List<Attachment>() { new Attachment
-                                                             {FilePath = message.Message.FilePath,
-                                                             Type = message.Message.Type}}
+                        Id = chatNotification.Message.Id,
+                        Text = chatNotification.Message.Text,
+                        MessageGroupId = chatNotification.Message.MessageGroupId,
+                        IsPartner = chatNotification.Message.IsPartner,
+                        CreateAt = chatNotification.Message.CreateAt,
+                        ChatId=chatNotification.ChatId,
+                        Type = chatNotification.Message.Type,
+                        Attachments = new List<Attachment>() { newAttachment }
                     };
                 chatModel.Messages.Add(newMessage);
             }
@@ -278,8 +288,8 @@
             {
                 oldMessage.Attachments.Add(new Attachment
                     {
-                        FilePath = message.Message.FilePath,
-                        Type = message.Message.Type
+                        FilePath = chatNotification.Message.FilePath,
+                        Type = chatNotification.Message.Type
                     });
                 chatModel.Messages.Add(oldMessage);
             }
@@ -324,12 +334,19 @@
         showHelpWordAnswer = true;
     }
 
-    private async Task ReadMessage(Message item)
+    private async Task ClickReadMessage(Message item)
     {
         if (item.IsPartner && !item.IsRead)
         {
-            item.IsRead = true;
-            await HttpClient.PostAsJsonAsync(AppSettingsService.TelegramChatBlazorSettings.ApiUrl  +  "api/ApiMessage/ReadMessage", item);
+            try
+            {
+                await HttpClient.PostAsJsonAsync(AppSettingsService.TelegramChatBlazorSettings.ApiUrl + "api/ApiMessage/ReadMessage", item);
+                item.IsRead = true;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 

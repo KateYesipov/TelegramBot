@@ -40,10 +40,9 @@ namespace TelegramChatBlazor.BLL.Services
         }
 
 
-        public void Update(Message item)
+        public async Task Update(Message item)
         {
-            _messageRepository.Update(item);
-            _messageRepository.Save();
+            await _messageRepository.Update(item);
         }
     }
 }
