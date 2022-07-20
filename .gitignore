@@ -345,3 +345,6 @@ node_modules/
 
 */wwwroot/Images/avatar/
 */wwwroot/Images/files/
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
