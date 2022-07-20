@@ -104,11 +104,7 @@
                 {
                     <div class="messange_block @((!item.LastMessage.IsRead&&item.LastMessage.IsPartner)?"messange_block_unread":"")" @onclick="(()=>LoadMessageById(item.Id))">
                         <div class="avatar">
-
-                            <div class="img_messange">
-                                <img class="telegram_img" src="/Images/telegram.svg" />
-                                <img class="avatar_img_message" src="@item.PartnerAvatar">
-                            </div>
+                        <AvatarBlock PathImg="@item.PartnerAvatar" Name="@item.PartnerName"/>
                         </div>
                         <div class="sender_name">
                             @item.PartnerName

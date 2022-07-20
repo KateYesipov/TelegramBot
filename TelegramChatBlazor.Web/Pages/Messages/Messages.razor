@@ -5,15 +5,15 @@
 @inject ITelegramService TelegramService
 @inject IDeepService DeepService
 @inject IMessageRepository MessageRepository
-
 @inject IAppSettingsService AppSettingsService
 @inject HttpClient HttpClient
 
 <div class="companion_block ">
     <div class="companion_img">
-        <div class="companion_picture">
-            <img src="@chatModel?.PartnerAvatar">
-        </div>
+        @if (chatModel != null)
+        {
+            <AvatarBlock PathImg="@chatModel.PartnerAvatar" Name="@chatModel.PartnerName" />
+        }
     </div>
     <div class="name_and_last_block">
         <div class="name_companion">
@@ -51,9 +51,15 @@
                 <div class="@(item.IsPartner && !item.IsRead?"sender_message_unread":"")" @onmouseover="@(async ()=> await ClickReadMessage(item))">
                     <div class="@(item.IsPartner?"sender_message":"sender_message_right")">
                         <div class="img_sender_message">
-                            <div class="picture_sender_message">
-                                <img src="@(item.IsPartner?chatModel.PartnerAvatar:chatModel.BotAvatar)">
-                            </div>
+                                @if (item.IsPartner)
+                                {
+                                     <AvatarBlock PathImg="@chatModel.PartnerAvatar" Name="@chatModel.PartnerName" IsTelegramIcon="false" />
+                                }
+                                else
+                                {  <div class="picture_sender_message">
+                                     <img src="@chatModel.BotAvatar">
+                                   </div>
+                                }
                         </div>
                         <div class="text_block_sender">
                             <p>@(item.IsTranslated?@item.TranslatedText:item.Text)</p>
@@ -278,7 +284,7 @@
                         MessageGroupId = chatNotification.Message.MessageGroupId,
                         IsPartner = chatNotification.Message.IsPartner,
                         CreateAt = chatNotification.Message.CreateAt,
-                        ChatId=chatNotification.ChatId,
+                        ChatId = chatNotification.ChatId,
                         Type = chatNotification.Message.Type,
                         Attachments = new List<Attachment>() { newAttachment }
                     };

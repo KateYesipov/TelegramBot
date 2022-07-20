@@ -1,0 +1,30 @@
+﻿<div class="avatar">
+    <div class="img_messange">
+        @if (IsTelegramIcon)
+        {
+            <img class="telegram_img" src="/Images/telegram.svg" />
+        }
+        @if (String.IsNullOrWhiteSpace(@PathImg))
+        {
+            <div style="background: #FFCE31;" class="avatar_img_message_none">
+                <div>@(Name.FirstOrDefault())</div>
+            </div>
+        }
+        else
+        {
+            <img class="avatar_img_message" src="@PathImg">
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string PathImg { get; set; }
+
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public bool IsTelegramIcon { get; set; } = true;
+
+}

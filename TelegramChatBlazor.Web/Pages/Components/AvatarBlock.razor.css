@@ -1,0 +1,43 @@
+﻿.avatar {
+    width: 80px;
+    height: 80px;
+    display: table-cell;
+    float: left;
+}
+
+.img_messange {
+    border-radius: 50%;
+    margin-top: 10px;
+    background: #ffffff;
+    width: 50px;
+    height: 50px;
+    margin: 12px;
+    position: relative;
+}
+
+.avatar_img_message {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+
+.avatar_img_message_none {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+    .avatar_img_message_none div {
+        font-size: 24px;
+        color: aliceblue;
+        text-align: center;
+        padding-top: 5px;
+    }
+
+.telegram_img {
+    position: absolute;
+    z-index: 1;
+    left: 70%;
+    top: -8%;
+}
