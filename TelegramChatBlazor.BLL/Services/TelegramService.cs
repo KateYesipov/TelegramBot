@@ -17,6 +17,7 @@ namespace TelegramChatBlazor.BLL.Services
         private readonly IMessageRepository _messageRepository;
         private readonly IAttachmentRepository _attachmentRepository;
         private readonly IChatRepository _chatRepository;
+        private readonly IUserService _userService;
         private readonly IWebHostEnvironment _appEnvironment;
         private readonly HttpClient _httpclient;
         private readonly TelegramChatBlazorSettings _chatBlazorSettings;
@@ -25,6 +26,7 @@ namespace TelegramChatBlazor.BLL.Services
                                IChatRepository chatRepository,
                                IWebHostEnvironment appEnvironment,
                                IBotService botService,
+                               IUserService userService,
                                IAttachmentRepository attachmentRepository,
                                IAppSettingsService appSettingsService,
                                HttpClient httpclient)
@@ -35,6 +37,7 @@ namespace TelegramChatBlazor.BLL.Services
             _chatRepository = chatRepository;
             _httpclient = httpclient;
             _botService = botService;
+            _userService = userService;
             _attachmentRepository = attachmentRepository;
         }
 
@@ -88,13 +91,30 @@ namespace TelegramChatBlazor.BLL.Services
             var chat = _chatRepository.GetById(chatId);
             if (chat == null)
             {
-                if (messageRequest.PartnerAvatar != null)
+                var user = _userService.GetByUserName(messageRequest.PartnerUserName);
+
+                if (user == null)
                 {
-                    messageRequest.PartnerAvatar = SaveImageFromTelegram(botClient, messageRequest.PartnerAvatar, "/Images/avatar//").Result;
-                }
-                else
-                {
-                    messageRequest.ColorAvatar = RandomColorAvatar();
+                    if (messageRequest.PartnerAvatar != null)
+                    {
+                        messageRequest.PartnerAvatar = SaveImageFromTelegram(botClient, messageRequest.PartnerAvatar, "/Images/avatar//").Result;
+                    }
+                    else
+                    {
+                        messageRequest.ColorAvatar = RandomColorAvatar();
+                    }
+
+                    user = new Domain.Models.User()
+                    {
+                        AvatarPath = messageRequest.PartnerAvatar,
+                        ColorAvatar = messageRequest.ColorAvatar,
+                        FirstName = messageRequest.PartnerName,
+                        LastName = messageRequest.PartnerLastName,
+                        languageCode = messageRequest.LanguageCode,
+                        UserName = messageRequest.PartnerUserName,
+                        CreateAt = DateTime.Now,
+                        UserStatusId = 1
+                    };
                 }
 
                 var attachments = !String.IsNullOrWhiteSpace(FilePath) ? new List<Attachment>(){ new Attachment
@@ -107,15 +127,8 @@ namespace TelegramChatBlazor.BLL.Services
                 {
                     Id = chatId,
                     TelegramChatId = messageRequest.TelegramChatId,
-                    PartnerUserName = messageRequest.PartnerUserName,
-                    PartnerName = messageRequest.PartnerName,
-                    PartnerLastName = messageRequest.PartnerLastName,
-                    PartnerAvatar = messageRequest.PartnerAvatar,
-                    ColorAvatar = messageRequest.ColorAvatar,
-                    BotAvatar = messageRequest.BotAvatar,
-                    BotUserName = messageRequest.BotUserName,
+                    User= user,
                     BotId = bot.Id,
-                    languageCode = messageRequest.LanguageCode,
                     Messages = new List<Message> { new Message { Text = messageRequest.Text,
                         CreateAt = DateTime.Now,
                         IsPartner = messageRequest.IsPartner,

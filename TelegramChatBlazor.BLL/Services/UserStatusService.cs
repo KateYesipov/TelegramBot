@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TelegramChatBlazor.Domain.Abstract.Repository;
+﻿using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
 using TelegramChatBlazor.Domain.Models;
 
 namespace TelegramChatBlazor.BLL.Services
 {
-    internal class UserStatusService : IUserStatusService
+    public class UserStatusService : IUserStatusService
     {
         private readonly IUserStatusRepository _userStatusRepository;
 

@@ -55,7 +55,7 @@
     public string styleArrowButton = "";
 
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         Bots = BotService.GetAll();
     }

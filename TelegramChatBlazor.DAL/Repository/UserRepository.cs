@@ -41,6 +41,12 @@ namespace TelegramChatBlazor.DAL.Repository
             return _mapper.Map<User>(user);
         }
 
+        public User GetByUserName(string value)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.UserName == value);
+            return _mapper.Map<User>(user);
+        }
+
         public void Update(User item)
         {
             // _context.Database.ExecuteSqlRaw(@"UPDATE Answers SET  

@@ -59,10 +59,10 @@
         <div class="search_by_name nosubmit">
             <BlazoredTypeahead SearchMethod="AutoSearch" type="search" @bind-Value="selectedChat" Placeholder="Search by name">
                 <SelectedTemplate>
-                    @context.PartnerName
+                    @context.User.FirstName
                 </SelectedTemplate>
                 <ResultTemplate>
-                    @context.PartnerName @context.PartnerLastName
+                    @context.User.FirstName @context.User.LastName
                 </ResultTemplate>
             </BlazoredTypeahead>
         </div>
@@ -87,11 +87,11 @@
                         <div class="avatar">
                             <div class="img_messange">
                                 <img class="telegram_img" src="/Images/telegram.svg" />
-                                <img class="avatar_img_message" src="@selectedChat.PartnerAvatar">
+                                <img class="avatar_img_message" src="@selectedChat.User.AvatarPath">
                             </div>
                         </div>
                         <div class="sender_name">
-                            @selectedChat.PartnerName
+                            @selectedChat.User.FirstName
                         </div>
                         <div class="sms_content">
                             @selectedChat.LastMessage.Text
@@ -104,10 +104,10 @@
                 {
                     <div class="messange_block @((!item.LastMessage.IsRead&&item.LastMessage.IsPartner)?"messange_block_unread":"")" @onclick="(()=>LoadMessageById(item.Id))">
                         <div class="avatar">
-                        <AvatarBlock PathImg="@item.PartnerAvatar" Name="@item.PartnerName" Color="@item.ColorAvatar"/>
+                        <AvatarBlock PathImg="@item.User.AvatarPath" Name="@item.User.FirstName" Color="@item.User.ColorAvatar"/>
                         </div>
                         <div class="sender_name">
-                            @item.PartnerName
+                            @item.User.FirstName
                         </div>
                         <div class="sms_content">
                             @item.LastMessage.Text
@@ -167,7 +167,7 @@
 
     private async Task<IEnumerable<Domain.Models.Chats.SelectChat>> AutoSearch(string searchChat)
     {
-        return await Task.FromResult(SelectChats.Where(x => x.PartnerName.ToLower().Contains(searchChat.ToLower())).ToList());
+        return await Task.FromResult(SelectChats.Where(x => x.User.FirstName.ToLower().Contains(searchChat.ToLower())).ToList());
     }
 
     Task Send(ChatNotification messageNotification)
@@ -180,8 +180,11 @@
                 var newSelectChat = new Domain.Models.Chats.SelectChat
                     {
                         Id = messageNotification.Message.ChatId,
-                        PartnerName = messageNotification.PartnerName,
-                        PartnerAvatar = messageNotification.PartnerAvatar,
+                        User=new Domain.Models.User
+                        {
+                            FirstName=messageNotification.PartnerName,
+                            AvatarPath=messageNotification.PartnerAvatar
+                        },
                         LastMessage = new Message
                         {
                             Id = messageNotification.Message.Id,

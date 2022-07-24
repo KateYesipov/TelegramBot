@@ -12,12 +12,12 @@
     <div class="companion_img">
         @if (chatModel != null)
         {
-            <AvatarBlock PathImg="@chatModel.PartnerAvatar" Color="@chatModel.ColorAvatar" Name="@chatModel.PartnerName" />
+            <AvatarBlock PathImg="@chatModel.User.AvatarPath" Color="@chatModel.User.ColorAvatar" Name="@chatModel.User.FirstName" />
         }
     </div>
     <div class="name_and_last_block">
         <div class="name_companion">
-            @chatModel?.PartnerName @chatModel?.PartnerLastName
+            @chatModel?.User.FirstName @chatModel?.User.FirstName
         </div>
         @if (chatModel != null)
         {
@@ -53,11 +53,11 @@
                         <div class="img_sender_message">
                                 @if (item.IsPartner)
                                 {
-                                     <AvatarBlock PathImg="@chatModel.PartnerAvatar" Name="@chatModel.PartnerName" Color="@chatModel.ColorAvatar" IsTelegramIcon="false" />
+                                     <AvatarBlock PathImg="@chatModel.User.AvatarPath" Name="@chatModel.User.FirstName" Color="@chatModel.User.ColorAvatar" IsTelegramIcon="false" />
                                 }
                                 else
                                 {  <div class="picture_sender_message">
-                                     <img src="@chatModel.BotAvatar">
+                                     <img src="@chatModel.Bot.ImagePath">
                                    </div>
                                 }
                         </div>
@@ -82,7 +82,7 @@
 
                     <div class="img_sender_message">
                         <div class="picture_sender_message">
-                            <img src="@(item.IsPartner?chatModel.PartnerAvatar:chatModel.BotAvatar)">
+                            <img src="@(item.IsPartner?chatModel.User.AvatarPath:chatModel.Bot.ImagePath)">
                         </div>
                     </div>
 
@@ -377,7 +377,7 @@
 
     private async Task Translate(Message item)
     {
-        var langCode = Language?.languageCode ?? chatModel.languageCode;
+        var langCode = Language?.languageCode ?? chatModel.User.languageCode;
         item.TranslatedText = await DeepService.Translate(item.Text, langCode);
         item.IsTranslated = !item.IsTranslated;
     }

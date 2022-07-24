@@ -31,7 +31,7 @@
     public string styleTwoBlock = "twoBlock";
     public string styleThreeBlock = "threeBlock";
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         bot = BotService.GetByUsername(userName);
     }
