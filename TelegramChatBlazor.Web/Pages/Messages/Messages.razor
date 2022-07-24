@@ -10,14 +10,14 @@
 
 <div class="companion_block ">
     <div class="companion_img">
-        @if (chatModel != null)
+        @if (chatModel?.User!=null)
         {
             <AvatarBlock PathImg="@chatModel.User.AvatarPath" Color="@chatModel.User.ColorAvatar" Name="@chatModel.User.FirstName" />
         }
     </div>
     <div class="name_and_last_block">
         <div class="name_companion">
-            @chatModel?.User.FirstName @chatModel?.User.FirstName
+            @chatModel?.User.FirstName @chatModel?.User.LastName
         </div>
         @if (chatModel != null)
         {

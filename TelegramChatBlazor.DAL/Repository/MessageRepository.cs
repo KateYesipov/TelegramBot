@@ -19,7 +19,7 @@ namespace TelegramChatBlazor.DAL.Repository
 
         public long Create(Message item)
         {
-            _context.Database.ExecuteSqlRaw(@"Insert into Message 
+            _context.Database.ExecuteSqlRaw(@"Insert into Messages 
            (Text, IsPartner, CreateAt,ChatId,MessageGroupId,IsRead,Type)
            OUTPUT inserted.Id
            Values({0},{1},{2},{3},{4},{5},{6})",
@@ -61,7 +61,7 @@ namespace TelegramChatBlazor.DAL.Repository
         {
             try
             {
-                await _context.Database.ExecuteSqlRawAsync(@"UPDATE Message SET  
+                await _context.Database.ExecuteSqlRawAsync(@"UPDATE Messages SET  
            IsRead={1}
            WHERE Id={0}",
                   item.Id, item.IsRead);

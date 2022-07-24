@@ -2,7 +2,7 @@
 @if (ChatModel != null)
 {
     <div class="dropdown_block_ontop">
-        <p>@ChatModel.PartnerName <a @onclick="(()=>ShowSelectLanguageModal())">@Language.Name</a>, is that correct? </p>
+        <p>@ChatModel.User.FirstName <a @onclick="(()=>ShowSelectLanguageModal())">@Language.Name</a>, is that correct? </p>
         <div @onclick="@(async() => await OnClickCallback.InvokeAsync())"></div>
     </div>
 
@@ -49,7 +49,7 @@
         {
             tempChatId = ChatModel.Id;
             Lanuages = LanguageService.GetAll();
-            Language = Lanuages.FirstOrDefault(x => x.languageCode == ChatModel.languageCode);
+            Language = Lanuages.FirstOrDefault(x => x.languageCode == ChatModel.User.languageCode);
         }
     }
 

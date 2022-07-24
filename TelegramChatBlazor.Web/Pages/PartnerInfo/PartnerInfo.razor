@@ -5,9 +5,9 @@ else
 {
     <div class="partnerinfo_block">
         <div class="avatar_block">
-            <img src="@chatModel.PartnerAvatar" />
+            <img src="@chatModel.User.AvatarPath" />
             <div class="avatar_name">
-                @chatModel.PartnerName @chatModel.PartnerLastName
+                @chatModel.User.FirstName @chatModel.User.LastName
             </div>
             <div class="last_online_avatar">
                 last online

@@ -6,7 +6,6 @@ using TelegramChatBlazor.DAL.MappingProfile;
 using TelegramChatBlazor.Dependencies;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Abstract.Services;
-using TelegramChatBlazor.Domain.Models;
 using TelegramChatBlazor.Web.MappingProfile;
 
 var builder = WebApplication.CreateBuilder(args);
