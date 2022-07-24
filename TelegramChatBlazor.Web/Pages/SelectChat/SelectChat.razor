@@ -104,7 +104,7 @@
                 {
                     <div class="messange_block @((!item.LastMessage.IsRead&&item.LastMessage.IsPartner)?"messange_block_unread":"")" @onclick="(()=>LoadMessageById(item.Id))">
                         <div class="avatar">
-                        <AvatarBlock PathImg="@item.PartnerAvatar" Name="@item.PartnerName"/>
+                        <AvatarBlock PathImg="@item.PartnerAvatar" Name="@item.PartnerName" Color="@item.ColorAvatar"/>
                         </div>
                         <div class="sender_name">
                             @item.PartnerName

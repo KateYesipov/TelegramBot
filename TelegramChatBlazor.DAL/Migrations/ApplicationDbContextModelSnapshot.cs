@@ -55,7 +55,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         {
                             Id = 1L,
                             CategoryId = 1L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5660),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2708),
                             FullAnswer = "Hello-bye",
                             ShortName = "Hi"
                         },
@@ -63,7 +63,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         {
                             Id = 2L,
                             CategoryId = 1L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5672),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2729),
                             FullAnswer = "Hello how are you?",
                             ShortName = "Hi how"
                         },
@@ -71,7 +71,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         {
                             Id = 3L,
                             CategoryId = 1L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5681),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2747),
                             FullAnswer = "Hey!How do you do? I'm ready to talk to you and answer your questions. ",
                             ShortName = "Чем могу помочь ?"
                         },
@@ -79,7 +79,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         {
                             Id = 4L,
                             CategoryId = 1L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5690),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2763),
                             FullAnswer = "How do I get a demo version?https://globalforexforum.com/threads/elon-musk-ea-demo.340/",
                             ShortName = "Подпишись на канал с результатами"
                         },
@@ -87,7 +87,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                         {
                             Id = 5L,
                             CategoryId = 1L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5698),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2779),
                             FullAnswer = "Okay, thanks for the request ! If you have any new questions about ELM_EA, please let me know. I am online and ready to help you 24/5",
                             ShortName = "Спасибо за ваш запрос"
                         });
@@ -130,6 +130,9 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -150,7 +153,8 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5097),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(1858),
+                            ImagePath = "https://flowxo.com/wp-content/uploads/2021/03/Telegram-Logo-512x512.png",
                             Name = "Jironimo",
                             Token = "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8",
                             UserName = "JironimoBot"
@@ -158,7 +162,8 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5156),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(1945),
+                            ImagePath = "https://way23.ru/images/botfather-300x300.jpg",
                             Name = "TelegramBotBlazor",
                             Token = "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM",
                             UserName = "TelegramBotBlazorBot"
@@ -188,55 +193,55 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5464),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2407),
                             Name = "Hello-bye"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5579),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2430),
                             Name = "Продажа"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5589),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2446),
                             Name = "Брокеры"
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5598),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2533),
                             Name = "Hello-bye"
                         },
                         new
                         {
                             Id = 5L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5607),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2552),
                             Name = "Продажа"
                         },
                         new
                         {
                             Id = 6L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5617),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2628),
                             Name = "Брокеры"
                         },
                         new
                         {
                             Id = 7L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5626),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2646),
                             Name = "Hello-bye"
                         },
                         new
                         {
                             Id = 8L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5635),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2663),
                             Name = "Продажа"
                         },
                         new
                         {
                             Id = 9L,
-                            CreatedAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5644),
+                            CreatedAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2681),
                             Name = "Брокеры"
                         });
                 });
@@ -246,34 +251,14 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("BotAvatar")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long>("BotId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("BotUserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartnerAvatar")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartnerLastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartnerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartnerUserName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("TelegramChatId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("languageCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -282,7 +267,9 @@ namespace TelegramChatBlazor.DAL.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Chat");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Color", b =>
@@ -382,7 +369,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                             Id = 1L,
                             Archived = false,
                             ColorHex = "#FFCE31",
-                            Created_at = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(6011),
+                            Created_at = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3222),
                             Mailing = false,
                             Name = "Demo",
                             Readed = true
@@ -392,7 +379,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                             Id = 2L,
                             Archived = false,
                             ColorHex = "#ED4C5C",
-                            Created_at = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(6026),
+                            Created_at = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3246),
                             Mailing = false,
                             Name = "Will buy soon",
                             Readed = true
@@ -402,7 +389,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                             Id = 3L,
                             Archived = false,
                             ColorHex = "#4CEDED",
-                            Created_at = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(6036),
+                            Created_at = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3264),
                             Mailing = false,
                             Name = "Client",
                             Readed = true
@@ -412,7 +399,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                             Id = 4L,
                             Archived = false,
                             ColorHex = "#FFFFFF",
-                            Created_at = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(6047),
+                            Created_at = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3281),
                             Mailing = true,
                             Name = "Test",
                             Readed = true
@@ -422,7 +409,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                             Id = 5L,
                             Archived = false,
                             ColorHex = "#25CC62",
-                            Created_at = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(6057),
+                            Created_at = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3298),
                             Mailing = false,
                             Name = "Readed",
                             Readed = true
@@ -432,7 +419,7 @@ namespace TelegramChatBlazor.DAL.Migrations
                             Id = 6L,
                             Archived = true,
                             ColorHex = "#ED4CB6",
-                            Created_at = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(6068),
+                            Created_at = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3318),
                             Mailing = false,
                             Name = "1 Step",
                             Readed = true
@@ -676,73 +663,73 @@ namespace TelegramChatBlazor.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5237),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2229),
                             Email = "testEmail@gmail.com",
                             ImgPath = "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
-                            LastOnline = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5239),
+                            LastOnline = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2232),
                             Name = "Alex Yesipov"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5252),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2252),
                             Email = "testEmail2@gmail.com",
                             ImgPath = "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png",
-                            LastOnline = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5254),
+                            LastOnline = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2256),
                             Name = "Alex Ivanov"
                         },
                         new
                         {
                             Id = 3L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5386),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2274),
                             Email = "testEmail3@gmail.com",
                             ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png",
-                            LastOnline = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5389),
+                            LastOnline = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2277),
                             Name = "Kate Yesipova"
                         },
                         new
                         {
                             Id = 4L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5401),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2293),
                             Email = "testEmail4@gmail.com",
                             ImgPath = "https://image.pngaaa.com/345/1582345-middle.png",
-                            LastOnline = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5403),
+                            LastOnline = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2297),
                             Name = "Alex Pupkin"
                         },
                         new
                         {
                             Id = 5L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5413),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2314),
                             Email = "testEmail@gmail.com",
                             ImgPath = "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
-                            LastOnline = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5415),
+                            LastOnline = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2317),
                             Name = "Alex Yesipov"
                         },
                         new
                         {
                             Id = 6L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5426),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2336),
                             Email = "testEmail2@gmail.com",
                             ImgPath = "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png",
-                            LastOnline = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5428),
+                            LastOnline = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2340),
                             Name = "Alex Ivanov"
                         },
                         new
                         {
                             Id = 7L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5437),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2357),
                             Email = "testEmail3@gmail.com",
                             ImgPath = "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png",
-                            LastOnline = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5439),
+                            LastOnline = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2360),
                             Name = "Kate Yesipova"
                         },
                         new
                         {
                             Id = 8L,
-                            CreateAt = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5449),
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2377),
                             Email = "testEmail4@gmail.com",
                             ImgPath = "https://image.pngaaa.com/345/1582345-middle.png",
-                            LastOnline = new DateTime(2022, 7, 14, 18, 50, 58, 632, DateTimeKind.Local).AddTicks(5451),
+                            LastOnline = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2381),
                             Name = "Alex Pupkin"
                         });
                 });
@@ -780,7 +767,112 @@ namespace TelegramChatBlazor.DAL.Migrations
 
                     b.HasIndex("ChatId");
 
-                    b.ToTable("Message");
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("AvatarPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorAvatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("UserStatusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("languageCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserStatusId");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.UserStatus", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2087),
+                            Name = "Start Chat"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2112),
+                            Name = "Questions"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2131),
+                            Name = "Will buy soon"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2149),
+                            Name = "Client"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2165),
+                            Name = "Client Pro"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2186),
+                            Name = "Demo"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CreateAt = new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2204),
+                            Name = "Waiting for a discount"
+                        });
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Answer", b =>
@@ -813,7 +905,15 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TelegramChatBlazor.DAL.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Bot");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Message", b =>
@@ -825,6 +925,17 @@ namespace TelegramChatBlazor.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Chat");
+                });
+
+            modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.User", b =>
+                {
+                    b.HasOne("TelegramChatBlazor.DAL.Entities.UserStatus", "UserStatus")
+                        .WithMany()
+                        .HasForeignKey("UserStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserStatus");
                 });
 
             modelBuilder.Entity("TelegramChatBlazor.DAL.Entities.Bot", b =>

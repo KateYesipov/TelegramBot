@@ -1,6 +1,5 @@
 ﻿using TelegramChatBlazor.Dependencies.DependencyModules;
 using Microsoft.Extensions.DependencyInjection;
-using Jironimo.Dependencies.DependencyModules;
 
 namespace TelegramChatBlazor.Dependencies
 {
@@ -8,7 +7,6 @@ namespace TelegramChatBlazor.Dependencies
     {
         public static void RegisterDependencyModules(this IServiceCollection services)
         {
-            services.RegisterRoutes();
             services.RegisterServices();
         }
     }

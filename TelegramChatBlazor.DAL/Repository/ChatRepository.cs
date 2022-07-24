@@ -21,25 +21,25 @@ namespace TelegramChatBlazor.DAL.Repository
         public void Create(Chat item)
         {
             var chat = _mapper.Map<Entities.Chat>(item);
-            _context.Chat.Add(chat);
+            _context.Chats.Add(chat);
         }
 
         public void Delete(Guid id)
         {
-            var chat = _context.Chat.Find(id);
+            var chat = _context.Chats.Find(id);
             if (chat != null)
-                _context.Chat.Remove(chat);
+                _context.Chats.Remove(chat);
         }
 
         public Chat GetById(long Id)
         {
-            var chat = _mapper.Map<Chat>(_context.Chat.Include(m=>m.Messages).ThenInclude(c=>c.Attachments).Include(x=>x.Bot).FirstOrDefault(x => x.Id == Id));
+            var chat = _mapper.Map<Chat>(_context.Chats.Include(m=>m.Messages).ThenInclude(c=>c.Attachments).Include(x=>x.Bot).FirstOrDefault(x => x.Id == Id));
             return _mapper.Map<Chat>(chat);
         }
 
         public List<Chat> GetByBotId(long botId)
         {
-            return _mapper.Map<List<Chat>>(_context.Chat.Include(m=>m.Messages).Where(x=>x.BotId==botId).ToList());
+            return _mapper.Map<List<Chat>>(_context.Chats.Include(m=>m.Messages).Where(x=>x.BotId==botId).ToList());
         }
 
         public void Save()

@@ -92,6 +92,10 @@ namespace TelegramChatBlazor.BLL.Services
                 {
                     messageRequest.PartnerAvatar = SaveImageFromTelegram(botClient, messageRequest.PartnerAvatar, "/Images/avatar//").Result;
                 }
+                else
+                {
+                    messageRequest.ColorAvatar = RandomColorAvatar();
+                }
 
                 var attachments = !String.IsNullOrWhiteSpace(FilePath) ? new List<Attachment>(){ new Attachment
                                           {
@@ -107,6 +111,7 @@ namespace TelegramChatBlazor.BLL.Services
                     PartnerName = messageRequest.PartnerName,
                     PartnerLastName = messageRequest.PartnerLastName,
                     PartnerAvatar = messageRequest.PartnerAvatar,
+                    ColorAvatar = messageRequest.ColorAvatar,
                     BotAvatar = messageRequest.BotAvatar,
                     BotUserName = messageRequest.BotUserName,
                     BotId = bot.Id,
@@ -218,9 +223,19 @@ namespace TelegramChatBlazor.BLL.Services
             return null;
         }
 
-        private async Task<string> UploadFileToTelegram(ITelegramBotClient botClient, string file, string pathFolder)
+        private string RandomColorAvatar()
         {
-            return "";
+            string RandomColor = String.Empty;
+            List<string> colors = new List<string>()
+            {
+                 "#ffb360","#39aaf3","#dc88f0","#60ce6b","#ff6566","#35d4c0"
+            };
+
+            Random rnd = new Random();
+            int value = rnd.Next(colors.Count);
+            RandomColor = colors[value];
+
+            return RandomColor;
         }
     }
 }

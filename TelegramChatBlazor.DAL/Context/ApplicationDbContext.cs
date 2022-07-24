@@ -11,8 +11,10 @@ namespace TelegramChatBlazor.DAL.Context
         }
         public DbSet<Color> Colors { get; set; }
         public DbSet<Bot> Bots { get; set; }
-        public DbSet<Chat> Chat { get; set; }
-        public DbSet<Message> Message { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserStatus> UserStatus { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Answer> Answers { get; set; }
@@ -34,14 +36,14 @@ namespace TelegramChatBlazor.DAL.Context
 
             builder.Entity<Bot>()
            .HasMany<Chat>(g => g.Chats)
-           .WithOne(s => s.Bot).HasForeignKey(s => s.BotId);
+           .WithOne(s => s.Bot).HasForeignKey(s => s.BotId);;
 
             builder.Entity<Message>()
            .HasMany<Attachment>(g => g.Attachments)
            .WithOne(s => s.Message).HasForeignKey(s => s.MessageId);
 
-            builder.Entity<Bot>().HasData(new Bot { Id = 1, Token = "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8", Name = "Jironimo", UserName = "JironimoBot", CreateAt = DateTime.Now, Chats = new List<Chat> { } });
-            builder.Entity<Bot>().HasData(new Bot { Id = 2, Token = "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM", Name = "TelegramBotBlazor", UserName = "TelegramBotBlazorBot", CreateAt = DateTime.Now, Chats = new List<Chat> { } });
+            builder.Entity<Bot>().HasData(new Bot { Id = 1, Token = "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8", Name = "Jironimo",ImagePath= "https://flowxo.com/wp-content/uploads/2021/03/Telegram-Logo-512x512.png", UserName = "JironimoBot", CreateAt = DateTime.Now, Chats = new List<Chat> { } });
+            builder.Entity<Bot>().HasData(new Bot { Id = 2, Token = "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM", Name = "TelegramBotBlazor", ImagePath = "https://way23.ru/images/botfather-300x300.jpg", UserName = "TelegramBotBlazorBot", CreateAt = DateTime.Now, Chats = new List<Chat> { } });
 
             builder.Entity<Color>().HasData(new Color { Id = 1, ColorHex = "#FFFFFF" });
             builder.Entity<Color>().HasData(new Color { Id = 2, ColorHex = "#3C95FF" });
@@ -51,6 +53,14 @@ namespace TelegramChatBlazor.DAL.Context
             builder.Entity<Color>().HasData(new Color { Id = 6, ColorHex = "#9C4CED" });
             builder.Entity<Color>().HasData(new Color { Id = 7, ColorHex = "#4CEDED" });
             builder.Entity<Color>().HasData(new Color { Id = 8, ColorHex = "#ED4CB6" });
+
+            builder.Entity<UserStatus>().HasData(new UserStatus { Id = 1, Name = "Start Chat", CreateAt = DateTime.Now });
+            builder.Entity<UserStatus>().HasData(new UserStatus { Id = 2, Name = "Questions", CreateAt = DateTime.Now });
+            builder.Entity<UserStatus>().HasData(new UserStatus { Id = 3, Name = "Will buy soon", CreateAt = DateTime.Now });
+            builder.Entity<UserStatus>().HasData(new UserStatus { Id = 4, Name = "Client", CreateAt = DateTime.Now });
+            builder.Entity<UserStatus>().HasData(new UserStatus { Id = 5, Name = "Client Pro", CreateAt = DateTime.Now });
+            builder.Entity<UserStatus>().HasData(new UserStatus { Id = 6, Name = "Demo", CreateAt = DateTime.Now });
+            builder.Entity<UserStatus>().HasData(new UserStatus { Id = 7, Name = "Waiting for a discount", CreateAt = DateTime.Now });
 
             builder.Entity<Manager>().HasData(new Manager { Id = 1, Name = "Alex Yesipov", Email = "testEmail@gmail.com", ImgPath = "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745", CreateAt = DateTime.Now, LastOnline = DateTime.Now });
             builder.Entity<Manager>().HasData(new Manager { Id = 2, Name = "Alex Ivanov", Email = "testEmail2@gmail.com", ImgPath = "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", CreateAt = DateTime.Now, LastOnline = DateTime.Now });

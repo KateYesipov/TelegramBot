@@ -28,32 +28,32 @@ namespace TelegramChatBlazor.DAL.Repository
 
             _context.SaveChanges();
 
-            var id = _context.Message.ToList().LastOrDefault().Id;
+            var id = _context.Messages.ToList().LastOrDefault().Id;
             return id;
         }
 
         public void Delete(long id)
         {
-            var message = _context.Message.Find(id);
+            var message = _context.Messages.Find(id);
             if (message != null)
-                _context.Message.Remove(message);
+                _context.Messages.Remove(message);
         }
 
         public List<Message> GetAll()
         {
-            var messages = _context.Message.ToList();
+            var messages = _context.Messages.ToList();
             return _mapper.Map<List<Message>>(messages);
         }
 
         public List<Message> GetById(long chatId)
         {
-            var messages = _context.Message.Where(x => x.ChatId == chatId).ToList();
+            var messages = _context.Messages.Where(x => x.ChatId == chatId).ToList();
             return _mapper.Map<List<Message>>(messages);
         }
 
         public Message GetByMessageGroupId(long messageGroupId)
         {
-            var messages = _context.Message.FirstOrDefault(x => x.MessageGroupId == messageGroupId);
+            var messages = _context.Messages.FirstOrDefault(x => x.MessageGroupId == messageGroupId);
             return _mapper.Map<Message>(messages);
         }
 

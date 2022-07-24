@@ -25,6 +25,7 @@
         }
 
         public long MessageId { get; set; }
+        public string? ColorAvatar { get; set; }
         public long ChatId { get; set; }
         public long TelegramChatId { get; set; }       
         public string? Text { get; set; }

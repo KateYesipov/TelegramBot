@@ -12,7 +12,7 @@
     <div class="companion_img">
         @if (chatModel != null)
         {
-            <AvatarBlock PathImg="@chatModel.PartnerAvatar" Name="@chatModel.PartnerName" />
+            <AvatarBlock PathImg="@chatModel.PartnerAvatar" Color="@chatModel.ColorAvatar" Name="@chatModel.PartnerName" />
         }
     </div>
     <div class="name_and_last_block">
@@ -53,7 +53,7 @@
                         <div class="img_sender_message">
                                 @if (item.IsPartner)
                                 {
-                                     <AvatarBlock PathImg="@chatModel.PartnerAvatar" Name="@chatModel.PartnerName" IsTelegramIcon="false" />
+                                     <AvatarBlock PathImg="@chatModel.PartnerAvatar" Name="@chatModel.PartnerName" Color="@chatModel.ColorAvatar" IsTelegramIcon="false" />
                                 }
                                 else
                                 {  <div class="picture_sender_message">

@@ -6,7 +6,7 @@
         }
         @if (String.IsNullOrWhiteSpace(@PathImg))
         {
-            <div style="background: #FFCE31;" class="avatar_img_message_none">
+            <div style="background: @Color;" class="avatar_img_message_none">
                 <div>@(Name.FirstOrDefault())</div>
             </div>
         }
@@ -20,6 +20,9 @@
 @code {
     [Parameter]
     public string PathImg { get; set; }
+
+    [Parameter]
+    public string Color { get; set; }
 
     [Parameter]
     public string Name { get; set; }
