@@ -1,0 +1,63 @@
+﻿@page "/userStatus"
+@inject IJSRuntime JsRuntime
+@inject IUserStatusService UserStatusService
+<div class="background_category">
+    <a class="btn btn-primary add_new" href="userStatus/add">
+        <span class="oi oi-plus" aria-hidden="true">Add New</span>
+    </a>
+
+    <h1>UserStatus Info</h1>
+    @if (userStatus is null)
+    {
+        <p><em>Loading... !</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr class="">
+                    <th>UserStatus Id</th>
+                    <th>Name</th>
+                    <th>CreateAt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in userStatus)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.CreateAt</td>
+                        <td class="links_block">
+                            <a class="btn btn-warning" href="userStatus/edit/@item.Id">
+                                <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                            </a>
+                            <a class="btn btn-danger" onclick="@(async () => await Delete(item.Id))">
+                                <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    List<Domain.Models.UserStatus> userStatus;
+    protected override async Task OnInitializedAsync()
+    {
+        userStatus = await Task.Run(() => UserStatusService.GetAll());
+    }
+
+    private async Task Delete(long Id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            UserStatusService.DeleteById(Id);
+            userStatus = await Task.Run(() => UserStatusService.GetAll());
+            StateHasChanged();
+        }
+    }
+}

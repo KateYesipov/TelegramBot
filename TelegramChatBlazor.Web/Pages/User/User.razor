@@ -1,0 +1,66 @@
+﻿@page "/user"
+@inject IJSRuntime JsRuntime
+@inject IUserService UserService
+<div class="background_category">
+
+    <h1>User Info</h1>
+    @if (users is null)
+    {
+        <p><em>Loading... !</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr class="">
+                    <th>User Id</th>
+                    <th>ImgPath</th>
+                    <th>Name</th>
+                    <th>UserName</th>
+                    <th>UserStatus</th>  
+                    <th>CreateAt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in users)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td><img src="@item.AvatarPath"/></td>
+                        <td>@item.FirstName @item.LastName</td>
+                        <td>@item.UserName</td>
+                        <td>@item.UserStatus.Name</td>
+                        <td>@item.CreateAt</td>
+                        <td class="links_block">
+                            <a class="btn btn-warning" href="user/edit/@item.Id">
+                                <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                            </a>
+                  @*          <a class="btn btn-danger" onclick="@(async () => await Delete(item.Id))">
+                                <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                            </a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    List<Domain.Models.User> users;
+    protected override async Task OnInitializedAsync()
+    {
+        users = await Task.Run(() => UserService.GetAll());
+    }
+
+    private async Task Delete(long Id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            UserService.DeleteById(Id);
+            users = await Task.Run(() => UserService.GetAll());
+            StateHasChanged();
+        }
+    }
+}

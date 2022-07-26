@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TelegramChatBlazor.DAL.Context;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Models;
@@ -18,7 +19,7 @@ namespace TelegramChatBlazor.DAL.Repository
 
         public List<User> GetAll()
         {
-            var user = _context.Users.ToList();
+            var user = _context.Users.Include(x=>x.UserStatus).ToList();
             return _mapper.Map<List<User>>(user);
         }
 

@@ -1,0 +1,42 @@
+﻿@page "/userStatus/add"
+@inject IUserStatusService UserStatusService
+@inject NavigationManager NavigationManager
+
+<div class="background_category">
+    <h2>Add Filter</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control  form-control_one" @bind="@userStatus.Name" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <button class="btn btn-primary" @onclick="@Create">Save</button>
+                <button class="btn btn-danger" @onclick="@Cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public long Id { get; set; }
+
+    Domain.Models.UserStatus userStatus = new Domain.Models.UserStatus();
+
+    void Create()
+    {
+        UserStatusService.Create(userStatus);
+        NavigationManager.NavigateTo("userStatus", true);
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("userStatus", true);
+    }
+}

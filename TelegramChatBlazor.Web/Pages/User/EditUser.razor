@@ -1,0 +1,76 @@
+﻿@page "/user/edit/{id:long}"
+@inject IUserService UserService
+@inject IUserStatusService UserStatusService
+@inject NavigationManager NavigationManager
+
+<div class="background_category">
+    <h2>Edit User</h2>
+    <hr />
+
+    <form>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="Name" class="control-label">First Name</label>
+                    <input form="Name" class="form-control  form-control_one" @bind="@user.FirstName" />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="Name" class="control-label">Last Name</label>
+                    <input form="Name" class="form-control  form-control_one" @bind="@user.LastName" />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="Name" class="control-label">UserName</label>
+                    <input form="Name" class="form-control  form-control_one" @bind="@user.UserName" />
+                </div>
+            </div>
+            <div class="form-group">
+                <p>UserStatus</p>
+                <select class="form-select" @bind="user.UserStatusId">
+                    @if (userStatus != null)
+                    {
+                        @foreach (var item in userStatus)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button class="btn btn-primary" @onclick="@Update">Update</button>
+                    <button class="btn btn-danger" @onclick="@Cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@code {
+    [Parameter]
+    public long Id { get; set; }
+
+    Domain.Models.User user = new Domain.Models.User();
+    List<UserStatus> userStatus = new List<UserStatus>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        userStatus = UserStatusService.GetAll();
+        user = UserService.GetById(Id);
+    }
+
+    void Update()
+    {
+        UserService.Update(user);
+        NavigationManager.NavigateTo("user", true);
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("user", true);
+    }
+}
