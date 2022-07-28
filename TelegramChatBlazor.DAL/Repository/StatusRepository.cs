@@ -1,28 +1,35 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TelegramChatBlazor.DAL.Context;
 using TelegramChatBlazor.Domain.Abstract.Repository;
 using TelegramChatBlazor.Domain.Models;
 
 namespace TelegramChatBlazor.DAL.Repository
 {
-    public class UserStatusRepository : IUserStatusRepository
+    public class StatusRepository : IStatusRepository
     {
         protected readonly ApplicationDbContext _context;
         protected readonly IMapper _mapper;
 
-        public UserStatusRepository(ApplicationDbContext context, IMapper mapper)
+        public StatusRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public List<UserStatus> GetAll()
+        public List<Status> GetAll()
         {
             var userStatus = _context.UserStatus.ToList();
-            return _mapper.Map<List<UserStatus>>(userStatus);
+            return _mapper.Map<List<Status>>(userStatus);
         }
 
-        public void Create(UserStatus item)
+        public List<UserStatus> GetIncludeUserAll()
+        {
+            var userStatus = _context.Users.Include(x=>x.UserStatus).ToList().GroupBy(y => y.UserStatus.Name).Select(u=>new UserStatus { NameStatus=u.Key,Users= _mapper.Map<List<User>>(u.ToList())}).ToList();
+            return userStatus;
+        }
+
+        public void Create(Status item)
         {
             var userStatus = _mapper.Map<Entities.UserStatus>(item);
             _context.UserStatus.Add(userStatus);
@@ -35,13 +42,13 @@ namespace TelegramChatBlazor.DAL.Repository
                 _context.UserStatus.Remove(userStatus);
         }
 
-        public UserStatus GetById(long Id)
+        public Status GetById(long Id)
         {
             var userStatus = _context.UserStatus.FirstOrDefault(x => x.Id == Id);
-            return _mapper.Map<UserStatus>(userStatus);
+            return _mapper.Map<Status>(userStatus);
         }
 
-        public void Update(UserStatus item)
+        public void Update(Status item)
         {
            // _context.Database.ExecuteSqlRaw(@"UPDATE Answers SET  
            // ShortName={1}, FullAnswer={2},CreatedAt={3},CategoryId={4}

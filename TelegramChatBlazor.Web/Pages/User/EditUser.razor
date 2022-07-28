@@ -1,6 +1,6 @@
 ﻿@page "/user/edit/{id:long}"
 @inject IUserService UserService
-@inject IUserStatusService UserStatusService
+@inject IStatusService StatusService
 @inject NavigationManager NavigationManager
 
 <div class="background_category">
@@ -56,11 +56,11 @@
     public long Id { get; set; }
 
     Domain.Models.User user = new Domain.Models.User();
-    List<UserStatus> userStatus = new List<UserStatus>();
+    List<Status> userStatus = new List<Status>();
 
     protected override async Task OnInitializedAsync()
     {
-        userStatus = UserStatusService.GetAll();
+        userStatus = StatusService.GetAll();
         user = UserService.GetById(Id);
     }
 

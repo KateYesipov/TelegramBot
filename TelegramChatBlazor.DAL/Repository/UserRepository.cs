@@ -50,10 +50,10 @@ namespace TelegramChatBlazor.DAL.Repository
 
         public void Update(User item)
         {
-            // _context.Database.ExecuteSqlRaw(@"UPDATE Answers SET  
-            // ShortName={1}, FullAnswer={2},CreatedAt={3},CategoryId={4}
-            // WHERE Id={0}",
-            //item.Id, item.ShortName, item.FullAnswer, item.CreatedAt, item.CategoryId);
+            _context.Database.ExecuteSqlRaw(@"UPDATE Users SET  
+             FirstName={1}, LastName={2},UserName={3},AvatarPath={4},ColorAvatar={5},languageCode={6},UserStatusId={7}
+             WHERE Id={0}",
+           item.Id, item.FirstName, item.LastName, item.UserName, item.AvatarPath, item.ColorAvatar, item.languageCode, item.UserStatusId);
         }
 
         public void Save()

@@ -91,7 +91,7 @@ namespace TelegramChatBlazor.BLL.Services
             var chat = _chatRepository.GetById(chatId);
             if (chat == null)
             {
-                var user = _userService.GetByUserName(messageRequest.PartnerUserName);
+                var user = _userService.GetById(messageRequest.UserId);
 
                 if (user == null)
                 {
@@ -106,6 +106,7 @@ namespace TelegramChatBlazor.BLL.Services
 
                     user = new Domain.Models.User()
                     {
+                        Id = messageRequest.UserId,
                         AvatarPath = messageRequest.PartnerAvatar,
                         ColorAvatar = messageRequest.ColorAvatar,
                         FirstName = messageRequest.PartnerName,
@@ -139,7 +140,14 @@ namespace TelegramChatBlazor.BLL.Services
                 };
 
                 _chatRepository.Create(newChat);
-                _chatRepository.Save();
+                try
+                {
+                    _chatRepository.Save();
+                }
+                catch(Exception ex)
+                {
+
+                }
             }
             else
             {
@@ -212,7 +220,7 @@ namespace TelegramChatBlazor.BLL.Services
             }
 
             //Api
-            var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId, sendMessage.TelegramChatId,
+            var messageRequest = new MessageRequest(sendMessage.Token, sendMessage.ChatId,0, sendMessage.TelegramChatId,
             sendMessage.TextMessage, false, "", "", "", "", "", "", sendMessage.FileId, 0, sendMessage.Type, "");
 
             var url = _chatBlazorSettings.ApiUrl + "api/Apimessage/AddMessage";

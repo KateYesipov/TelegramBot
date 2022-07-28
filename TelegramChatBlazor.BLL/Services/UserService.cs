@@ -37,10 +37,6 @@ namespace TelegramChatBlazor.BLL.Services
         {
             return _userRepository.GetById(Id);
         }
-        public User GetByUserName(string value)
-        {
-            return _userRepository.GetByUserName(value);
-        }
         
         public void Update(User item)
         {

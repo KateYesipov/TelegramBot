@@ -20,7 +20,9 @@ namespace TelegramChatBlazor.Dependencies.DependencyModules
             services.AddScoped<IChatRepository, ChatRepository>();
             services.AddScoped<IChatService, ChatService>();
 
-            services.AddScoped<IUserStatusRepository, UserStatusRepository>();
+            services.AddScoped<IStatusRepository, StatusRepository>();
+            services.AddScoped<IStatusService, StatusService>();
+
             services.AddScoped<IUserStatusService, UserStatusService>();
 
             services.AddScoped<IUserRepository, UserRepository>();

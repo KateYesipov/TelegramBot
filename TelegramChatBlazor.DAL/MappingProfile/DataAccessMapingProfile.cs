@@ -17,7 +17,7 @@ namespace TelegramChatBlazor.DAL.MappingProfile
             CreateMap<Category, Domain.Models.HelpWord.Category>().ReverseMap();
             CreateMap<Language, Domain.Models.Languages.Language>().ReverseMap();
             CreateMap<Filter, Domain.Models.Filters.Filter>().ReverseMap();
-            CreateMap<UserStatus, Domain.Models.UserStatus>().ReverseMap();
+            CreateMap<UserStatus, Domain.Models.Status>().ReverseMap();
             CreateMap<User, Domain.Models.User>().ReverseMap();
         }
     }

@@ -1,12 +1,11 @@
-﻿@page "/userStatus/edit/{id:long}"
-@inject IUserStatusService UserStatusService
+﻿@page "/status/add"
+@inject IStatusService StatusService
 @inject NavigationManager NavigationManager
 
 <div class="background_category">
-<h2>EditUser status</h2>
-<hr />
+    <h2>Add Status</h2>
+    <hr />
 
-<form>
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
@@ -15,35 +14,29 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                 <button class="btn btn-primary" @onclick="@Update">Update</button>
+                <button class="btn btn-primary" @onclick="@Create">Save</button>
                 <button class="btn btn-danger" @onclick="@Cancel">Cancel</button>
             </div>
         </div>
     </div>
-</form>
 </div>
+
 @code {
     [Parameter]
     public long Id { get; set; }
 
-    Domain.Models.UserStatus userStatus = new Domain.Models.UserStatus();
+    Domain.Models.Status userStatus = new Domain.Models.Status();
 
-    protected override async Task OnInitializedAsync()
+    void Create()
     {
-        userStatus = UserStatusService.GetById(Id);
-    }
-
-    void Update()
-    {
-        UserStatusService.Update(userStatus);
-        NavigationManager.NavigateTo("userStatus",true);
+        StatusService.Create(userStatus);
+        NavigationManager.NavigateTo("status", true);
     }
     void Cancel()
     {
-        NavigationManager.NavigateTo("userStatus",true);
+        NavigationManager.NavigateTo("status", true);
     }
 }

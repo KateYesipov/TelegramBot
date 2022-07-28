@@ -141,11 +141,10 @@ namespace TelegramChatBlazor.DAL.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AvatarPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ColorAvatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     languageCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -240,8 +239,8 @@ namespace TelegramChatBlazor.DAL.Migrations
                 columns: new[] { "Id", "CreateAt", "ImagePath", "Name", "Token", "UserName" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(1858), "https://flowxo.com/wp-content/uploads/2021/03/Telegram-Logo-512x512.png", "Jironimo", "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8", "JironimoBot" },
-                    { 2L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(1945), "https://way23.ru/images/botfather-300x300.jpg", "TelegramBotBlazor", "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM", "TelegramBotBlazorBot" }
+                    { 1L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2023), "https://flowxo.com/wp-content/uploads/2021/03/Telegram-Logo-512x512.png", "Jironimo", "5536982597:AAHGE_tYhVLViVvUzlnFpelX7aSv0H4kbp8", "JironimoBot" },
+                    { 2L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2109), "https://way23.ru/images/botfather-300x300.jpg", "TelegramBotBlazor", "5493821109:AAGpCZCpURP2dn1yM_wEdAQCdA21avI5ggM", "TelegramBotBlazorBot" }
                 });
 
             migrationBuilder.InsertData(
@@ -249,15 +248,15 @@ namespace TelegramChatBlazor.DAL.Migrations
                 columns: new[] { "Id", "CreatedAt", "Name" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2407), "Hello-bye" },
-                    { 2L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2430), "Продажа" },
-                    { 3L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2446), "Брокеры" },
-                    { 4L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2533), "Hello-bye" },
-                    { 5L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2552), "Продажа" },
-                    { 6L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2628), "Брокеры" },
-                    { 7L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2646), "Hello-bye" },
-                    { 8L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2663), "Продажа" },
-                    { 9L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2681), "Брокеры" }
+                    { 1L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2723), "Hello-bye" },
+                    { 2L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2743), "Продажа" },
+                    { 3L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2758), "Брокеры" },
+                    { 4L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2774), "Hello-bye" },
+                    { 5L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2789), "Продажа" },
+                    { 6L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2859), "Брокеры" },
+                    { 7L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2876), "Hello-bye" },
+                    { 8L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2891), "Продажа" },
+                    { 9L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2906), "Брокеры" }
                 });
 
             migrationBuilder.InsertData(
@@ -280,12 +279,12 @@ namespace TelegramChatBlazor.DAL.Migrations
                 columns: new[] { "Id", "Archived", "ColorHex", "Created_at", "Mailing", "Name", "Readed" },
                 values: new object[,]
                 {
-                    { 1L, false, "#FFCE31", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3222), false, "Demo", true },
-                    { 2L, false, "#ED4C5C", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3246), false, "Will buy soon", true },
-                    { 3L, false, "#4CEDED", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3264), false, "Client", true },
-                    { 4L, false, "#FFFFFF", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3281), true, "Test", true },
-                    { 5L, false, "#25CC62", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3298), false, "Readed", true },
-                    { 6L, true, "#ED4CB6", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(3318), false, "1 Step", true }
+                    { 1L, false, "#FFCE31", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(3441), false, "Demo", true },
+                    { 2L, false, "#ED4C5C", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(3466), false, "Will buy soon", true },
+                    { 3L, false, "#4CEDED", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(3485), false, "Client", true },
+                    { 4L, false, "#FFFFFF", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(3502), true, "Test", true },
+                    { 5L, false, "#25CC62", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(3519), false, "Readed", true },
+                    { 6L, true, "#ED4CB6", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(3602), false, "1 Step", true }
                 });
 
             migrationBuilder.InsertData(
@@ -337,14 +336,14 @@ namespace TelegramChatBlazor.DAL.Migrations
                 columns: new[] { "Id", "CreateAt", "Email", "ImgPath", "LastOnline", "Name" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2229), "testEmail@gmail.com", "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2232), "Alex Yesipov" },
-                    { 2L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2252), "testEmail2@gmail.com", "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2256), "Alex Ivanov" },
-                    { 3L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2274), "testEmail3@gmail.com", "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2277), "Kate Yesipova" },
-                    { 4L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2293), "testEmail4@gmail.com", "https://image.pngaaa.com/345/1582345-middle.png", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2297), "Alex Pupkin" },
-                    { 5L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2314), "testEmail@gmail.com", "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2317), "Alex Yesipov" },
-                    { 6L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2336), "testEmail2@gmail.com", "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2340), "Alex Ivanov" },
-                    { 7L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2357), "testEmail3@gmail.com", "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2360), "Kate Yesipova" },
-                    { 8L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2377), "testEmail4@gmail.com", "https://image.pngaaa.com/345/1582345-middle.png", new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2381), "Alex Pupkin" }
+                    { 1L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2557), "testEmail@gmail.com", "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2561), "Alex Yesipov" },
+                    { 2L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2581), "testEmail2@gmail.com", "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2585), "Alex Ivanov" },
+                    { 3L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2602), "testEmail3@gmail.com", "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2605), "Kate Yesipova" },
+                    { 4L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2621), "testEmail4@gmail.com", "https://image.pngaaa.com/345/1582345-middle.png", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2624), "Alex Pupkin" },
+                    { 5L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2640), "testEmail@gmail.com", "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2643), "Alex Yesipov" },
+                    { 6L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2662), "testEmail2@gmail.com", "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2665), "Alex Ivanov" },
+                    { 7L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2680), "testEmail3@gmail.com", "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2684), "Kate Yesipova" },
+                    { 8L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2699), "testEmail4@gmail.com", "https://image.pngaaa.com/345/1582345-middle.png", new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2703), "Alex Pupkin" }
                 });
 
             migrationBuilder.InsertData(
@@ -352,13 +351,13 @@ namespace TelegramChatBlazor.DAL.Migrations
                 columns: new[] { "Id", "CreateAt", "Name" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2087), "Start Chat" },
-                    { 2L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2112), "Questions" },
-                    { 3L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2131), "Will buy soon" },
-                    { 4L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2149), "Client" },
-                    { 5L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2165), "Client Pro" },
-                    { 6L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2186), "Demo" },
-                    { 7L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2204), "Waiting for a discount" }
+                    { 1L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2245), "Start Chat" },
+                    { 2L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2281), "Questions" },
+                    { 3L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2299), "Will buy soon" },
+                    { 4L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2315), "Client" },
+                    { 5L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2331), "Client Pro" },
+                    { 6L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2350), "Demo" },
+                    { 7L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2530), "Waiting for a discount" }
                 });
 
             migrationBuilder.InsertData(
@@ -366,11 +365,11 @@ namespace TelegramChatBlazor.DAL.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedAt", "FullAnswer", "ShortName" },
                 values: new object[,]
                 {
-                    { 1L, 1L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2708), "Hello-bye", "Hi" },
-                    { 2L, 1L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2729), "Hello how are you?", "Hi how" },
-                    { 3L, 1L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2747), "Hey!How do you do? I'm ready to talk to you and answer your questions. ", "Чем могу помочь ?" },
-                    { 4L, 1L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2763), "How do I get a demo version?https://globalforexforum.com/threads/elon-musk-ea-demo.340/", "Подпишись на канал с результатами" },
-                    { 5L, 1L, new DateTime(2022, 7, 24, 12, 29, 28, 506, DateTimeKind.Local).AddTicks(2779), "Okay, thanks for the request ! If you have any new questions about ELM_EA, please let me know. I am online and ready to help you 24/5", "Спасибо за ваш запрос" }
+                    { 1L, 1L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2932), "Hello-bye", "Hi" },
+                    { 2L, 1L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2954), "Hello how are you?", "Hi how" },
+                    { 3L, 1L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2971), "Hey!How do you do? I'm ready to talk to you and answer your questions. ", "Чем могу помочь ?" },
+                    { 4L, 1L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(2987), "How do I get a demo version?https://globalforexforum.com/threads/elon-musk-ea-demo.340/", "Подпишись на канал с результатами" },
+                    { 5L, 1L, new DateTime(2022, 7, 27, 18, 11, 22, 889, DateTimeKind.Local).AddTicks(3004), "Okay, thanks for the request ! If you have any new questions about ELM_EA, please let me know. I am online and ready to help you 24/5", "Спасибо за ваш запрос" }
                 });
 
             migrationBuilder.CreateIndex(

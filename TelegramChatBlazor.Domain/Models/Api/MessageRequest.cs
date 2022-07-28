@@ -2,13 +2,14 @@
 {
     public class MessageRequest
     {
-        public MessageRequest(string token, long chatId,long telegramChatId,
+        public MessageRequest(string token, long chatId,long telegramChatId, long userId,
             string? text,bool isPartner, string partnerAvatar, string partnerUserName,
             string partnerName, string partnerLastName, string botUserName,
             string botAvatar,string? fileId,long messageGroupId,string type,string languageCode)
         {
             Token = token;
             ChatId = chatId;
+            UserId = userId;
             TelegramChatId = telegramChatId;
             Text = text;
             IsPartner = isPartner;
@@ -25,6 +26,7 @@
         }
 
         public long MessageId { get; set; }
+        public long UserId { get; set; }
         public string? ColorAvatar { get; set; }
         public long ChatId { get; set; }
         public long TelegramChatId { get; set; }       

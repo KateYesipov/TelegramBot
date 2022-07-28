@@ -71,7 +71,7 @@ namespace TelegramChatBlazor.BLL.Services
                 var mediaGroupIdConvert = Convert.ToInt64(message?.MediaGroupId);
                 var type = message.Type.ToString();
 
-                var newMessage = new MessageRequest(Token, newChatId, message.Chat.Id,
+                var newMessage = new MessageRequest(Token, newChatId, message.From.Id, message.Chat.Id,
                     message.Text, true, avatarPartnerId, message.Chat.Username,
                     message.Chat.FirstName, message.Chat.LastName,
                     bot.FirstName, "https://flowxo.com/wp-content/uploads/2021/03/Telegram-Logo-512x512.png",
