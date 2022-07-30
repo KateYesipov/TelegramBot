@@ -15,11 +15,9 @@ else
         </div>
         <div class="general_block3">
             <div class="apple_block">
-
                 <div class="apple_block_img">
                     <img class="telegram_img" src="/Images/telegram.svg" />
-                    <img class="apple_img" src="/Images/apple.svg" />
-
+                    <img class="apple_img" src="@chatModel.Bot.ImagePath" />
                 </div>
             </div>
             <div class="status_block">
@@ -38,11 +36,11 @@ else
             <div class="information_block">
                 <div class="information_block_mini">
                     <p>Bot</p>
-                    <a>develmbot</a>
+                    <a>@chatModel.Bot?.UserName</a>
                 </div>
                 <div class="information_block_mini">
                     <p>Telegram</p>
-                    <a>nikoladev </a>
+                    <a>@chatModel.User?.UserName </a>
                 </div>
                 <div class="information_block_mini">
                     <p> Creation date</p>
@@ -50,7 +48,7 @@ else
                 </div>
                 <div class="information_block_mini">
                     <p>Last action</p>
-                    <a>22.03.2022 at 11:42</a>
+                    <a>@chatModel.Messages.LastOrDefault().CreateAt</a>
                 </div>
                 <div class="information_block_mini">
                     <p>Edit user</p>

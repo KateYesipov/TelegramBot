@@ -6,7 +6,7 @@ using TelegramChatBlazor.Domain.Models.Filters;
 
 namespace TelegramChatBlazor.BLL.Services
 {
-    public class ChatService: IChatService
+    public class ChatService : IChatService
     {
         protected readonly IMapper _mapper;
         private readonly IChatRepository _chatRepository;
@@ -17,6 +17,18 @@ namespace TelegramChatBlazor.BLL.Services
             _mapper = mapper;
         }
 
+        public List<SelectChat> GetAll(Filter filter)
+        {
+            var chats = _chatRepository.GetAll();
+            var selectChat = _mapper.Map<List<SelectChat>>(chats);
+            foreach (var item in selectChat)
+            {
+                item.LastMessage = chats.FirstOrDefault(x => x.Id == item.Id).Messages.LastOrDefault();
+            }
+            return selectChat.OrderByDescending(x => x.LastMessage.CreateAt).ToList();
+        }
+
+
         public List<SelectChat> GetChatListByBotId(long botId, Filter filter)
         {
             var chats = _chatRepository.GetByBotId(botId);
@@ -25,7 +37,7 @@ namespace TelegramChatBlazor.BLL.Services
             {
                 item.LastMessage = chats.FirstOrDefault(x => x.Id == item.Id).Messages.LastOrDefault();
             }
-            return selectChat.OrderByDescending(x=>x.LastMessage.CreateAt).ToList();
+            return selectChat.OrderByDescending(x => x.LastMessage.CreateAt).ToList();
         }
     }
 }

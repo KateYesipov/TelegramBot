@@ -92,6 +92,7 @@ namespace TelegramChatBlazor.BLL.Services
             if (chat == null)
             {
                 var user = _userService.GetById(messageRequest.UserId);
+                var IsUser = user == null;
 
                 if (user == null)
                 {
@@ -128,7 +129,8 @@ namespace TelegramChatBlazor.BLL.Services
                 {
                     Id = chatId,
                     TelegramChatId = messageRequest.TelegramChatId,
-                    User= user,
+                    UserId=user.Id,
+                    User= IsUser?user:null,
                     BotId = bot.Id,
                     Messages = new List<Message> { new Message { Text = messageRequest.Text,
                         CreateAt = DateTime.Now,
@@ -139,9 +141,9 @@ namespace TelegramChatBlazor.BLL.Services
                         Attachments=attachments }}
                 };
 
-                _chatRepository.Create(newChat);
                 try
                 {
+                    _chatRepository.Create(newChat);    
                     _chatRepository.Save();
                 }
                 catch(Exception ex)

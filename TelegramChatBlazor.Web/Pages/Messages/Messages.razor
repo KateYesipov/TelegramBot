@@ -191,9 +191,6 @@
 
 @code {
     [Parameter]
-    public string token { get; set; }
-
-    [Parameter]
     public Chat chatModel { get; set; }
 
     [Parameter]
@@ -256,7 +253,7 @@
 
     protected async Task Send(ChatNotification chatNotification)
     {
-        if (chatModel != null && chatModel.Id == chatNotification.Message.ChatId && chatNotification.Token == token)
+        if (chatModel != null && chatModel.Id == chatNotification.Message.ChatId && chatNotification.Token == chatModel.Bot.Token)
         {
             Message oldMessage = null;
             var messageGroupId = chatNotification.Message.MessageGroupId;
@@ -313,7 +310,7 @@
                     ChatId = chatModel.Id,
                     TelegramChatId = chatModel.TelegramChatId,
                     TextMessage = TextMessage,
-                    Token = token,
+                    Token = chatModel.Bot.Token,
                     Type = Attachments.Count() > 0 ? "Photo" : "Text",
                     Attachments = Attachments
                 };

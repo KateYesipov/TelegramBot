@@ -5,6 +5,7 @@ namespace TelegramChatBlazor.Domain.Abstract.Services
 {
     public interface IChatService
     {
+        public List<SelectChat> GetAll(Filter filter);
         public List<SelectChat> GetChatListByBotId(long botId, Filter filter);
     }
 }

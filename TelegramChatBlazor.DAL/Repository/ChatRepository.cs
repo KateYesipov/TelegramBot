@@ -37,6 +37,11 @@ namespace TelegramChatBlazor.DAL.Repository
             return _mapper.Map<Chat>(chat);
         }
 
+        public List<Chat> GetAll()
+        {
+            return _mapper.Map<List<Chat>>(_context.Chats.Include(m => m.Messages).Include(u => u.User).ToList());
+        }
+
         public List<Chat> GetByBotId(long botId)
         {
             return _mapper.Map<List<Chat>>(_context.Chats.Include(m=>m.Messages).Include(u=>u.User).Where(x=>x.BotId==botId).ToList());

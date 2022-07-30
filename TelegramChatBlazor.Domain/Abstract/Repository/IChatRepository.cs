@@ -5,7 +5,8 @@ namespace TelegramChatBlazor.Domain.Abstract.Repository
 {
     public interface IChatRepository
     {
-        public List<Chat> GetByBotId(long botId);
+        List<Chat> GetByBotId(long botId);
+        List<Chat> GetAll();
         Chat GetById(long chatId);
         void Create(Chat item);
         void Delete(Guid id);

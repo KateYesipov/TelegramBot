@@ -83,20 +83,20 @@
 
             @if (selectedChat != null)
             {
-                    <div class="messange_block" @onclick="(()=>LoadMessageById(selectedChat.Id))">
-                        <div class="avatar">
-                            <div class="img_messange">
-                                <img class="telegram_img" src="/Images/telegram.svg" />
-                                <img class="avatar_img_message" src="@selectedChat.User.AvatarPath">
-                            </div>
-                        </div>
-                        <div class="sender_name">
-                            @selectedChat.User.FirstName
-                        </div>
-                        <div class="sms_content">
-                            @selectedChat.LastMessage.Text
+                <div class="messange_block" @onclick="(()=>LoadMessageById(selectedChat.Id))">
+                    <div class="avatar">
+                        <div class="img_messange">
+                            <img class="telegram_img" src="/Images/telegram.svg" />
+                            <img class="avatar_img_message" src="@selectedChat.User.AvatarPath">
                         </div>
                     </div>
+                    <div class="sender_name">
+                        @selectedChat.User.FirstName
+                    </div>
+                    <div class="sms_content">
+                        @selectedChat.LastMessage.Text
+                    </div>
+                </div>
             }
             else
             {
@@ -104,7 +104,7 @@
                 {
                     <div class="messange_block @((!item.LastMessage.IsRead&&item.LastMessage.IsPartner)?"messange_block_unread":"")" @onclick="(()=>LoadMessageById(item.Id))">
                         <div class="avatar">
-                        <AvatarBlock PathImg="@item.User.AvatarPath" Name="@item.User.FirstName" Color="@item.User.ColorAvatar"/>
+                            <AvatarBlock PathImg="@item.User.AvatarPath" Name="@item.User.FirstName" Color="@item.User.ColorAvatar" />
                         </div>
                         <div class="sender_name">
                             @item.User.FirstName
@@ -134,7 +134,7 @@
     public EventCallback<long> OnClickCallback { get; set; }
 
     [Parameter]
-    public string token { get; set; }
+    public string? token { get; set; }
 
     [Parameter]
     public List<Manager> managersList { get; set; }
@@ -150,19 +150,23 @@
 
     protected override async Task OnParametersSetAsync()
     {
+        hubConnection = new HubConnectionBuilder()
+       .WithUrl(_navigationManager.ToAbsoluteUri("/signalRHub"))
+       .Build();
+        hubConnection.On<ChatNotification>("Send", this.Send);
+        hubConnection.On<Message>("ReadMessage", this.ReadMessage);
+        await hubConnection.StartAsync();
+
         if (!String.IsNullOrWhiteSpace(token))
         {
-            hubConnection = new HubConnectionBuilder()
-           .WithUrl(_navigationManager.ToAbsoluteUri("/signalRHub"))
-           .Build();
-            hubConnection.On<ChatNotification>("Send", this.Send);
-            hubConnection.On<Message>("ReadMessage", this.ReadMessage);
-            await hubConnection.StartAsync();
-
             var botId = BotService.GetByToken(token);
-            SelectChats = ChatService.GetChatListByBotId(botId.Id,FilterSelected);
-            Filters = FilterService.GetAll();
+            SelectChats = ChatService.GetChatListByBotId(botId.Id, FilterSelected);
         }
+        else
+        {
+            SelectChats = ChatService.GetAll(FilterSelected);
+        }
+        Filters = FilterService.GetAll();
     }
 
     private async Task<IEnumerable<Domain.Models.Chats.SelectChat>> AutoSearch(string searchChat)
@@ -180,10 +184,10 @@
                 var newSelectChat = new Domain.Models.Chats.SelectChat
                     {
                         Id = messageNotification.Message.ChatId,
-                        User=new Domain.Models.User
+                        User = new Domain.Models.User
                         {
-                            FirstName=messageNotification.PartnerName,
-                            AvatarPath=messageNotification.PartnerAvatar
+                            FirstName = messageNotification.PartnerName,
+                            AvatarPath = messageNotification.PartnerAvatar
                         },
                         LastMessage = new Message
                         {

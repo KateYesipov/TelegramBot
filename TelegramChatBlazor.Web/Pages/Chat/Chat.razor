@@ -4,20 +4,18 @@
 @inject IManagerService ManagerService
 
 <PageTitle>Chat</PageTitle>
-@if (!string.IsNullOrEmpty(bot.Token))
-{
+
     <div class="common_block">
         <div class="main_block">
-            <SelectChat OnClickCallback="@GetMessages" managersList="managersList" token="@bot.Token"></SelectChat>
+            <SelectChat OnClickCallback="@GetMessages" managersList="managersList" token="@bot?.Token"></SelectChat>
         </div>
         <div class="main_block_two @styleTwoBlock">
-            <Messages chatModel="@chatModel" ShowOrHideRightCallback="ShowOrHideRightTab" token="@bot.Token"></Messages>
+            <Messages chatModel="@chatModel" ShowOrHideRightCallback="ShowOrHideRightTab"></Messages>
         </div>
         <div class="main_block_three @styleThreeBlock">
             <PartnerInfo chatModel="@chatModel" managersList="managersList"></PartnerInfo>
         </div>
     </div>
-}
 
 @code {
     [Parameter]
