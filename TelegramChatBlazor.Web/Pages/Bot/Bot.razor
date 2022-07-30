@@ -52,19 +52,19 @@
 
 @code {
     List<Domain.Models.Bot> Bots;
-    private bool isBotShowModal = false;
+    public bool isBotShowModal = false;
 
     protected override async Task OnInitializedAsync()
     {
         Bots = await Task.Run(() => BotService.GetAll());
     }
 
-    private void ShowAddBot()
+    public void ShowAddBot()
     {
         isBotShowModal = true;
     }
 
-    private void CloseBotModal()
+    public void CloseBotModal()
     {
         isBotShowModal = false;
     }

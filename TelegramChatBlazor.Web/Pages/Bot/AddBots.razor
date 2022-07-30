@@ -7,15 +7,14 @@
             <a @onclick="CloseModal" class="popup_close">
                 <img src="/Images/icons/close.svg">
             </a>
-            <buttom class="telegram_buttom">
-                <img src="/Images/icons/telegramBottom.svg" />
-            </buttom>
+            <div class="telegram_buttom">
+                <img src="/Images/icons/telegram_icon.svg" />
+            </div>
             <div class="text_block">
                 <h2> Create Connection Channel</h2>
                 <p>Fill all the fields below to create connection channel </p>
             </div>
             <div class="common_block">
-
                 <div class="input_file">
                     <label for="fileinputBot" class="label_file">
                         <img src="/Images/icons/upload.svg" />
@@ -54,13 +53,15 @@
     public EventCallback OnClickCallback { get; set; }
 
     public Domain.Models.Bot bot = new Domain.Models.Bot();
+
     protected void CreateBot()
     {
         BotService.Create(bot);
         CloseModal();
         NavigationManager.NavigateTo("bots",true);
     }
-    void Cancel()
+
+     protected void Cancel()
     {
         NavigationManager.NavigateTo("bots",true);
     }
