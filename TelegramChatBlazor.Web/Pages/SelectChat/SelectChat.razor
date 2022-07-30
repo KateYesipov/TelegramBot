@@ -68,10 +68,10 @@
         </div>
         <div class="buttons_block">
             <button class="add_button" @onclick="ShowModal">+</button>
-            <button>All</button>
+            <button  @onclick="(()=>SelectedFilter(null))">All</button>
             @foreach (var item in Filters)
             {
-                <button style="background: @item.ColorHex;">@item.Name</button>
+                <button style="background: @item.ColorHex;" @onclick="(()=>SelectedFilter(item))">@item.Name</button>
             }
         </div>
     </div>
@@ -157,14 +157,17 @@
         hubConnection.On<Message>("ReadMessage", this.ReadMessage);
         await hubConnection.StartAsync();
 
-        if (!String.IsNullOrWhiteSpace(token))
+        if (SelectChats == null)
         {
-            var botId = BotService.GetByToken(token);
-            SelectChats = ChatService.GetChatListByBotId(botId.Id, FilterSelected);
-        }
-        else
-        {
-            SelectChats = ChatService.GetAll(FilterSelected);
+            if (!String.IsNullOrWhiteSpace(token))
+            {
+                var botId = BotService.GetByToken(token);
+                SelectChats = ChatService.GetChatListByBotId(botId.Id, FilterSelected);
+            }
+            else
+            {
+                SelectChats = ChatService.GetAll(FilterSelected);
+            }
         }
         Filters = FilterService.GetAll();
     }
@@ -176,39 +179,37 @@
 
     Task Send(ChatNotification messageNotification)
     {
-        if (messageNotification.Token == token)
+        var index = SelectChats.FindIndex(m => m.Id == messageNotification.Message.ChatId);
+        if (index == -1)
         {
-            var index = SelectChats.FindIndex(m => m.Id == messageNotification.Message.ChatId);
-            if (index == -1)
-            {
-                var newSelectChat = new Domain.Models.Chats.SelectChat
+            var newSelectChat = new Domain.Models.Chats.SelectChat
+                {
+                    Id = messageNotification.Message.ChatId,
+                    User = new Domain.Models.User
                     {
-                        Id = messageNotification.Message.ChatId,
-                        User = new Domain.Models.User
-                        {
-                            FirstName = messageNotification.PartnerName,
-                            AvatarPath = messageNotification.PartnerAvatar
-                        },
-                        LastMessage = new Message
-                        {
-                            Id = messageNotification.Message.Id,
-                            Text = messageNotification.Message.Text,
-                            CreateAt = messageNotification.Message.CreateAt
-                        }
-                    };
-                SelectChats.Add(newSelectChat);
-            }
-            else
-            {
-                SelectChats[index].LastMessage = new Message
+                        FirstName = messageNotification.PartnerName,
+                        AvatarPath = messageNotification.PartnerAvatar
+                    },
+                    LastMessage = new Message
                     {
                         Id = messageNotification.Message.Id,
-                        IsPartner = messageNotification.Message.IsPartner,
                         Text = messageNotification.Message.Text,
-                        CreateAt = messageNotification.Message.CreateAt,
-                    };
-            }
+                        CreateAt = messageNotification.Message.CreateAt
+                    }
+                };
+            SelectChats.Add(newSelectChat);
         }
+        else
+        {
+            SelectChats[index].LastMessage = new Message
+                {
+                    Id = messageNotification.Message.Id,
+                    IsPartner = messageNotification.Message.IsPartner,
+                    Text = messageNotification.Message.Text,
+                    CreateAt = messageNotification.Message.CreateAt,
+                };
+        }
+
         SelectChats = SelectChats.OrderByDescending(x => x.LastMessage.CreateAt).ToList();
         StateHasChanged();
         return Task.CompletedTask;
@@ -231,6 +232,20 @@
     public void LoadMessageById(long Id)
     {
         OnClickCallback.InvokeAsync(Id);
+    }
+
+    public void SelectedFilter(Filter item)
+    {
+        FilterSelected = item;
+        if (!String.IsNullOrWhiteSpace(token))
+        {
+            var botId = BotService.GetByToken(token);
+            SelectChats = ChatService.GetChatListByBotId(botId.Id, FilterSelected);
+        }
+        else
+        {
+            SelectChats = ChatService.GetAll(FilterSelected);
+        }
     }
 
     public void ShowModal()

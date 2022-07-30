@@ -25,6 +25,12 @@ namespace TelegramChatBlazor.BLL.Services
             {
                 item.LastMessage = chats.FirstOrDefault(x => x.Id == item.Id).Messages.LastOrDefault();
             }
+
+            if (filter != null)
+            {
+                selectChat=selectChat.Where(f => f.LastMessage.IsRead == !filter.Readed).ToList();
+            }
+
             return selectChat.OrderByDescending(x => x.LastMessage.CreateAt).ToList();
         }
 
