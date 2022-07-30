@@ -15,17 +15,36 @@
     <div class="menu_block" @onclick="ToggleNavMenu">
         <nav class="flex-column">
             <div>
-                <a> <div class="dashboard"></div></a>
-                <a> <div class="hug_hug"></div></a>
-                <a> <div class="trade"></div></a>
-                <a> <div class="chat"></div> </a>
-                <a> <div class="big_box"></div></a>
-                <a href="/manager">Manager</a>
-                <a href="/answers/category">Category</a>
-                <a href="/filter">Filter</a>
-                <a href="/user">User</a>
-                <a href="/status">Status</a>
-                <a href="/userStatus">UserStatus</a>
+
+               
+                <a href="/manager" class="Manager_block">
+                    <div> </div>
+                    <p>Manager</p>
+                </a>
+                <a href="/answers/category" class="Category_block">
+                    <div> </div>
+                    <p>Category</p>
+                </a>
+                <a href="/filter" class="filter_block">
+                    <div> </div>
+                    <p>Filter</p>
+                </a>
+
+
+                <a href="/user" class="user_block">
+                    <div> </div>
+                    <p> User</p>
+                </a>
+
+                  <a href="/userStatus" class="UserStatus_block">
+                    <div> </div>
+                    <p> UserStatus</p>
+                </a>
+                
+                  <a href="/Status" class="status_block">
+                    <div> </div>
+                    <p> Status</p>
+                </a>
             </div>
         </nav>
     </div>
@@ -34,13 +53,16 @@
         <nav class="flex-column">
             @foreach (var item in Bots)
             {
-                <div @onclick="(()=>Redirect(item.UserName))">
+                <div @onclick="(()=>Redirect(item.UserName))" class="folder_block">
                     <a><div class="folder_img"></div></a>
                     <div class="folder_text">@item.Name</div>
                 </div>
             }
             <div>
-                <a href="bots"><div class="plus_img"></div></a>
+                <a href="bots" class="plus_block">
+                    <div ></div>
+                    <p>Add new </p>
+                    </a>
             </div>
         </nav>
     </div>

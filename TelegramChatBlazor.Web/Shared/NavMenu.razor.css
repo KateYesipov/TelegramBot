@@ -93,59 +93,158 @@
     }
 }
 
-.dashboard {
-    background-image: url("/Images/icons/Dashboard.svg");
+.flex-column{
+    margin-top:10px;
+}
+.Manager_block {
+    display: flex;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.Manager_block div {
+    background-image: url("/Images/icons/Menages.svg");
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    height: 60px;
-    width: 60px;
-    margin-top: 20px;
+    height: 20px;
+    width: 20px;
+    margin-top: 10px;
 }
 
-.hug_hug {
-    background-image: url("/Images/icons/hug-hug.svg");
-    background-size: 70%;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 30px;
-    width: 30px;
-    margin: 15px;
-    margin-top:0px;
+    .Manager_block p {
+        font-size: 15px;
+        color: azure;
+        margin-top: 12px;
+        overflow-x: hidden;
+        margin-left: 10px;
+       
+    }
+
+.Category_block {
+    display: flex;
+    text-decoration: none;
+    margin-left: 5px;
 }
 
-.trade {
-    background-image: url("/Images/icons/trade.svg");
-    background-size: 70%;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 30px;
-    width: 30px;
-    margin: 15px;
-    margin-top: 20px;
+
+
+    .Category_block div {
+        background-image: url("/Images/icons/Dashboard.svg");
+        background-size: 220%;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 30px;
+        width: 30px;
+        
+       
+    }
+
+.Category_block p {
+    font-size: 15px;
+    color: azure;
+    margin-top: 6px;
+    overflow-x: hidden;
+    margin-left: 5px;
 }
 
-.chat {
-    background-image: url("/Images/icons/chat.svg");
-    background-size: 70%;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 30px;
-    width: 30px;
-    margin: 15px;
-    margin-top: 20px;
+.filter_block {
+    display: flex;
+    text-decoration: none;
+    margin-left: 5px;
 }
 
-.big_box {
-    background-image: url("/Images/icons/big-box.svg");
-    background-size: 70%;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 30px;
-    width: 30px;
-    margin: 15px;
-    margin-top: 20px;
+.filter_block p {
+    font-size: 15px;
+    color: azure;
+    margin-top: 6px;
+    overflow-x: hidden;
+    margin-left: 5px;
 }
+
+    .filter_block div {
+        background-image: url("/Images/icons/filter.svg");
+        background-size: 75%;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 30px;
+        width: 30px;
+        margin: 0px;
+    }
+
+.user_block {
+    display: flex;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+    .user_block div {
+        background-image: url("/Images/icons/hug-hug.svg");
+        background-size: 75%;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 30px;
+        width: 30px;
+        margin: 0px;
+      
+    }
+
+.user_block p {
+    font-size: 15px;
+    color: azure;
+    margin-top: 6px;
+    overflow-x: hidden;
+    margin-left: 5px;
+}
+
+.UserStatus_block {
+    display: flex;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+    .UserStatus_block div {
+        background-image: url("/Images/icons/chat.svg");
+        background-size: 75%;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 30px;
+        width: 30px;
+        margin: 0px;
+    }
+
+    .UserStatus_block p {
+        font-size: 15px;
+        color: azure;
+        margin-top: 6px;
+        overflow-x: hidden;
+        margin-left: 5px;
+    }
+
+.status_block {
+    display: flex;
+    text-decoration: none;
+    margin-left: 5px;
+}
+    .status_block div {
+        background-image:url("/Images/icons/user.svg");
+        background-size: 75%;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 30px;
+        width: 30px;
+        margin: 0px;
+    }
+    .status_block p {
+        font-size: 15px;
+        color: azure;
+        margin-top: 6px;
+        overflow-x: hidden;
+        margin-left: 5px;
+    }
+
+
+
 
 .arrow-left {
     background-image: url("/Images/icons/arrow-left-menu.svg");
@@ -155,6 +254,11 @@
     padding: 0px !important;
 }
 
+.folder_block {
+    display: flex;
+    text-decoration: none;
+    margin-left: 5px;
+}
 .folder_img {
     background-image: url("/Images/icons/folder.svg");
     background-size: 80%;
@@ -162,21 +266,26 @@
     background-position: center;
     height: 30px;
     width: 30px;
-    margin: 20px;
-    margin-bottom:5px;   
+    margin: 0px;
 }
 
 .folder_text {
-    font-size: 13px;
+    font-size: 15px;
     color: azure;
-    max-width: 55px;
-    margin: auto;
+    margin-top: 6px;
     overflow-x: hidden;
+    margin-left: 5px;
 }
 
-
-.plus_img {
-    background-image: url("/Images/icons/plus.svg");
+.plus_block {
+    display: flex;
+    text-decoration: none;
+    margin-left: 5px;
+    position: absolute;
+    bottom: 0;
+}
+.plus_block div {
+   
     background-size: 100%;
     background-repeat: no-repeat;
     height: 40px;
@@ -187,11 +296,19 @@
     bottom: 0;
 }
 
+    .plus_block p {
+        font-size: 15px;
+        color: azure;
+        margin-top: 6px;
+        overflow-x: hidden;
+        margin-left: 5px;
+    }
 
 
 
-.folders_block{
-    display:none;
+
+.folders_block {
+    display: none;
 }
 
 .hide_menu .folders_block {

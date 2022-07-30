@@ -1,2 +1,9 @@
-﻿body {
+﻿.background_category {
+    background: #ffffff;
+    height: 100vh;
+    padding-left: 20px;
 }
+.add_new{
+    margin-top:20px;
+}
+
