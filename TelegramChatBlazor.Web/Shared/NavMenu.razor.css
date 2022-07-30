@@ -10,17 +10,19 @@
     padding: 0px !important;
     display: flex;
 }
-.container-fluid a {
-    width:20px;
+.container-fluid .navbar-brand {
+    width: 20px;
     height: 20px;
-     border-radius: 5px;
+    border-radius: 5px;
     border: none;
     background-color: none;
-    margin:0px;
-    margin-left:10px;
+    margin: 0px;
+    margin-left: 10px;
+    margin-top:8px;
 }
-.container-fluid{
-    width:100%;
+.container-fluid {
+    width: 100%;
+    display: flex;
 }
 
 .navbar_togglerz_icon {
@@ -34,6 +36,31 @@
     background-size: 100%;
 }
 
+.chat_block {
+    display: flex;
+    text-decoration: none;
+    margin-top:10px;
+    
+
+}
+
+    .chat_block div {
+        background-image: url("/Images/icons/chat.svg");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 20px;
+        width: 20px;
+       
+    }
+
+    .chat_block p {
+        font-size: 15px;
+        color: azure;
+        margin-bottom: 0px;
+        overflow-x: hidden;
+        margin-left:8px;
+    }
 
 .navbar-brand {
     background-image: url(/Images/icons/arrow-right-menu.svg);
@@ -204,7 +231,7 @@
 }
 
     .UserStatus_block div {
-        background-image: url("/Images/icons/chat.svg");
+        background-image: url("/Images/icons/user-status.svg");
         background-size: 75%;
         background-repeat: no-repeat;
         background-position: center;
@@ -280,26 +307,22 @@
 .plus_block {
     display: flex;
     text-decoration: none;
-    margin-left: 5px;
+    margin-left: 13px;
     position: absolute;
     bottom: 0;
 }
 .plus_block div {
-   
-    background-size: 100%;
+    background-image:url("/Images/icons/plus.svg");
+    background-size: 90%;
     background-repeat: no-repeat;
-    height: 40px;
-    width: 40px;
-    margin: 10px;
-    margin-top: 20px;
-    position: absolute;
-    bottom: 0;
+    height: 20px;
+    width: 20px;
+  
 }
 
     .plus_block p {
         font-size: 15px;
         color: azure;
-        margin-top: 6px;
         overflow-x: hidden;
         margin-left: 5px;
     }
