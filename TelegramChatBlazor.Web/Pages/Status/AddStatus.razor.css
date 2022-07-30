@@ -1,2 +1,17 @@
-﻿body {
+﻿.background_category {
+    background: #ffffff;
+    height: 100vh;
+    padding-left: 20px;
+}
+
+h2{
+    padding-top:10px;
+}
+
+input{
+    width:150%;
+}
+
+.form-group{
+    margin-top:10px;
 }

@@ -4,6 +4,31 @@
     padding-left: 20px;
 }
 
-h1{
+
+.horizontal_block {
+    width:150px;
+    display: inline-block;
+    padding-top:20px;
+  
+}
+
+    .horizontal_block h1 {
+        font-size: 20px;
+        font-weight:700;
+    }
+
+.vertical_block div {
+    background:#a7a7a7;
+    width:120px;
+    height:auto;
+    border-radius:5px;
+    text-align:center;
     padding-top:10px;
+    padding-bottom:10px;
+    margin-top:10px;
+}
+
+.lastname{
+    margin-top:10px;
+    width:100px;
 }

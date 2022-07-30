@@ -3,36 +3,33 @@
 @inject IUserStatusService UserStatusService
 <div class="background_category">
 
-    <h1>UserStatus Info</h1>
+
     @if (userStatus is null)
     {
         <p><em>Loading... !</em></p>
     }
     else
     {
-        <table class="table">
-            <thead>
-                <tr class="">
-                    <th>UserStatus Id</th>
-                    <th>Name</th>
-                    <th>CreateAt</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in userStatus)
-                {
+        <div>
+            @foreach (var item in userStatus)
+            {
+                <div class="horizontal_block">
                     <h1>@item.NameStatus</h1>
                     @foreach (var user in item.Users)
                     {
-                        <tr>
-                            <td>@user.FirstName</td>
-                            <td>@user.LastName</td>
-                            <td></td>
-                        </tr>
+                        <div class="vertical_block">
+                            <div>
+                           @user.FirstName
+                           <div class="lastname">
+                           @user.LastName
+                           @user.CreateAt
+                           </div>
+                           </div>
+                        </div>
                     }
-                }
-            </tbody>
-        </table>
+                </div>
+            }
+        </div>
     }
 </div>
 
