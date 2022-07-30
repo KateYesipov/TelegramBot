@@ -1,1 +1,15 @@
-﻿
+﻿.background_category {
+    background: #ffffff;
+    height: 100vh;
+    padding-left: 20px;
+}
+h2{
+    padding-top:10px;
+}
+
+.form-group{
+    margin-top:10px;
+}
+.col-md-8 input {
+    width: 150%;
+}

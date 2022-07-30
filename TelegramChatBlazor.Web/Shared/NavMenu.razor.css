@@ -285,6 +285,7 @@
     display: flex;
     text-decoration: none;
     margin-left: 5px;
+    margin-top:5px;
 }
 .folder_img {
     background-image: url("/Images/icons/folder.svg");
@@ -302,6 +303,7 @@
     margin-top: 6px;
     overflow-x: hidden;
     margin-left: 5px;
+    word-wrap:break-word;
 }
 
 .plus_block {
