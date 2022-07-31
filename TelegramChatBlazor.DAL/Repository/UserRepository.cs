@@ -48,12 +48,15 @@ namespace TelegramChatBlazor.DAL.Repository
             return _mapper.Map<User>(user);
         }
 
-        public void Update(User item)
+        public async Task Update(User item)
         {
-            _context.Database.ExecuteSqlRaw(@"UPDATE Users SET  
+           await _context.Database.ExecuteSqlRawAsync(@"UPDATE Users SET  
              FirstName={1}, LastName={2},UserName={3},AvatarPath={4},ColorAvatar={5},languageCode={6},UserStatusId={7}
              WHERE Id={0}",
            item.Id, item.FirstName, item.LastName, item.UserName, item.AvatarPath, item.ColorAvatar, item.languageCode, item.UserStatusId);
+
+            var user = _context.Users.FirstOrDefault(x => x.Id == item.Id);
+            await _context.Entry(user).ReloadAsync();
         }
 
         public void Save()

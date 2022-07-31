@@ -1,4 +1,7 @@
-﻿@if (chatModel == null)
+﻿@inject IStatusService StatusService
+@inject IUserService UserService
+
+@if (chatModel == null)
 {
 }
 else
@@ -24,9 +27,14 @@ else
                 <div class=" funnel_status">
                     Funnel status
                 </div>
-                <select class="status_slect">
-                    <option>Status</option>
-                    <option>Пункт 2</option>
+                <select class="status_slect" value="@chatModel.User.UserStatusId" @onchange="@(async e=>await UpdateUserStatus(@chatModel.User,e))">
+                    @if (userStatus != null)
+                    {
+                        @foreach (var item in userStatus)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
                 </select>
             </div>
             <div class="tags_block">
@@ -87,4 +95,18 @@ else
 
     [Parameter]
     public List<Manager> managersList { get; set; }
+
+    List<Domain.Models.Status> userStatus;
+
+    protected override async Task OnInitializedAsync()
+    {
+        userStatus = await Task.Run(() => StatusService.GetAll());
+    }
+
+    public async Task UpdateUserStatus(User item, ChangeEventArgs e)
+    {
+        item.UserStatusId = Convert.ToInt64(e.Value);
+        await UserService.Update(item);
+    }
+
 }

@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <button class="btn btn-primary" @onclick="@Update">Update</button>
+                    <button class="btn btn-primary" @onclick="@(async()=>await Update())">Update</button>
                     <button class="btn btn-danger" @onclick="@Cancel">Cancel</button>
                 </div>
             </div>
@@ -64,9 +64,9 @@
         user = UserService.GetById(Id);
     }
 
-    void Update()
+    async Task Update()
     {
-        UserService.Update(user);
+        await UserService.Update(user);
         NavigationManager.NavigateTo("user", true);
     }
     void Cancel()

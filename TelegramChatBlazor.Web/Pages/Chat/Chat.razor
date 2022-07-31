@@ -13,7 +13,7 @@
             <Messages chatModel="@chatModel" ShowOrHideRightCallback="ShowOrHideRightTab"></Messages>
         </div>
         <div class="main_block_three @styleThreeBlock">
-            <PartnerInfo chatModel="@chatModel" managersList="managersList"></PartnerInfo>
+            <PartnerInfo chatModel="@chatModel" managersList="managersList" ></PartnerInfo>
         </div>
     </div>
 
@@ -36,8 +36,10 @@
 
     private void GetMessages(long ChatId)
     {
+        if(chatModel==null||chatModel.Id!=ChatId){
         chatModel = TelegramService.GetChatByIdIncludeMessages(ChatId);
         managersList = ManagerService.GetAll();
+        }
     }
 
     private void ShowOrHideRightTab()

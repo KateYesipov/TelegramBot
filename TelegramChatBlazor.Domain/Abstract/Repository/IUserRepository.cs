@@ -8,7 +8,7 @@ namespace TelegramChatBlazor.Domain.Abstract.Repository
         User GetByUserName(string value);
         List<User> GetAll();
         void Create(User item);
-        void Update(User item);
+        Task Update(User item);
         void Delete(long id);
         void Save();
     }

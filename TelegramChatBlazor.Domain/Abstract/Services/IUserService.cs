@@ -6,7 +6,7 @@ namespace TelegramChatBlazor.Domain.Abstract.Services
     {
         User GetById(long Id);
         List<User> GetAll();
-        void Update(User item);
+        Task Update(User item);
         void Create(User item);
         void DeleteById(long id);
     }

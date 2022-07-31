@@ -38,9 +38,9 @@ namespace TelegramChatBlazor.BLL.Services
             return _userRepository.GetById(Id);
         }
         
-        public void Update(User item)
+        public async Task Update(User item)
         {
-            _userRepository.Update(item);
+           await _userRepository.Update(item);
             _userRepository.Save();
         }
     }
