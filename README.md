@@ -8,7 +8,7 @@ A platform for interacting with a large number of bots at the same time and with
 ![](https://github.com/KateYesipov/TelegramBot/blob/master/about/Screenshot_9.png)
 
 
-![](https://github.com/KateYesipov/Jironimo/blob/master/about/Screenshot_10.png)
+![](https://github.com/KateYesipov/TelegramBot/blob/master/about/Screenshot_11.png)
 
 
 
